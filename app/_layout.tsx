@@ -25,7 +25,7 @@ function App() {
           }}
         >
         <Drawer.Screen
-            name="(tabs)"
+            name="(home)"
             options={{
               drawerLabel: () => <Ionicons name="close" color={textColor} size={22} />,
               drawerActiveBackgroundColor: backgroundColor,

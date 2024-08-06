@@ -7,6 +7,7 @@ import {store} from "@/globalState/store";
 import {ThemedText} from "@/components/ThemedText";
 import {useQuery} from "@tanstack/react-query";
 import {Suwar} from "@/constants/Suwar";
+import {useThemeColor} from "@/hooks/useThemeColor";
 
 export default function Player() {
     const [recitation, setRecitation] = React.useState<Audio.Sound>()
@@ -109,34 +110,52 @@ export default function Player() {
             : undefined;
     }, [recitation]);
 
+    const textColor = useThemeColor({}, 'text')
+    const progressBarColor = useThemeColor({ dark: 'grey', light: 'lightgrey' }, 'secondaryText')
+    const notchColor = useThemeColor({ dark: '#444', light: 'lightgrey' }, 'secondaryText')
+    const secondaryTextColor = useThemeColor({}, 'secondaryText')
+
     return (
         <ThemedView style={styles.playerContainer}>
 
+            <ThemedView style={[styles.notch, { backgroundColor: notchColor }]}></ThemedView>
+
+            <ThemedView style={styles.image}></ThemedView>
+
             <ThemedView style={styles.progressBarContainer}>
-                <ThemedText>{displayTime(playedDurationInMs)}</ThemedText>
-                <Pressable
-                    style={styles.progressBarPressable}
-                    onLayout={handleLayoutChange}
-                    onPress={handleProgressBarPress}
-                >
-                    <ThemedView style={styles.progressBar}>
-                        <ThemedView
-                            style={[
+                <Pressable style={styles.progressBarPressable}>
+                    <ThemedView style={[styles.progressBar, { backgroundColor: progressBarColor }]}>
+                        <ThemedView style={[
                                 styles.progressBarActive,
-                                {width: `${playedDurationInMs / durationInMs * 100}%`}
-                            ]}
-                        ></ThemedView>
+                                {
+                                    width: `${playedDurationInMs / durationInMs * 100}%`,
+                                    backgroundColor: textColor,
+                                }
+                            ]}></ThemedView>
+                    </ThemedView>
+                    <ThemedView style={styles.progressBarTimes}>
+                        <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>{displayTime(playedDurationInMs)}</ThemedText>
+                        <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>{durationInMs === 0 ? '--:--' : displayTime(durationInMs)}</ThemedText>
                     </ThemedView>
                 </Pressable>
-                <ThemedText>{durationInMs === 0 ? '--:--' : displayTime(durationInMs)}</ThemedText>
             </ThemedView>
 
-            <ThemedText>{Suwar[surahNumber - 1].name}</ThemedText>
-            <ThemedText>{store.reciter.name}</ThemedText>
+            <ThemedView style={styles.recitationInfo}>
+                <ThemedText>{Suwar[surahNumber - 1].name}</ThemedText>
+                <ThemedText>{store.reciter.name}</ThemedText>
+            </ThemedView>
 
-            <Pressable onPress={isPlaying ? pauseSound : playSound}>
-                <Ionicons name={isPlaying ? 'pause' : 'play'} size={48} color='white'/>
-            </Pressable>
+            <ThemedView style={styles.controls}>
+                <Pressable>
+                    <Ionicons name='play-back' size={36} color={textColor} />
+                </Pressable>
+                <Pressable onPress={isPlaying ? pauseSound : playSound}>
+                    <Ionicons name={isPlaying ? 'pause' : 'play'} size={48} color={textColor}/>
+                </Pressable>
+                <Pressable>
+                    <Ionicons name='play-forward' size={36} color={textColor} />
+                </Pressable>
+            </ThemedView>
 
         </ThemedView>
     )
@@ -145,32 +164,61 @@ export default function Player() {
 const styles = StyleSheet.create({
     playerContainer: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+        justifyContent: "space-evenly",
+        alignItems: "center",
+    },
+    notch: {
+        width: 40,
+        height: 4,
+        position: 'absolute',
+        top: 20,
+        borderRadius: 10,
+    },
+    image: {
+        width: 300,
+        height: 300,
+        backgroundColor: '#222',
+        borderRadius: 5,
+    },
+    recitationInfo: {
+        alignItems: "center",
+    },
+    controls: {
+        width: '70%',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
     },
     progressBarContainer: {
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "center",
     },
     progressBar: {
         width: "100%",
-        backgroundColor: "grey", // TODO: use theme
         height: 4,
         borderRadius: 20,
     },
     progressBarActive: {
         position: "absolute",
-        backgroundColor: "white", // TODO: use theme
         height: 4,
         width: 0,
         borderRadius: 20,
     },
     progressBarPressable: {
-        width: "60%",
-        height: 16,
+        // width: "60%",
+        // height: 16,
+        width: 300,
         marginHorizontal: 6,
         backgroundColor: "transparent",
         justifyContent: "center",
-    }
+    },
+    progressBarTimes: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 10,
+    },
+    timeText: {
+        fontSize: 14,
+    },
 })
