@@ -5,6 +5,7 @@ import {Animated, FlatList, StyleSheet} from "react-native";
 import {useQuery} from "@tanstack/react-query";
 import {Href, Link} from "expo-router";
 import {store} from "@/globalState/store";
+import {CurrentRecitationContext} from "@/currentRecitation/CurrentRecitationContext";
 
 type Reciter = {
     id: number
@@ -17,8 +18,14 @@ type Reciter = {
 }
 
 function Reciter(props: Reciter) {
+    const currentRecitation = React.useContext(CurrentRecitationContext)
+
     function handlePress() {
-        store.reciter.setReciterName(props.translated_name.name)
+        currentRecitation.setSelectedReciter({
+            name: props.translated_name.name,
+            id: props.id,
+        })
+        // store.reciter.setReciterName(props.translated_name.name)
     }
 
     return (
@@ -61,13 +68,15 @@ function LoadingReciter(props: { width: number }) {
 }
 
 export default function RecitersPage() {
+    const currentRecitation = React.useContext(CurrentRecitationContext)
+
     const getReciters = async () => {
         const response = await fetch('https://api.quran.com/api/v4/resources/recitations') // TODO: move somewhere else, add localisation
         const json = await response.json()
         return json.recitations
     }
 
-    const query = useQuery<Reciter[]>({
+    const reciters = useQuery<Reciter[]>({
         queryKey: ['reciters'],
         queryFn: getReciters
     })
@@ -75,14 +84,14 @@ export default function RecitersPage() {
     return (
         <ThemedView style={styles.container}>
             {/*TODO: style errors*/}
-            {query.error && <ThemedText>There was a problem loading the reciters, please try again.</ThemedText>}
-            {query.isLoading
+            {reciters.error && <ThemedText>There was a problem loading the reciters, please try again.</ThemedText>}
+            {reciters.isLoading
                 ? <FlatList
                     data={[300,280,320,240,270,300,280,320,240,270,280,320]}
                     renderItem={({ item }) => <LoadingReciter width={item} />}
                 />
                 : <FlatList
-                    data={query.data}
+                    data={reciters.data}
                     renderItem={({item}) => <Reciter {...item} />}
                     keyExtractor={(item) => `${item.reciter_name}_${item.style}`}
                 />}

@@ -1,31 +1,39 @@
+import React from "react";
 import {ThemedView} from "@/components/ThemedView";
 import {ThemedText} from "@/components/ThemedText";
 import {Link, useLocalSearchParams} from "expo-router";
 import {FlatList, StyleSheet} from "react-native";
 import {store} from "@/globalState/store";
 import {Suwar} from "@/constants/Suwar";
+import {CurrentRecitationContext} from "@/currentRecitation/CurrentRecitationContext";
 
 type SurahItemProps = {
     surahNumber: number
-    reciterId: string
+    reciterId: number
     name: string
 }
 function SurahItem(props: SurahItemProps) {
+    const currentRecitation = React.useContext(CurrentRecitationContext)
+
     function handlePress() {
-        console.log(props.surahNumber)
-        store.currentlyPlaying.setCurrentlyPlaying(props)
+        // store.currentlyPlaying.setCurrentlyPlaying(props)
+        currentRecitation.setSelectedSurahNumber(props.surahNumber)
+        // currentRecitation.setReciter({
+        //     id: props.reciterId,
+        //     name: currentRecitation.reciters.find(reciter => reciter.id === props.reciterId)?.name || ''
+        // })
     }
 
     return (
         <ThemedView style={styles.surahItem}>
-            <Link href="/player" onPress={handlePress}>
+            <Link href='/player' onPress={handlePress}>
                 <ThemedText>{props.surahNumber}. {props.name}</ThemedText>
             </Link>
         </ThemedView>
     )
 }
 
-export default function Reciter() {
+export default function ReciterPage() {
     const { id } = useLocalSearchParams()
 
     return (
@@ -33,7 +41,11 @@ export default function Reciter() {
             <FlatList
                 data={Suwar}
                 renderItem={({ item, index }) =>
-                    <SurahItem surahNumber={index + 1} reciterId={id as string} name={item.name} />
+                    <SurahItem
+                        surahNumber={index + 1}
+                        reciterId={parseInt(id as string)}
+                        name={item.name}
+                    />
                 }
             />
         </ThemedView>

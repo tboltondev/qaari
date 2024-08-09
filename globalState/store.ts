@@ -2,12 +2,12 @@ import { t } from 'mobx-state-tree'
 
 type CurrentlyPlaying = {
     surahNumber: number
-    reciterId: string
+    reciterId: number
 }
 
 const CurrentlyPlaying = t.model({
     surahNumber: t.optional(t.number, 0),
-    reciterId: t.optional(t.string, ''),
+    reciterId: t.optional(t.number, 0),
 })
 .actions((self) => ({
     setCurrentlyPlaying({ surahNumber, reciterId }: CurrentlyPlaying) {

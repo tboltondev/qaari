@@ -7,6 +7,7 @@ import { DrawerButton } from '@/drawer/DrawerButton';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {CurrentRecitation} from "@/currentRecitation/CurrentRecitation";
 
 function App() {
   const avtiveListItemColor = useThemeColor({}, 'activeListItem');
@@ -50,7 +51,9 @@ export default function RootLayout() {
     return (
         <QueryClientProvider client={queryClient}>
             <AppThemeProvider>
-                <App />
+                <CurrentRecitation>
+                    <App />
+                </CurrentRecitation>
             </AppThemeProvider>
         </QueryClientProvider>
     );
