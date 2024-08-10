@@ -43,12 +43,11 @@ export default function Player() {
     }
 
     function handleForward() {
-        console.log("forward")
-        // currentRecitation.setSurahNumber(current => current + 1)
-        // store.currentlyPlaying.setCurrentlyPlaying({
-        //     ...store.currentlyPlaying,
-        //     surahNumber: store.currentlyPlaying.surahNumber + 1
-        // })
+        currentRecitation.setSelectedSurahNumber(current => current + 1)
+    }
+
+    function handleBack() {
+        currentRecitation.setSelectedSurahNumber(current => current - 1)
     }
 
     const textColor = useThemeColor({}, 'text')
@@ -60,7 +59,7 @@ export default function Player() {
         const isChangingRecitation = (currentRecitation.surahNumber !== currentRecitation.selectedSurahNumber)
             || (currentRecitation.reciter.id !== currentRecitation.selectedReciter.id)
         if (!params.nowPlaying && isChangingRecitation) {
-            currentRecitation.load(currentRecitation.selectedReciter.id, currentRecitation.selectedSurahNumber)
+            currentRecitation.load()
         }
     }, [
         currentRecitation.surahNumber,
@@ -119,7 +118,7 @@ export default function Player() {
             </ThemedView>
 
             <ThemedView style={styles.controls}>
-                <Pressable>{/*TODO*/}
+                <Pressable onPress={handleBack}>
                     <Ionicons name='play-back' size={36} color={textColor} />
                 </Pressable>
                 <Pressable onPress={currentRecitation.isPlaying ? currentRecitation.pause : currentRecitation.play}>

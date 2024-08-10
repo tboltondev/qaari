@@ -1,18 +1,10 @@
 import React from "react";
-import {Pressable, StyleSheet} from "react-native";
 import {CurrentRecitationContext, Reciter} from "@/currentRecitation/CurrentRecitationContext";
 import {Audio, InterruptionModeAndroid, InterruptionModeIOS} from "expo-av";
-import {ThemedView} from "@/components/ThemedView";
-import {ThemedText} from "@/components/ThemedText";
-import {Link} from "expo-router";
-import Theme from "@/app/theme";
-import {useThemeColor} from "@/hooks/useThemeColor";
-import {Suwar} from "@/constants/Suwar";
-import {Ionicons} from "@expo/vector-icons";
+import {NowPlaying} from "@/currentRecitation/nowPlaying";
 
-type CurrentRecitationProps = {
-    children: React.ReactNode
-}
+type CurrentRecitationProps = { children: React.ReactNode }
+
 export function CurrentRecitation(props: CurrentRecitationProps) {
     const [reciters, setReciters] = React.useState<Reciter[]>([])
     const [recitation, setRecitation] = React.useState(new Audio.Sound)
@@ -31,7 +23,7 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
         return json.audio_file.audio_url
     }
 
-    async function load(reciterId: number, surahNumber: number) {
+    async function load(options?: { keepReciter: boolean }) {
         // const query = useQuery({
         //     queryKey: ['mp3Url', surahNumber, reciterId],
         //     queryFn: () => getMp3Url(surahNumber, reciterId),
@@ -58,7 +50,7 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
                 setRecitation(sound);
                 setIsLoaded(true)
                 setSurahNumber(selectedSurahNumber)
-                setReciter(selectedReciter)
+                !options?.keepReciter && setReciter(selectedReciter) // TODO: changes reciter when navigating to different reciter page
             }
 
         } catch (err) {
@@ -79,22 +71,14 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
         setIsPlaying(false)
     }
 
-    console.log("CONTEXT")
+    // console.log("CONTEXT")
 
-    function displayTime(ms: number) {
-        const seconds = ms / 1000
-        const hours = Math.floor(seconds / 3600)
-        const remainingSecsAfterHrs = seconds % 3600
-        const minutes = Math.floor(remainingSecsAfterHrs / 60)
-        const remainingSecsAfterMins = Math.round(remainingSecsAfterHrs % 60)
+    function skipForward() {
+        setSelectedSurahNumber(current => current + 1)
+    }
 
-        const displayMins = minutes < 10 ? `0${minutes}` : `${minutes}`
-        const displaySecs = remainingSecsAfterMins < 10 ? `0${remainingSecsAfterMins}` : `${remainingSecsAfterMins}`
-
-        if (hours > 0) {
-            return `${hours}:${displayMins}:${displaySecs}`
-        }
-        return `${displayMins}:${displaySecs}`
+    function skipBack() {
+        setSelectedSurahNumber(current => current - 1)
     }
 
     React.useEffect(() => {
@@ -113,11 +97,6 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
             }
             : undefined;
     }, [recitation]);
-
-    const textColor = useThemeColor({}, 'text')
-    const progressBarColor = useThemeColor({ dark: 'grey', light: 'lightgrey' }, 'secondaryText')
-    const notchColor = useThemeColor({ dark: '#444', light: 'lightgrey' }, 'secondaryText')
-    const secondaryTextColor = useThemeColor({}, 'secondaryText')
 
     return (
         <CurrentRecitationContext.Provider value={{
@@ -141,91 +120,21 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
             pause,
         }}>
             {props.children}
-            {isLoaded &&
-                <ThemedView style={styles.nowPlaying}>
-                    <Link href='/player?nowPlaying=true' asChild>
-                        <Pressable style={styles.nowPlayingPressable}>
-
-                            {/*TODO: create progress bar component instead of duplicating here and player.tsx*/}
-                            <ThemedView style={styles.progressBar}>
-                                <ThemedView
-                                    style={[
-                                        styles.progressBarActive,
-                                        { width: `${playedDurationInMs / durationInMs * 100}%` }
-                                    ]}
-                                ></ThemedView>
-                            </ThemedView>
-
-                            <ThemedView style={styles.progressBarTimes}>
-
-                                <ThemedView style={styles.recitationInfo}>
-                                    <ThemedText>{Suwar[selectedSurahNumber - 1].name}</ThemedText>
-                                    <ThemedText>
-                                        {isLoaded
-                                            ? reciter.name
-                                            : selectedReciter.name
-                                        }
-                                    </ThemedText>
-                                </ThemedView>
-
-                                <Pressable onPress={isPlaying ? pause : play}>
-                                    <Ionicons name={isPlaying ? 'pause' : 'play'} size={28} color={textColor}/>
-                                </Pressable>
-
-                            </ThemedView>
-
-                        </Pressable>
-                    </Link>
-                </ThemedView>
-            }
+            {isLoaded && <NowPlaying
+                playedDurationInMs={playedDurationInMs}
+                durationInMs={durationInMs}
+                surahNumber={surahNumber}
+                selectedSurahNumber={selectedSurahNumber}
+                isLoaded={isLoaded}
+                reciter={reciter}
+                selectedReciter={selectedReciter}
+                play={play}
+                pause={pause}
+                skipForward={skipForward}
+                skipBack={skipBack}
+                isPlaying={isPlaying}
+                load={load}
+            />}
         </CurrentRecitationContext.Provider>
     )
 }
-
-const styles = StyleSheet.create({
-    nowPlaying: {
-        position: "absolute",
-        width: "94%",
-        left: "3%",
-        bottom: 40,
-        // backgroundColor: "#44444499",
-        backgroundColor: "#34343499",
-        // backgroundColor: "#232323",
-        shadowColor: "#222",
-        shadowRadius: 15,
-        shadowOpacity: 1,
-        shadowOffset: { width: 0, height: 0 },
-        paddingVertical: 16,
-        borderRadius: 15,
-    },
-    nowPlayingPressable: {
-        width: "100%",
-        alignItems: "center",
-    },
-    progressBar: {
-        width: "94%",
-        backgroundColor: "#444",
-        height: 4,
-        borderRadius: 20,
-    },
-    progressBarActive: {
-        position: "absolute",
-        backgroundColor: "#fff",
-        height: 4,
-        borderRadius: 20,
-    },
-    progressBarTimes: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginTop: 10,
-        width: "100%",
-        backgroundColor: "transparent",
-        paddingHorizontal: 10,
-    },
-    timeText: {
-        fontSize: 14,
-    },
-    recitationInfo: {
-        backgroundColor: "transparent",
-    },
-})
