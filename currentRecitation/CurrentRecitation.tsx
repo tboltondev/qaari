@@ -15,7 +15,7 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
     const [surahNumber, setSurahNumber] = React.useState(0)
     const [reciter, setReciter] = React.useState<Reciter>({ name: '', id: 0 })
     const [selectedSurahNumber, setSelectedSurahNumber] = React.useState(0)
-    const [selectedReciter, setSelectedReciter] = React.useState({ name: '', id: 0 })
+    const [selectedReciter, setSelectedReciter] = React.useState<Reciter>({ name: '', id: 0 })
 
     async function getMp3Url(surahNumber: number, reciterId: number) {
         const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/${reciterId}/${surahNumber}`) // TODO: move url
@@ -23,7 +23,7 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
         return json.audio_file.audio_url
     }
 
-    async function load(options?: { keepReciter: boolean }) {
+    async function load(options?: { keepReciter?: boolean, playWhenLoaded?: boolean }) {
         // const query = useQuery({
         //     queryKey: ['mp3Url', surahNumber, reciterId],
         //     queryFn: () => getMp3Url(surahNumber, reciterId),
@@ -31,7 +31,13 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
 
         setIsPlaying(false)
 
-        const mp3Url = await getMp3Url(selectedSurahNumber, selectedReciter.id)
+        let loadReciter = selectedReciter // TODO: too hacky
+        if (options?.keepReciter && reciter.id !== 0) {
+            console.log("OK\n")
+            loadReciter = reciter
+        }
+
+        const mp3Url = await getMp3Url(selectedSurahNumber, loadReciter.id)
 
         try {
             const sound = new Audio.Sound()
@@ -50,7 +56,7 @@ export function CurrentRecitation(props: CurrentRecitationProps) {
                 setRecitation(sound);
                 setIsLoaded(true)
                 setSurahNumber(selectedSurahNumber)
-                !options?.keepReciter && setReciter(selectedReciter) // TODO: changes reciter when navigating to different reciter page
+                setReciter(loadReciter)
             }
 
         } catch (err) {

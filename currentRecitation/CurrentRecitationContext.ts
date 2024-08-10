@@ -22,7 +22,7 @@ export type CurrentRecitationContext = {
     isLoaded: Boolean
     durationInMs: number
     playedDurationInMs: number
-    load: () => Promise<void>
+    load: (options?: { keepReciter?: boolean, playWhenLoaded?: boolean }) => Promise<void>
     play: () => void
     pause: () => void
 }

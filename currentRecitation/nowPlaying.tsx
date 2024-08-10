@@ -21,7 +21,7 @@ type NowPlayingProps = {
     skipForward: () => void
     skipBack: () => void
     isPlaying: boolean
-    load: (options?: { keepReciter: boolean }) => Promise<void>
+    load: (options?: { keepReciter?: boolean, playWhenLoaded?: boolean }) => Promise<void>
 }
 
 export function NowPlaying(props: NowPlayingProps) {
