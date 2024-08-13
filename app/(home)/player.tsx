@@ -1,20 +1,19 @@
 import React from 'react'
-import { GestureResponderEvent, LayoutChangeEvent, Pressable, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { NowPlayingStore } from '@/globalState/store'
 import { inject, observer } from 'mobx-react'
 import { AudioControls } from '@/components/AudioControls'
 import { RecitationInfo } from '@/components/RecitationInfo'
+import { ProgressBar } from '@/components/ProgressBar'
+import { ThemedText } from '@/components/ThemedText'
 
 type PlayerProps = {
   nowPlaying: NowPlayingStore
 }
 
 function Player (props: PlayerProps) {
-  const [progressBarWidth, setProgressBarWidth] = React.useState<number>(0)
-
   console.log('RENDER')
 
   function displayTime (ms: number) {
@@ -33,28 +32,6 @@ function Player (props: PlayerProps) {
     return `${displayMins}:${displaySecs}`
   }
 
-  function handleProgressBarLayoutChange (event: LayoutChangeEvent) {
-    setProgressBarWidth(event.nativeEvent.layout.width)
-  }
-
-  async function handleProgressBarPress (event: GestureResponderEvent) { // TODO: add seeking by touch drag
-    const percentage = event.nativeEvent.locationX / progressBarWidth
-    const newPositionInMs = percentage * props.nowPlaying.audioDurationMs
-    await props.nowPlaying.audio.setPositionAsync(newPositionInMs)
-  }
-
-  function getPosition () {
-    return displayTime(props.nowPlaying.audioPositionMs)
-  }
-
-  function getDuration () {
-    return props.nowPlaying.audioDurationMs === 0
-      ? '--:--'
-      : displayTime(props.nowPlaying.audioDurationMs)
-  }
-
-  const textColor = useThemeColor({}, 'text')
-  const progressBarColor = useThemeColor({ dark: 'grey', light: 'lightgrey' }, 'secondaryText')
   const notchColor = useThemeColor({ dark: '#444', light: 'lightgrey' }, 'secondaryText')
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
 
@@ -66,31 +43,16 @@ function Player (props: PlayerProps) {
       <ThemedView style={styles.image}></ThemedView>
 
       <ThemedView style={styles.progressBarContainer}>
-        <Pressable style={styles.progressBarPressable} onPress={handleProgressBarPress}>
-          <ThemedView
-            style={[
-              styles.progressBar,
-              { backgroundColor: progressBarColor }
-            ]}
-            onLayout={handleProgressBarLayoutChange}
-          >
-            <ThemedView style={[
-              styles.progressBarActive,
-              !props.nowPlaying.isLoading && {
-                width: `${props.nowPlaying.percentageElapsed}%`,
-                backgroundColor: textColor,
-              }
-            ]}></ThemedView>
-          </ThemedView>
+        <ProgressBar nowPlaying={props.nowPlaying}>
           <ThemedView style={styles.progressBarTimes}>
             <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
-              {!props.nowPlaying.isLoading && getPosition()}
+              {displayTime(props.nowPlaying.audioPositionMs)}
             </ThemedText>
             <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
-              {!props.nowPlaying.isLoading && getDuration()}
+              {displayTime(props.nowPlaying.audioDurationMs)}
             </ThemedText>
           </ThemedView>
-        </Pressable>
+        </ProgressBar>
       </ThemedView>
 
       <RecitationInfo nowPlaying={props.nowPlaying} />
@@ -124,26 +86,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  progressBar: {
-    width: '100%',
-    height: 4,
-    borderRadius: 20,
-  },
-  progressBarActive: {
-    position: 'absolute',
-    height: 4,
-    width: 0,
-    borderRadius: 20,
-  },
-  progressBarPressable: {
-    position: 'absolute',
-    width: 300,
-    paddingTop: 20,
-    top: -20,
-    marginHorizontal: 6,
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
   },
   progressBarTimes: {
     flexDirection: 'row',
