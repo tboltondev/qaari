@@ -1,12 +1,12 @@
 import React from 'react'
 import { GestureResponderEvent, LayoutChangeEvent, Pressable, StyleSheet } from 'react-native'
 import { ThemedView } from '@/components/ThemedView'
-import { Ionicons } from '@expo/vector-icons'
 import { ThemedText } from '@/components/ThemedText'
 import { Suwar } from '@/constants/Suwar'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { NowPlayingStore } from '@/globalState/store'
 import { inject, observer } from 'mobx-react'
+import { AudioControls } from '@/components/AudioControls'
 
 type PlayerProps = {
   nowPlaying: NowPlayingStore
@@ -43,14 +43,6 @@ function Player (props: PlayerProps) {
     await props.nowPlaying.audio.setPositionAsync(newPositionInMs)
   }
 
-  function pause () {
-    props.nowPlaying.pause()
-  }
-
-  function play () {
-    props.nowPlaying.play()
-  }
-
   function getPosition () {
     return displayTime(props.nowPlaying.audioPositionMs)
   }
@@ -59,14 +51,6 @@ function Player (props: PlayerProps) {
     return props.nowPlaying.audioDurationMs === 0
       ? '--:--'
       : displayTime(props.nowPlaying.audioDurationMs)
-  }
-
-  function handleBack () {
-    props.nowPlaying.prev()
-  }
-
-  function handleForward () {
-    props.nowPlaying.next()
   }
 
   const textColor = useThemeColor({}, 'text')
@@ -116,17 +100,7 @@ function Player (props: PlayerProps) {
         </ThemedText>
       </ThemedView>
 
-      <ThemedView style={styles.controls}>
-        <Pressable onPress={handleBack}>
-          <Ionicons name="play-back" size={36} color={textColor}/>
-        </Pressable>
-        <Pressable onPress={props.nowPlaying.isPlaying ? pause : play}>
-          <Ionicons name={props.nowPlaying.isPlaying ? 'pause' : 'play'} size={48} color={textColor}/>
-        </Pressable>
-        <Pressable onPress={handleForward}>
-          <Ionicons name="play-forward" size={36} color={textColor}/>
-        </Pressable>
-      </ThemedView>
+      <AudioControls nowPlaying={props.nowPlaying} />
 
     </ThemedView>
   )
@@ -153,12 +127,6 @@ const styles = StyleSheet.create({
   },
   recitationInfo: {
     alignItems: 'center',
-  },
-  controls: {
-    width: '70%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
   progressBarContainer: {
     flexDirection: 'column',

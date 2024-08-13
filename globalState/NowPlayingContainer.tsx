@@ -2,12 +2,12 @@ import { ThemedView } from '@/components/ThemedView'
 import { Link } from 'expo-router'
 import { Pressable, StyleSheet } from 'react-native'
 import { ThemedText } from '@/components/ThemedText'
-import { Ionicons } from '@expo/vector-icons'
 import { Suwar } from '@/constants/Suwar'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import React from 'react'
 import { observer } from 'mobx-react'
 import { NowPlayingStore } from '@/globalState/store'
+import { AudioControls } from '@/components/AudioControls'
 
 type NowPlayingProps = {
   nowPlaying: NowPlayingStore
@@ -17,22 +17,6 @@ const NowPlayingWidget = observer((props: NowPlayingProps) => {
   const nowPlayingBackground = useThemeColor({ dark: '#323232' }, 'background')
   const textColor = useThemeColor({}, 'text')
   const progressBarColor = useThemeColor({ dark: 'grey', light: 'lightgrey' }, 'secondaryText')
-
-  function pause () {
-    props.nowPlaying.pause()
-  }
-
-  function play () {
-    props.nowPlaying.play()
-  }
-
-  function handleBack() {
-    props.nowPlaying.prev()
-  }
-
-  function handleForward() {
-    props.nowPlaying.next()
-  }
 
   return (
     <ThemedView style={[styles.nowPlaying, { backgroundColor: nowPlayingBackground }]}>
@@ -61,17 +45,7 @@ const NowPlayingWidget = observer((props: NowPlayingProps) => {
               </ThemedText>
             </ThemedView>
 
-            <ThemedView style={styles.controls}>
-              <Pressable onPress={handleBack}>
-                <Ionicons name="play-back" size={36} color={textColor}/>
-              </Pressable>
-              <Pressable onPress={props.nowPlaying.isPlaying ? pause : play} style={styles.playButton}>
-                <Ionicons name={props.nowPlaying.isPlaying ? 'pause' : 'play'} size={32} color={textColor}/>
-              </Pressable>
-              <Pressable onPress={handleForward}>
-                <Ionicons name="play-forward" size={36} color={textColor}/>
-              </Pressable>
-            </ThemedView>
+            <AudioControls isWidget nowPlaying={props.nowPlaying} />
 
           </ThemedView>
 
@@ -134,13 +108,4 @@ const styles = StyleSheet.create({
   recitationInfo: {
     backgroundColor: 'transparent',
   },
-  playButton: {
-    marginHorizontal: 20,
-  },
-  controls: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: 'transparent',
-  }
 })
