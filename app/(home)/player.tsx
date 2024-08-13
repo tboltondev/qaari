@@ -7,7 +7,6 @@ import { inject, observer } from 'mobx-react'
 import { AudioControls } from '@/components/AudioControls'
 import { RecitationInfo } from '@/components/RecitationInfo'
 import { ProgressBar } from '@/components/ProgressBar'
-import { ThemedText } from '@/components/ThemedText'
 
 type PlayerProps = {
   nowPlaying: NowPlayingStore
@@ -16,49 +15,17 @@ type PlayerProps = {
 function Player (props: PlayerProps) {
   console.log('RENDER')
 
-  function displayTime (ms: number) {
-    const seconds = ms / 1000
-    const hours = Math.floor(seconds / 3600)
-    const remainingSecsAfterHrs = seconds % 3600
-    const minutes = Math.floor(remainingSecsAfterHrs / 60)
-    const remainingSecsAfterMins = Math.round(remainingSecsAfterHrs % 60)
-
-    const displayMins = minutes < 10 ? `0${minutes}` : `${minutes}`
-    const displaySecs = remainingSecsAfterMins < 10 ? `0${remainingSecsAfterMins}` : `${remainingSecsAfterMins}`
-
-    if (hours > 0) {
-      return `${hours}:${displayMins}:${displaySecs}`
-    }
-    return `${displayMins}:${displaySecs}`
-  }
-
   const notchColor = useThemeColor({ dark: '#444', light: 'lightgrey' }, 'secondaryText')
-  const secondaryTextColor = useThemeColor({}, 'secondaryText')
 
   return (
     <ThemedView style={styles.playerContainer}>
-
       <ThemedView style={[styles.notch, { backgroundColor: notchColor }]}></ThemedView>
-
       <ThemedView style={styles.image}></ThemedView>
-
       <ThemedView style={styles.progressBarContainer}>
-        <ProgressBar nowPlaying={props.nowPlaying}>
-          <ThemedView style={styles.progressBarTimes}>
-            <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
-              {displayTime(props.nowPlaying.audioPositionMs)}
-            </ThemedText>
-            <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
-              {displayTime(props.nowPlaying.audioDurationMs)}
-            </ThemedText>
-          </ThemedView>
-        </ProgressBar>
+        <ProgressBar nowPlaying={props.nowPlaying} />
       </ThemedView>
-
       <RecitationInfo nowPlaying={props.nowPlaying} />
-
       <AudioControls nowPlaying={props.nowPlaying} />
-
     </ThemedView>
   )
 }
@@ -86,14 +53,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  progressBarTimes: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  timeText: {
-    fontSize: 14,
   },
 })
 

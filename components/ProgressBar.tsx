@@ -5,11 +5,13 @@ import { observer } from 'mobx-react'
 import { ThemedView } from '@/components/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { NowPlayingStore } from '@/globalState/store'
+import { ThemedText } from '@/components/ThemedText'
+import { RecitationInfo } from '@/components/RecitationInfo'
+import { AudioControls } from '@/components/AudioControls'
 
 type ProgressBarProps = {
   isWidget?: boolean
   nowPlaying: NowPlayingStore
-  children?: React.ReactNode
 }
 
 type CommonProgressBarProps = ProgressBarProps & {
@@ -53,8 +55,26 @@ export const ProgressBar = observer((props: ProgressBarProps) => {
     await props.nowPlaying.audio.setPositionAsync(newPositionInMs)
   }
 
+  function displayTime (ms: number) {
+    const seconds = ms / 1000
+    const hours = Math.floor(seconds / 3600)
+    const remainingSecsAfterHrs = seconds % 3600
+    const minutes = Math.floor(remainingSecsAfterHrs / 60)
+    const remainingSecsAfterMins = Math.round(remainingSecsAfterHrs % 60)
+
+    const displayMins = minutes < 10 ? `0${minutes}` : `${minutes}`
+    const displaySecs = remainingSecsAfterMins < 10 ? `0${remainingSecsAfterMins}` : `${remainingSecsAfterMins}`
+
+    if (hours > 0) {
+      return `${hours}:${displayMins}:${displaySecs}`
+    }
+    return `${displayMins}:${displaySecs}`
+  }
+
+
   const activeColor = useThemeColor({}, 'text')
   const progressBarColor = useThemeColor({ dark: 'grey', light: 'lightgrey' }, 'secondaryText')
+  const secondaryTextColor = useThemeColor({}, 'secondaryText')
 
   return props.isWidget ? (
     <Link href="/player" asChild>
@@ -66,7 +86,10 @@ export const ProgressBar = observer((props: ProgressBarProps) => {
           activeColor={activeColor}
           progressBarColor={progressBarColor}
         />
-        {props.children}
+        <ThemedView style={styles.widgetInfoAndControls}>
+          <RecitationInfo nowPlaying={props.nowPlaying} isWidget />
+          <AudioControls nowPlaying={props.nowPlaying} isWidget />
+        </ThemedView>
       </Pressable>
     </Link>
   ) : (
@@ -77,7 +100,14 @@ export const ProgressBar = observer((props: ProgressBarProps) => {
         activeColor={activeColor}
         progressBarColor={progressBarColor}
       />
-      {props.children}
+      <ThemedView style={styles.progressBarTimes}>
+        <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
+          {displayTime(props.nowPlaying.audioPositionMs)}
+        </ThemedText>
+        <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
+          {displayTime(props.nowPlaying.audioDurationMs)}
+        </ThemedText>
+      </ThemedView>
     </Pressable>
   )
 })
@@ -111,5 +141,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 6,
     backgroundColor: 'transparent',
     justifyContent: 'center',
+  },
+  progressBarTimes: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  timeText: {
+    fontSize: 14,
+  },
+  widgetInfoAndControls: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    width: '100%',
+    backgroundColor: 'transparent',
+    paddingHorizontal: 10,
   },
 })
