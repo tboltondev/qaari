@@ -2,11 +2,11 @@ import React from 'react'
 import { GestureResponderEvent, LayoutChangeEvent, Pressable, StyleSheet } from 'react-native'
 import { ThemedView } from '@/components/ThemedView'
 import { ThemedText } from '@/components/ThemedText'
-import { Suwar } from '@/constants/Suwar'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { NowPlayingStore } from '@/globalState/store'
 import { inject, observer } from 'mobx-react'
 import { AudioControls } from '@/components/AudioControls'
+import { RecitationInfo } from '@/components/RecitationInfo'
 
 type PlayerProps = {
   nowPlaying: NowPlayingStore
@@ -93,12 +93,7 @@ function Player (props: PlayerProps) {
         </Pressable>
       </ThemedView>
 
-      <ThemedView style={styles.recitationInfo}>
-        <ThemedText>{!props.nowPlaying.isLoading && Suwar[props.nowPlaying.surahNumber - 1].name}</ThemedText>
-        <ThemedText>
-          {!props.nowPlaying.isLoading && props.nowPlaying.currentReciter?.name}
-        </ThemedText>
-      </ThemedView>
+      <RecitationInfo nowPlaying={props.nowPlaying} />
 
       <AudioControls nowPlaying={props.nowPlaying} />
 
@@ -124,9 +119,6 @@ const styles = StyleSheet.create({
     height: 300,
     backgroundColor: '#222',
     borderRadius: 5,
-  },
-  recitationInfo: {
-    alignItems: 'center',
   },
   progressBarContainer: {
     flexDirection: 'column',

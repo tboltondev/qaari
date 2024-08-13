@@ -1,13 +1,12 @@
 import { ThemedView } from '@/components/ThemedView'
 import { Link } from 'expo-router'
 import { Pressable, StyleSheet } from 'react-native'
-import { ThemedText } from '@/components/ThemedText'
-import { Suwar } from '@/constants/Suwar'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import React from 'react'
 import { observer } from 'mobx-react'
 import { NowPlayingStore } from '@/globalState/store'
 import { AudioControls } from '@/components/AudioControls'
+import { RecitationInfo } from '@/components/RecitationInfo'
 
 type NowPlayingProps = {
   nowPlaying: NowPlayingStore
@@ -38,14 +37,9 @@ const NowPlayingWidget = observer((props: NowPlayingProps) => {
 
           <ThemedView style={styles.infoAndControls}>
 
-            <ThemedView style={styles.recitationInfo}>
-              <ThemedText>{!props.nowPlaying.isLoading && Suwar[props.nowPlaying.surahNumber - 1].name}</ThemedText>
-              <ThemedText>
-                {!props.nowPlaying.isLoading && props.nowPlaying.currentReciter?.name}
-              </ThemedText>
-            </ThemedView>
+            <RecitationInfo nowPlaying={props.nowPlaying} isWidget />
 
-            <AudioControls isWidget nowPlaying={props.nowPlaying} />
+            <AudioControls nowPlaying={props.nowPlaying} isWidget />
 
           </ThemedView>
 
@@ -104,8 +98,5 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 14,
-  },
-  recitationInfo: {
-    backgroundColor: 'transparent',
   },
 })
