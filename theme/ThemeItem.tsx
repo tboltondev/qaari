@@ -1,7 +1,7 @@
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { Pressable, StyleSheet } from "react-native";
+import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/ThemedView'
+import { useThemeColor } from '@/hooks/useThemeColor'
+import { Pressable, StyleSheet } from 'react-native'
 
 type ThemeItemProps = {
   name: string,
@@ -10,9 +10,9 @@ type ThemeItemProps = {
   description?: string,
 };
 
-export function ThemeItem({ name, onPress, active, description }: ThemeItemProps) {
-  const tintColor = useThemeColor({}, 'activeListItem');
-  const secondaryTextColor = useThemeColor({}, 'secondaryText');
+export function ThemeItem ({ name, onPress, active, description }: ThemeItemProps) {
+  const tintColor = useThemeColor({}, 'activeListItem')
+  const secondaryTextColor = useThemeColor({}, 'secondaryText')
 
   return (
     <Pressable onPress={onPress}>
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
   activeThemeItem: {
     borderRadius: 8,
   },
-});
+})

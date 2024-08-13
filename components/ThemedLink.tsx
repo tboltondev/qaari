@@ -1,7 +1,7 @@
-export function ThemedLink({
-    style,
-    lightColor,
-    darkColor,
+export function ThemedLink ({
+  style,
+  lightColor,
+  darkColor,
 }) {
 
 }

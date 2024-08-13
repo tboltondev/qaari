@@ -1,30 +1,30 @@
-import React from "react";
-import { ThemedView } from "@/components/ThemedView";
-import { AppThemeContext, ThemeOptions } from "@/theme/AppThemeContext";
-import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
-import { ThemeItem } from "./ThemeItem";
+import React from 'react'
+import { ThemedView } from '@/components/ThemedView'
+import { AppThemeContext, ThemeOptions } from '@/theme/AppThemeContext'
+import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native'
+import { ThemeItem } from './ThemeItem'
 
 const options = [
   { theme: ThemeOptions.Light, description: 'Always use light theme', title: 'Light' },
   { theme: ThemeOptions.Dark, description: 'Always use dark theme', title: 'Dark' },
   { theme: ThemeOptions.System, description: 'Use device settings', title: 'System' },
-];
+]
 
-export function ThemeScreen() {
+export function ThemeScreen () {
   const { theme, setAppTheme } = React.useContext(AppThemeContext)
-  const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>(theme.mode);
+  const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>(theme.mode)
 
   React.useEffect(() => {
     if (theme.isSystem) {
-      setActiveTheme(ThemeOptions.System);
+      setActiveTheme(ThemeOptions.System)
     } else {
-      setActiveTheme(theme.mode);
+      setActiveTheme(theme.mode)
     }
   }, [theme])
 
   const selectTheme = (newTheme: ThemeOptions) => () => {
-    setAppTheme(newTheme);
-  };
+    setAppTheme(newTheme)
+  }
 
   const handleRenderItem = ({ item }: ListRenderItemInfo<any>) => (
     <ThemeItem
@@ -33,7 +33,7 @@ export function ThemeScreen() {
       active={activeTheme === item.theme}
       description={item.description}
     />
-  );
+  )
 
   return (
     <ThemedView style={styles.container}>
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-});
+})

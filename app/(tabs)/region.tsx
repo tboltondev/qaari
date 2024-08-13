@@ -1,13 +1,13 @@
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { StyleSheet } from "react-native";
+import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/ThemedView'
+import { StyleSheet } from 'react-native'
 
-export default function Region() {
-    return (
-        <ThemedView style={styles.container}>
-            <ThemedText>Region</ThemedText>
-        </ThemedView>
-    )
+export default function Region () {
+  return (
+    <ThemedView style={styles.container}>
+      <ThemedText>Region</ThemedText>
+    </ThemedView>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+})

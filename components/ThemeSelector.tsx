@@ -1,39 +1,42 @@
-import { Pressable, StyleSheet } from "react-native";
-import { ThemedView } from "./ThemedView";
-import { ThemedText } from "./ThemedText";
-import React from "react";
-import { AppThemeContext, ThemeOptions } from "@/theme/AppThemeContext";
+import { Pressable, StyleSheet } from 'react-native'
+import { ThemedView } from './ThemedView'
+import { ThemedText } from './ThemedText'
+import React from 'react'
+import { AppThemeContext, ThemeOptions } from '@/theme/AppThemeContext'
 
-export function ThemeSelector() {
+export function ThemeSelector () {
   const { theme, setAppTheme } = React.useContext(AppThemeContext)
-  const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>('light');
+  const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>('light')
 
   React.useEffect(() => {
     if (theme.isSystem) {
-      setActiveTheme('system');
+      setActiveTheme('system')
     } else {
-      setActiveTheme(theme.mode);
+      setActiveTheme(theme.mode)
     }
   }, [theme])
 
   const selectTheme = (newTheme: ThemeOptions) => () => {
-    setAppTheme(newTheme);
-  };
-  
+    setAppTheme(newTheme)
+  }
+
   return (
     <ThemedView>
       <ThemedText>Theme</ThemedText>
       <ThemedView style={styles.options}>
 
-        <Pressable style={[styles.themeButton, activeTheme === 'light' && styles.themeButtonActive]} onPress={selectTheme('light')}>
+        <Pressable style={[styles.themeButton, activeTheme === 'light' && styles.themeButtonActive]}
+                   onPress={selectTheme('light')}>
           <ThemedText>Light</ThemedText>
         </Pressable>
 
-        <Pressable style={[styles.themeButton, activeTheme === 'dark' && styles.themeButtonActive]} onPress={selectTheme('dark')}>
+        <Pressable style={[styles.themeButton, activeTheme === 'dark' && styles.themeButtonActive]}
+                   onPress={selectTheme('dark')}>
           <ThemedText>Dark</ThemedText>
         </Pressable>
 
-        <Pressable style={[styles.themeButton, activeTheme === 'system' && styles.themeButtonActive]} onPress={selectTheme('system')}>
+        <Pressable style={[styles.themeButton, activeTheme === 'system' && styles.themeButtonActive]}
+                   onPress={selectTheme('system')}>
           <ThemedText>System</ThemedText>
         </Pressable>
 
@@ -56,4 +59,4 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderBottomColor: 'blue',
   },
-});
+})
