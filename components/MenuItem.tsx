@@ -9,16 +9,17 @@ type CommonItemProps = ViewProps & {
   icon?: React.ReactNode
   disabled?: boolean
   title: string
+  fontSize?: number
 }
 
-const CommonItem = ({ style, icon, disabled, title, ...otherProps }: CommonItemProps) => {
+const CommonItem = ({ style, icon, disabled, title, fontSize, ...otherProps }: CommonItemProps) => {
   const disabledColor = useThemeColor({}, 'disabled')
 
   return (
     <ThemedView style={[styles.menuItem, style]} {...otherProps}>
       {icon}
       <ThemedView style={styles.menuItemText}>
-        <ThemedText style={[styles.menuItemTitle, disabled && { color: disabledColor }]}>
+        <ThemedText style={[{ fontSize: fontSize || 18 }, disabled && { color: disabledColor }]}>
           {title}
         </ThemedText>
         {otherProps.children}
@@ -64,8 +65,5 @@ const styles = StyleSheet.create({
   menuItemText: {
     backgroundColor: 'transparent',
     width: '100%',
-  },
-  menuItemTitle: {
-    fontSize: 26,
   },
 })

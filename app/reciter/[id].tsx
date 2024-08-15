@@ -1,11 +1,11 @@
 import React from 'react'
 import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
-import { Link, useLocalSearchParams } from 'expo-router'
-import { FlatList, StyleSheet } from 'react-native'
+import { useLocalSearchParams } from 'expo-router'
+import { FlatList } from 'react-native'
 import { NowPlayingStore } from '@/globalState/store'
 import { Suwar } from '@/constants/Suwar'
 import { inject, observer } from 'mobx-react'
+import { MenuItem } from '@/components/MenuItem'
 
 type SurahItemProps = {
   surahNumber: number
@@ -25,11 +25,11 @@ const SurahItem = inject('nowPlaying')(observer((props: SurahItemProps) => {
   }
 
   return (
-    <ThemedView style={styles.surahItem}>
-      <Link href="/player" onPress={handlePress}>
-        <ThemedText>{props.surahNumber}. {props.name}</ThemedText>
-      </Link>
-    </ThemedView>
+    <MenuItem
+      title={`${props.surahNumber}. ${props.name}`}
+      href="/player"
+      onPress={handlePress}
+    />
   )
 }))
 
@@ -51,9 +51,3 @@ export default function ReciterPage () {
     </ThemedView>
   )
 }
-
-const styles = StyleSheet.create({
-  surahItem: {
-    padding: 20
-  }
-})

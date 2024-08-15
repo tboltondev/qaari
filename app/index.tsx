@@ -43,7 +43,7 @@ export default function HomeScreen () {
       </Link>
       <FlatList // TODO: extract to Menu component
         data={menuItems}
-        renderItem={({ item }) => <MenuItem {...item}/>}
+        renderItem={({ item }) => <MenuItem {...item} fontSize={26} />}
         keyExtractor={(item) => item.title}
       />
     </ThemedView>

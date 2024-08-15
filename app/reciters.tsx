@@ -3,9 +3,10 @@ import { ThemedText } from '@/components/ThemedText'
 import { ThemedView } from '@/components/ThemedView'
 import { Animated, FlatList, StyleSheet } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
-import { Href, Link } from 'expo-router'
+import { Href } from 'expo-router'
 import { inject, observer } from 'mobx-react'
 import { NowPlayingStore } from '@/globalState/store'
+import { MenuItem } from '@/components/MenuItem'
 
 type Reciter = {
   id: number
@@ -25,19 +26,18 @@ const Reciter = inject('nowPlaying')(observer((props: Reciter) => {
     props.nowPlaying.addReciter({ name: props.translated_name.name, id: props.id })
   }
 
+  const title = `${props.translated_name.name}${props.style ? ` (${props.style})` : ''}`
+
   return (
-    <ThemedView style={styles.menuItem}>
-      <Link href={`/reciter/${props.id}` as Href<string>} onPress={handlePress}>
-        <ThemedText style={styles.menuItemText}>
-          {props.translated_name.name}
-          {props.style && ` (${props.style})`}
-        </ThemedText>
-      </Link>
-    </ThemedView>
+    <MenuItem
+      title={title}
+      href={`/reciter/${props.id}` as Href<string>}
+      onPress={handlePress}
+    />
   )
 }))
 
-function LoadingReciter (props: { width: number }) {
+function LoadingReciter (props: { width: number }) { // TODO: create generic LoadingMenuItem
   const opacityValue = React.useRef(new Animated.Value(0.3)).current
 
   React.useEffect(() => {
@@ -103,9 +103,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 4,
     marginHorizontal: 16,
-  },
-  menuItemText: {
-    fontSize: 18,
   },
   menuItemTextLoading: {
     height: 18,
