@@ -1,40 +1,50 @@
-import { StyleSheet, FlatList } from 'react-native'
-import { ThemedText } from '@/components/ThemedText'
+import { FlatList, Pressable, StyleSheet } from 'react-native'
+import { Link } from 'expo-router'
+import Ionicons from '@expo/vector-icons/Ionicons'
+import AntDesign from '@expo/vector-icons/AntDesign'
 import { ThemedView } from '@/components/ThemedView'
-import { Href, Link } from 'expo-router'
-
-type MenuItemProps = {
-  text: string
-  link: string
-}
-
-function MenuItem (props: MenuItemProps) {
-  return (
-    <ThemedView style={styles.menuItem}>
-      <Link href={props.link as Href<string>}>
-        <ThemedText style={styles.menuItemText}>
-          {props.text}
-        </ThemedText>
-      </Link>
-    </ThemedView>
-  )
-}
-
-const MENU_ITEMS = [
-  { text: 'Reciters', link: '/reciters' },
-  { text: 'Playlists', link: '/playlists' },
-  { text: 'Qira\'at', link: '/qiraat' },
-  { text: 'Selections', link: '/selections' },
-]
+import { MenuItem } from '@/components/MenuItem'
+import { useThemeColor } from '@/hooks/useThemeColor'
 
 export default function HomeScreen () {
+  const textColor = useThemeColor({}, 'text')
+  const disabledTextColor = useThemeColor({}, 'disabled')
+
+  const menuItems: MenuItem[] = [
+    {
+      title: 'Reciters',
+      href: '/reciters',
+      icon: <Ionicons name='mic' size={30} color={textColor} style={{ marginEnd: 20 }} />,
+    },
+    {
+      title: 'Playlists',
+      href: '/playlists',
+      icon: <Ionicons name='list' size={30} color={textColor} style={{ marginEnd: 20 }} />,
+    },
+    {
+      title: 'Qira\'at',
+      href: '/qiraat',
+      icon: <Ionicons name='library' size={30} color={disabledTextColor} style={{ marginEnd: 20 }} />,
+      disabled: true
+    },
+    {
+      title: 'Selections',
+      href: '/selections',
+      icon: <Ionicons name='bookmark' size={30} color={textColor} style={{ marginEnd: 20 }} />,
+    },
+  ]
+
   return (
-    <ThemedView
-      style={styles.container}>
-      <FlatList
-        data={MENU_ITEMS}
-        renderItem={({ item }) => <MenuItem text={item.text} link={item.link}/>}
-        keyExtractor={(item) => item.text}
+    <ThemedView style={styles.container}>
+      <Link href='/settings' asChild>
+        <Pressable>
+          <AntDesign name='setting' size={30} color={textColor} style={styles.settingsIcon} />
+        </Pressable>
+      </Link>
+      <FlatList // TODO: extract to Menu component
+        data={menuItems}
+        renderItem={({ item }) => <MenuItem {...item}/>}
+        keyExtractor={(item) => item.title}
       />
     </ThemedView>
   )
@@ -44,12 +54,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
   },
-  menuItem: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  menuItemText: {
-    fontSize: 26,
+  settingsIcon: {
+    alignSelf: 'flex-end',
+    paddingEnd: 30,
+    paddingTop: 20,
   },
 })
