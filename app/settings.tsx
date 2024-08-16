@@ -5,6 +5,16 @@ import { Menu } from '@/components/Menu'
 
 const settingsItems: MenuItem[] = [
   {
+    title: 'Account',
+    // href: '/account'
+    disabled: true,
+  },
+  {
+    title: 'Text and translation',
+    // href: '/text-settings'
+    disabled: true,
+  },
+  {
     title: 'Theme',
     href: '/theme',
   }
