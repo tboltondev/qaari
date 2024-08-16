@@ -1,11 +1,11 @@
 import React from 'react'
 import { ThemedView } from '@/components/ThemedView'
 import { useLocalSearchParams } from 'expo-router'
-import { FlatList } from 'react-native'
 import { NowPlayingStore } from '@/globalState/store'
 import { Suwar } from '@/constants/Suwar'
 import { inject, observer } from 'mobx-react'
 import { MenuItem } from '@/components/MenuItem'
+import { Menu } from '@/components/Menu'
 
 type SurahItemProps = {
   surahNumber: number
@@ -38,7 +38,7 @@ export default function ReciterPage () {
 
   return (
     <ThemedView>
-      <FlatList
+      <Menu
         data={Suwar}
         renderItem={({ item, index }) =>
           <SurahItem

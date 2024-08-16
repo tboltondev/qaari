@@ -1,10 +1,11 @@
-import { FlatList, Pressable, StyleSheet } from 'react-native'
+import { Pressable, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { ThemedView } from '@/components/ThemedView'
 import { MenuItem } from '@/components/MenuItem'
 import { useThemeColor } from '@/hooks/useThemeColor'
+import { Menu } from '@/components/Menu'
 
 export default function HomeScreen () {
   const textColor = useThemeColor({}, 'text')
@@ -41,9 +42,9 @@ export default function HomeScreen () {
           <AntDesign name='setting' size={30} color={textColor} style={styles.settingsIcon} />
         </Pressable>
       </Link>
-      <FlatList // TODO: extract to Menu component
+      <Menu
         data={menuItems}
-        renderItem={({ item }) => <MenuItem {...item} fontSize={26} />}
+        renderItem={({ item }) => <MenuItem {...item} fontSize={26} style={{ padding: 20 }} />}
         keyExtractor={(item) => item.title}
       />
     </ThemedView>

@@ -1,6 +1,7 @@
-import { FlatList } from 'react-native'
+import React from 'react'
 import { ThemedView } from '@/components/ThemedView'
 import { MenuItem } from '@/components/MenuItem'
+import { Menu } from '@/components/Menu'
 
 const settingsItems: MenuItem[] = [
   {
@@ -13,7 +14,7 @@ export default function Settings () {
   return (
     <ThemedView style={{ flexGrow: 1, padding: 16 }}>
       {/*TODO: refactor container into Page component*/}
-      <FlatList
+      <Menu
         data={settingsItems}
         renderItem={({ item }) => <MenuItem {...item} />}
       />

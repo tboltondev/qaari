@@ -1,10 +1,11 @@
 import React from 'react'
 import { ThemedView } from '@/components/ThemedView'
 import { AppThemeContext, ThemeOptions } from '@/theme/AppThemeContext'
-import { FlatList, ListRenderItemInfo, StyleSheet } from 'react-native'
+import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import { MenuItem } from '@/components/MenuItem'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { ThemedText } from '@/components/ThemedText'
+import { Menu } from '@/components/Menu'
 
 const options = [
   { theme: ThemeOptions.Light, description: 'Always use light theme', title: 'Light' },
@@ -44,7 +45,7 @@ export function ThemeScreen () {
 
   return (
     <ThemedView style={styles.container}>
-      <FlatList
+      <Menu
         data={options}
         renderItem={handleRenderItem}
         keyExtractor={(item) => item.theme}
@@ -56,7 +57,6 @@ export function ThemeScreen () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
   },
   themeItem: {
     borderRadius: 8,

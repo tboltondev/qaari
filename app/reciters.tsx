@@ -1,12 +1,13 @@
 import React from 'react'
 import { ThemedText } from '@/components/ThemedText'
 import { ThemedView } from '@/components/ThemedView'
-import { Animated, FlatList, StyleSheet } from 'react-native'
+import { Animated, StyleSheet } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
 import { Href } from 'expo-router'
 import { inject, observer } from 'mobx-react'
 import { NowPlayingStore } from '@/globalState/store'
 import { MenuItem } from '@/components/MenuItem'
+import { Menu } from '@/components/Menu'
 
 type Reciter = {
   id: number
@@ -82,11 +83,11 @@ export default function RecitersPage () {
       {/*TODO: style errors*/}
       {reciters.error && <ThemedText>There was a problem loading the reciters, please try again.</ThemedText>}
       {reciters.isLoading
-        ? <FlatList
+        ? <Menu
           data={[300, 280, 320, 240, 270, 300, 280, 320, 240, 270, 280, 320]}
           renderItem={({ item }) => <LoadingReciter width={item}/>}
         />
-        : <FlatList
+        : <Menu
           data={reciters.data}
           renderItem={({ item }) => <Reciter {...item} />}
           keyExtractor={(item) => `${item.reciter_name}_${item.style}`}
