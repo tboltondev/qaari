@@ -36,8 +36,10 @@ export type MenuItem = CommonItemProps & {
 export function MenuItem ({ href, onPress, ...commonProps }: MenuItem) {
   if (href) {
     return (
-      <Link href={href} disabled={commonProps.disabled} onPress={onPress}>
-        <CommonItem {...commonProps} />
+      <Link href={href} disabled={commonProps.disabled} onPress={onPress} asChild>
+        <Pressable>
+          <CommonItem {...commonProps} />
+        </Pressable>
       </Link>
     )
   }
@@ -55,12 +57,11 @@ export function MenuItem ({ href, onPress, ...commonProps }: MenuItem) {
 
 const styles = StyleSheet.create({
   menuItem: {
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'flex-end',
-    width: '100%',
   },
   menuItemText: {
     backgroundColor: 'transparent',
