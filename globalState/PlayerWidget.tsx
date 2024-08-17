@@ -11,7 +11,7 @@ type NowPlayingProps = {
 }
 
 const PlayerWidgetView = observer((props: NowPlayingProps) => {
-  const nowPlayingBackground = useThemeColor({ dark: '#323232' }, 'background')
+  const nowPlayingBackground = useThemeColor({}, 'secondaryBackground')
 
   return (
     <ThemedView style={[styles.container, { backgroundColor: nowPlayingBackground }]}>
@@ -35,13 +35,13 @@ export const PlayerWidget = observer((props: NowPlayingContainerProps) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    width: '94%',
-    left: '3%',
+    width: '96%',
+    left: '2%',
     bottom: 40,
-    shadowColor: '#222', // TODO: light/dark
-    shadowRadius: 15,
-    shadowOpacity: 1,
-    shadowOffset: { width: 10, height: 10 },
+    shadowColor: '#000', // TODO: light/dark
+    shadowRadius: 10,
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 0 },
     paddingVertical: 16,
     borderRadius: 15,
   },
