@@ -70,7 +70,7 @@ export default function HomeScreen () {
       </Link>
       <Menu
         data={menuItems}
-        renderItem={({ item }) => <MenuItem {...item} fontSize={26} style={styles.mainMenuItem}/>}
+        renderItem={({ item }) => <MenuItem {...item} fontSize={26} fontWeight='500' style={styles.mainMenuItem}/>}
         keyExtractor={(item) => item.title}
         style={styles.mainMenu}
       />
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   mainMenuItem: {
     padding: 20,
-    marginHorizontal: 0
+    marginHorizontal: 0,
   },
   mainMenuItemIcon: {
     marginEnd: 20,
