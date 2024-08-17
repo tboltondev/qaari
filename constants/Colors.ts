@@ -17,6 +17,7 @@ export const Colors = {
     tabIconSelected: tintColorLight,
     activeListItem: '#E1E1E1',
     disabled: '#ddd',
+    separator: '#eee',
   },
   dark: {
     text: '#ECEDEE',
@@ -28,5 +29,6 @@ export const Colors = {
     tabIconSelected: tintColorDark,
     activeListItem: '#2A2D30',
     disabled: '#333',
+    separator: '#333',
   },
 }

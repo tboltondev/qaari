@@ -1,20 +1,22 @@
 import React from 'react'
 import { FlatList, FlatListProps, StyleSheet } from 'react-native'
 import { ThemedView } from '@/components/ThemedView'
+import { useThemeColor } from '@/hooks/useThemeColor'
 
 export const Menu = (props: FlatListProps<any>) => {
-  const Seperator = () => <ThemedView style={styles.seperator}/>
+  const separatorColor = useThemeColor({}, 'separator')
+
+  const Separator = () => <ThemedView style={[styles.separator, { backgroundColor: separatorColor }]} />
 
   return <FlatList
-    ItemSeparatorComponent={Seperator}
+    ItemSeparatorComponent={Separator}
     contentContainerStyle={styles.contentContainerStyle}
     {...props}
   />
 }
 
 const styles = StyleSheet.create({
-  seperator: {
-    backgroundColor: '#333',
+  separator: {
     height: 1,
     width: '90%',
     alignSelf: 'center',
