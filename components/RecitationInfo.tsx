@@ -13,7 +13,7 @@ type RecitationInfoProps = {
 export const RecitationInfo = observer((props: RecitationInfoProps) => {
   return (
     <ThemedView style={props.isWidget ? styles.widgetContainer : styles.playerViewContainer}>
-      <ThemedText>
+      <ThemedText style={styles.surahName}>
         {!props.nowPlaying.isLoading
           ? Suwar[props.nowPlaying.surahNumber - 1].name
           : '-' // TODO: loading component
@@ -32,6 +32,9 @@ export const RecitationInfo = observer((props: RecitationInfoProps) => {
 const styles = StyleSheet.create({
   playerViewContainer: {
     alignItems: 'center',
+  },
+  surahName: {
+    fontWeight: 'bold',
   },
   widgetContainer: {
     backgroundColor: 'transparent',
