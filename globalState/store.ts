@@ -92,6 +92,9 @@ export class NowPlayingStore {
 
     const onPlayBackStatusUpdate = (status: AVPlaybackStatus) => {
       if (status.isLoaded) {
+        if (status.didJustFinish) {
+          return this.next()
+        }
         runInAction(() => {
           this.audioPositionMs = status.positionMillis
           this.audioDurationMs = status.durationMillis || 0
