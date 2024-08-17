@@ -34,6 +34,7 @@ export default function HomeScreen () {
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={15} color={secondaryTextColor}
                                 style={styles.mainMenuItemEndIcon}/>,
+      disabled: true,
     },
     {
       title: 'Qira\'at',
@@ -45,6 +46,7 @@ export default function HomeScreen () {
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={15} color={secondaryTextColor}
                                 style={styles.mainMenuItemEndIcon}/>,
+      disabled: true,
     },
     {
       title: 'Selections',
@@ -56,6 +58,7 @@ export default function HomeScreen () {
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={15} color={secondaryTextColor}
                                 style={styles.mainMenuItemEndIcon}/>,
+      disabled: true,
     },
   ]
 
