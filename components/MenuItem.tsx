@@ -10,7 +10,6 @@ type CommonItemProps = ViewProps & {
   endIcon?: React.ReactNode
   disabled?: boolean
   title: string | React.ReactNode
-  titleStyle: StyleSheet
   fontSize?: number
   fontWeight?: any // TODO: correct type
   // TODO: titleStyle?: style type
