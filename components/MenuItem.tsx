@@ -7,12 +7,13 @@ import { useThemeColor } from '@/hooks/useThemeColor'
 
 type CommonItemProps = ViewProps & {
   icon?: React.ReactNode
+  endIcon?: React.ReactNode
   disabled?: boolean
   title: string
   fontSize?: number
 }
 
-const CommonItem = ({ style, icon, disabled, title, fontSize, ...otherProps }: CommonItemProps) => {
+const CommonItem = ({ style, icon, endIcon, disabled, title, fontSize, ...otherProps }: CommonItemProps) => {
   const disabledColor = useThemeColor({}, 'disabled')
 
   return (
@@ -24,6 +25,7 @@ const CommonItem = ({ style, icon, disabled, title, fontSize, ...otherProps }: C
         </ThemedText>
         {otherProps.children}
       </ThemedView>
+      {endIcon}
     </ThemedView>
   )
 }
@@ -58,13 +60,12 @@ export function MenuItem ({ href, onPress, ...commonProps }: MenuItem) {
 const styles = StyleSheet.create({
   menuItem: {
     padding: 10,
-    marginVertical: 8,
+    marginVertical: 4,
     marginHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
   menuItemText: {
     backgroundColor: 'transparent',
-    width: '100%',
   },
 })

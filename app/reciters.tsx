@@ -8,6 +8,8 @@ import { inject, observer } from 'mobx-react'
 import { NowPlayingStore } from '@/globalState/store'
 import { MenuItem } from '@/components/MenuItem'
 import { Menu } from '@/components/Menu'
+import { useThemeColor } from '@/hooks/useThemeColor'
+import { MaterialIcons } from '@expo/vector-icons'
 
 type Reciter = {
   id: number
@@ -22,19 +24,30 @@ type Reciter = {
 }
 
 const Reciter = inject('nowPlaying')(observer((props: Reciter) => {
+  const secondaryTextColor = useThemeColor({}, 'secondaryText')
+
   function handlePress () {
     props.nowPlaying.setReciterPage({ name: props.translated_name.name, id: props.id })
     props.nowPlaying.addReciter({ name: props.translated_name.name, id: props.id })
   }
 
-  const title = `${props.translated_name.name}${props.style ? ` (${props.style})` : ''}`
+  const isCurrentReciter = props.nowPlaying.reciterId === props.id
 
   return (
     <MenuItem
-      title={title}
+      title={props.translated_name.name}
       href={`/reciter/${props.id}` as Href<string>}
       onPress={handlePress}
-    />
+      endIcon={isCurrentReciter && (
+        <MaterialIcons name='multitrack-audio' size={20} color='red' style={{ marginLeft: 'auto' }} /> // TODO: move hard coded color to state, make customizable
+      )}
+    >
+      {props.style && (
+        <ThemedText style={{ fontSize: 12, color: secondaryTextColor, margin: 0 }}>
+          {props.style}
+        </ThemedText>
+      )}
+    </MenuItem>
   )
 }))
 

@@ -6,6 +6,7 @@ import { Suwar } from '@/constants/Suwar'
 import { inject, observer } from 'mobx-react'
 import { MenuItem } from '@/components/MenuItem'
 import { Menu } from '@/components/Menu'
+import { MaterialIcons } from '@expo/vector-icons'
 
 type SurahItemProps = {
   surahNumber: number
@@ -24,11 +25,17 @@ const SurahItem = inject('nowPlaying')(observer((props: SurahItemProps) => {
     }
   }
 
+  const isCurrentReciter = props.nowPlaying?.reciterId === props.reciterId
+  const isCurrentSurah = props.nowPlaying?.surahNumber === props.surahNumber
+
   return (
     <MenuItem
       title={`${props.surahNumber}. ${props.name}`}
       href="/player"
       onPress={handlePress}
+      endIcon={isCurrentReciter && isCurrentSurah && (
+        <MaterialIcons name='multitrack-audio' size={20} color='red' style={{ marginLeft: 'auto' }} />
+      )}
     />
   )
 }))
