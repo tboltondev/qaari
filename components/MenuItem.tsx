@@ -9,7 +9,7 @@ type CommonItemProps = ViewProps & {
   icon?: React.ReactNode
   endIcon?: React.ReactNode
   disabled?: boolean
-  title: string
+  title: string | React.ReactNode
   fontSize?: number
 }
 
@@ -20,9 +20,11 @@ const CommonItem = ({ style, icon, endIcon, disabled, title, fontSize, ...otherP
     <ThemedView style={[styles.menuItem, style]} {...otherProps}>
       {icon}
       <ThemedView style={styles.menuItemText}>
-        <ThemedText style={[{ fontSize: fontSize || 18 }, disabled && { color: disabledColor }]}>
-          {title}
-        </ThemedText>
+        {typeof title === 'string' ? (
+          <ThemedText style={[{ fontSize: fontSize || 18 }, disabled && { color: disabledColor }]}>
+            {title}
+          </ThemedText>
+        ) : title}
         {otherProps.children}
       </ThemedView>
       {endIcon}

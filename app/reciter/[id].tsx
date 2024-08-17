@@ -7,6 +7,8 @@ import { inject, observer } from 'mobx-react'
 import { MenuItem } from '@/components/MenuItem'
 import { Menu } from '@/components/Menu'
 import { MaterialIcons } from '@expo/vector-icons'
+import { ThemedText } from '@/components/ThemedText'
+import { useThemeColor } from '@/hooks/useThemeColor'
 
 type SurahItemProps = {
   surahNumber: number
@@ -28,9 +30,20 @@ const SurahItem = inject('nowPlaying')(observer((props: SurahItemProps) => {
   const isCurrentReciter = props.nowPlaying?.reciterId === props.reciterId
   const isCurrentSurah = props.nowPlaying?.surahNumber === props.surahNumber
 
+  const Title = (props: { surahNumber: number, name: string }) => {
+    const secondaryTextColor = useThemeColor({}, 'secondaryText')
+
+    return (
+      <ThemedView style={{ flexDirection: 'row' }}>
+        <ThemedText style={{ color: secondaryTextColor }}>{props.surahNumber}  </ThemedText>
+        <ThemedText style={{ fontWeight: 'normal' }}>{props.name}</ThemedText>
+      </ThemedView>
+    )
+  }
+
   return (
     <MenuItem
-      title={`${props.surahNumber}. ${props.name}`}
+      title={<Title surahNumber={props.surahNumber} name={props.name} />}
       href="/player"
       onPress={handlePress}
       endIcon={isCurrentReciter && isCurrentSurah && (
