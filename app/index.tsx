@@ -1,12 +1,11 @@
 import { Pressable, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import AntDesign from '@expo/vector-icons/AntDesign'
+import { SimpleLineIcons } from '@expo/vector-icons'
 import { ThemedView } from '@/components/ThemedView'
 import { MenuItem } from '@/components/MenuItem'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { Menu } from '@/components/Menu'
-import { SimpleLineIcons } from '@expo/vector-icons'
 
 export default function HomeScreen () {
   const textColor = useThemeColor({}, 'text')
@@ -66,7 +65,7 @@ export default function HomeScreen () {
     <ThemedView style={styles.container}>
       <Link href="/settings" asChild>
         <Pressable>
-          <AntDesign name="setting" size={25} color={textColor} style={styles.settingsIcon}/>
+          <Ionicons name="settings-outline" size={25} color={textColor} style={styles.settingsIcon}/>
         </Pressable>
       </Link>
       <Menu
