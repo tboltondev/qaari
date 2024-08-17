@@ -25,7 +25,7 @@ export class NowPlayingStore {
    * stores data of reciters whose page has been visited
    * for easier access to current reciter name based on id
    */
-  @observable reciters: Reciter[] = []
+  @observable reciters: Set<Reciter> = new Set()
   /**
    * stores reciter data for displaying name on reciter page
    */
@@ -61,7 +61,11 @@ export class NowPlayingStore {
 
   @computed
   get currentReciter (): Reciter | undefined {
-    return this.reciters.find(reciter => reciter.id === this.reciterId)
+    for (let reciter of this.reciters) {
+      if(reciter.id === this.reciterId) {
+        return reciter
+      }
+    }
   }
 
   /**
@@ -165,7 +169,7 @@ export class NowPlayingStore {
 
   @action
   addReciter (reciter: Reciter) {
-    this.reciters.push(reciter)
+    this.reciters.add(reciter)
   }
 }
 

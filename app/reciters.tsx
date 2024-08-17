@@ -1,11 +1,15 @@
 import React from 'react'
 import { ThemedText } from '@/components/ThemedText'
 import { ThemedView } from '@/components/ThemedView'
-import { Animated, FlatList, StyleSheet } from 'react-native'
+import { Animated, StyleSheet } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
-import { Href, Link } from 'expo-router'
+import { Href } from 'expo-router'
 import { inject, observer } from 'mobx-react'
 import { NowPlayingStore } from '@/globalState/store'
+import { MenuItem } from '@/components/MenuItem'
+import { Menu } from '@/components/Menu'
+import { useThemeColor } from '@/hooks/useThemeColor'
+import { MaterialIcons } from '@expo/vector-icons'
 
 type Reciter = {
   id: number
@@ -20,24 +24,34 @@ type Reciter = {
 }
 
 const Reciter = inject('nowPlaying')(observer((props: Reciter) => {
+  const secondaryTextColor = useThemeColor({}, 'secondaryText')
+
   function handlePress () {
     props.nowPlaying.setReciterPage({ name: props.translated_name.name, id: props.id })
     props.nowPlaying.addReciter({ name: props.translated_name.name, id: props.id })
   }
 
+  const isCurrentReciter = props.nowPlaying.reciterId === props.id
+
   return (
-    <ThemedView style={styles.menuItem}>
-      <Link href={`/reciter/${props.id}` as Href<string>} onPress={handlePress}>
-        <ThemedText style={styles.menuItemText}>
-          {props.translated_name.name}
-          {props.style && ` (${props.style})`}
+    <MenuItem
+      title={props.translated_name.name}
+      href={`/reciter/${props.id}` as Href<string>}
+      onPress={handlePress}
+      endIcon={isCurrentReciter && (
+        <MaterialIcons name='multitrack-audio' size={20} color='red' style={{ marginLeft: 'auto' }} /> // TODO: move hard coded color to state, make customizable
+      )}
+    >
+      {props.style && (
+        <ThemedText style={{ fontSize: 12, color: secondaryTextColor, margin: 0 }}>
+          {props.style}
         </ThemedText>
-      </Link>
-    </ThemedView>
+      )}
+    </MenuItem>
   )
 }))
 
-function LoadingReciter (props: { width: number }) {
+function LoadingReciter (props: { width: number }) { // TODO: create generic LoadingMenuItem
   const opacityValue = React.useRef(new Animated.Value(0.3)).current
 
   React.useEffect(() => {
@@ -82,11 +96,11 @@ export default function RecitersPage () {
       {/*TODO: style errors*/}
       {reciters.error && <ThemedText>There was a problem loading the reciters, please try again.</ThemedText>}
       {reciters.isLoading
-        ? <FlatList
+        ? <Menu
           data={[300, 280, 320, 240, 270, 300, 280, 320, 240, 270, 280, 320]}
           renderItem={({ item }) => <LoadingReciter width={item}/>}
         />
-        : <FlatList
+        : <Menu
           data={reciters.data}
           renderItem={({ item }) => <Reciter {...item} />}
           keyExtractor={(item) => `${item.reciter_name}_${item.style}`}
@@ -103,9 +117,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 4,
     marginHorizontal: 16,
-  },
-  menuItemText: {
-    fontSize: 18,
   },
   menuItemTextLoading: {
     height: 18,

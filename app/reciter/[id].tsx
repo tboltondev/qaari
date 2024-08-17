@@ -1,11 +1,12 @@
 import React from 'react'
 import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
-import { Link, useLocalSearchParams } from 'expo-router'
-import { FlatList, StyleSheet } from 'react-native'
+import { useLocalSearchParams } from 'expo-router'
 import { NowPlayingStore } from '@/globalState/store'
 import { Suwar } from '@/constants/Suwar'
 import { inject, observer } from 'mobx-react'
+import { MenuItem } from '@/components/MenuItem'
+import { Menu } from '@/components/Menu'
+import { MaterialIcons } from '@expo/vector-icons'
 
 type SurahItemProps = {
   surahNumber: number
@@ -24,12 +25,18 @@ const SurahItem = inject('nowPlaying')(observer((props: SurahItemProps) => {
     }
   }
 
+  const isCurrentReciter = props.nowPlaying?.reciterId === props.reciterId
+  const isCurrentSurah = props.nowPlaying?.surahNumber === props.surahNumber
+
   return (
-    <ThemedView style={styles.surahItem}>
-      <Link href="/player" onPress={handlePress}>
-        <ThemedText>{props.surahNumber}. {props.name}</ThemedText>
-      </Link>
-    </ThemedView>
+    <MenuItem
+      title={`${props.surahNumber}. ${props.name}`}
+      href="/player"
+      onPress={handlePress}
+      endIcon={isCurrentReciter && isCurrentSurah && (
+        <MaterialIcons name='multitrack-audio' size={20} color='red' style={{ marginLeft: 'auto' }} />
+      )}
+    />
   )
 }))
 
@@ -38,7 +45,7 @@ export default function ReciterPage () {
 
   return (
     <ThemedView>
-      <FlatList
+      <Menu
         data={Suwar}
         renderItem={({ item, index }) =>
           <SurahItem
@@ -51,9 +58,3 @@ export default function ReciterPage () {
     </ThemedView>
   )
 }
-
-const styles = StyleSheet.create({
-  surahItem: {
-    padding: 20
-  }
-})

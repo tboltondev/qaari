@@ -7,22 +7,25 @@ import { useThemeColor } from '@/hooks/useThemeColor'
 
 type CommonItemProps = ViewProps & {
   icon?: React.ReactNode
+  endIcon?: React.ReactNode
   disabled?: boolean
   title: string
+  fontSize?: number
 }
 
-const CommonItem = ({ style, icon, disabled, title, ...otherProps }: CommonItemProps) => {
+const CommonItem = ({ style, icon, endIcon, disabled, title, fontSize, ...otherProps }: CommonItemProps) => {
   const disabledColor = useThemeColor({}, 'disabled')
 
   return (
     <ThemedView style={[styles.menuItem, style]} {...otherProps}>
       {icon}
       <ThemedView style={styles.menuItemText}>
-        <ThemedText style={[styles.menuItemTitle, disabled && { color: disabledColor }]}>
+        <ThemedText style={[{ fontSize: fontSize || 18 }, disabled && { color: disabledColor }]}>
           {title}
         </ThemedText>
         {otherProps.children}
       </ThemedView>
+      {endIcon}
     </ThemedView>
   )
 }
@@ -35,8 +38,10 @@ export type MenuItem = CommonItemProps & {
 export function MenuItem ({ href, onPress, ...commonProps }: MenuItem) {
   if (href) {
     return (
-      <Link href={href} disabled={commonProps.disabled} onPress={onPress}>
-        <CommonItem {...commonProps} />
+      <Link href={href} disabled={commonProps.disabled} onPress={onPress} asChild>
+        <Pressable>
+          <CommonItem {...commonProps} />
+        </Pressable>
       </Link>
     )
   }
@@ -54,18 +59,13 @@ export function MenuItem ({ href, onPress, ...commonProps }: MenuItem) {
 
 const styles = StyleSheet.create({
   menuItem: {
-    padding: 20,
-    marginVertical: 8,
+    padding: 10,
+    marginVertical: 4,
     marginHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'flex-end',
-    width: '100%',
   },
   menuItemText: {
     backgroundColor: 'transparent',
-    width: '100%',
-  },
-  menuItemTitle: {
-    fontSize: 26,
   },
 })
