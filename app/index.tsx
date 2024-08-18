@@ -6,58 +6,58 @@ import { ThemedView } from '@/components/ThemedView'
 import { MenuItem } from '@/components/MenuItem'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { Menu } from '@/components/Menu'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function HomeScreen () {
   const textColor = useThemeColor({}, 'text')
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
+
+  const gradientColors = ['#4464ad', '#05b2dc']
 
   const menuItems: MenuItem[] = [
     {
       title: 'Reciters',
       href: '/reciters',
       icon: (
-        <ThemedView style={[styles.mainMenuItemIcon, { backgroundColor: 'limegreen' }]}>
+        <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
           <Ionicons name="mic-outline" size={20} color={'white'} />
-        </ThemedView>
+        </LinearGradient>
       ),
-      endIcon: <SimpleLineIcons name="arrow-right" size={15} color={secondaryTextColor}
+      endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
                                 style={styles.mainMenuItemEndIcon}/>,
     },
     {
       title: 'Playlists',
       href: '/playlists',
       icon: (
-        <ThemedView style={[styles.mainMenuItemIcon, { backgroundColor: 'grey' }]}>
+        <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
           <Ionicons name="list-outline" size={20} color={'white'} />
-        </ThemedView>
+        </LinearGradient>
       ),
-      endIcon: <SimpleLineIcons name="arrow-right" size={15} color={secondaryTextColor}
+      endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
                                 style={styles.mainMenuItemEndIcon}/>,
-      disabled: true,
     },
     {
       title: 'Qira\'at',
       href: '/qiraat',
       icon: (
-        <ThemedView style={[styles.mainMenuItemIcon, { backgroundColor: 'dodgerblue' }]}>
+        <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
           <Ionicons name="library-outline" size={20} color={'white'} />
-        </ThemedView>
+        </LinearGradient>
       ),
-      endIcon: <SimpleLineIcons name="arrow-right" size={15} color={secondaryTextColor}
+      endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
                                 style={styles.mainMenuItemEndIcon}/>,
-      disabled: true,
     },
     {
       title: 'Selections',
       href: '/selections',
       icon: (
-        <ThemedView style={[styles.mainMenuItemIcon, { backgroundColor: 'orange' }]}>
+        <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
           <Ionicons name="bookmark-outline" size={20} color={'white'} />
-        </ThemedView>
+        </LinearGradient>
       ),
-      endIcon: <SimpleLineIcons name="arrow-right" size={15} color={secondaryTextColor}
+      endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
                                 style={styles.mainMenuItemEndIcon}/>,
-      disabled: true,
     },
   ]
 

@@ -37,7 +37,7 @@ const CommonProgressBar = observer((props: CommonProgressBarProps) => {
             backgroundColor: props.activeColor,
           }
         ]}
-      ></ThemedView>
+      />
     </ThemedView>
   )
 })
