@@ -28,6 +28,7 @@ export const PlayerWidget = observer((props: NowPlayingContainerProps) => {
   React.useEffect(() => {
     props.nowPlaying.restoreState()
   }, [])
+
   return (
     <ThemedView>
       {!props.nowPlaying.isLoading && <PlayerWidgetView nowPlaying={props.nowPlaying}/>}
