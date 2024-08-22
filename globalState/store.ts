@@ -1,5 +1,6 @@
 import { action, computed, makeAutoObservable, observable, runInAction } from 'mobx'
 import { Audio, AVPlaybackStatus } from 'expo-av'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type Reciter = {
   name: string
@@ -73,7 +74,7 @@ export class NowPlayingStore {
    * loads audio based on reciter and surah
    */
   @action
-  async load (reciterId: number, surahNumber: number) {
+  async load (reciterId: number, surahNumber: number, audioPosition?: number) {
     const status = await this.audio.getStatusAsync()
     if (status.isLoaded) {
       await this.audio.unloadAsync()
@@ -85,9 +86,10 @@ export class NowPlayingStore {
 
     const source = { uri }
     const initialStatus = {
-      shouldPlay: true,
+      shouldPlay: !audioPosition,
       // volume: '',
       isLooping: false,
+      positionMillis: audioPosition
     }
 
     const onPlayBackStatusUpdate = (status: AVPlaybackStatus) => {
@@ -102,6 +104,7 @@ export class NowPlayingStore {
           this.isPlaying = status.isPlaying
           this.isBuffering = status.isBuffering
         })
+        this.saveState()
       } else if (status.error) {
         console.log(`Error with audio: ${status.error}`)
       }
@@ -118,9 +121,36 @@ export class NowPlayingStore {
       this.surahNumber = surahNumber
       this.audio = audio.sound
       this.isLoading = false
-      this.isPlaying = true
+      this.isPlaying = !audioPosition
     })
-    console.log('LOADED\n')
+  }
+
+  saveState() {
+   AsyncStorage.setItem('nowPlaying', JSON.stringify({
+     reciterId: this.reciterId,
+     currentReciter: this.currentReciter,
+     surahNumber: this.surahNumber,
+     position: this.audioPositionMs
+   }))
+  }
+
+  @action
+  async restoreState() {
+    const jsonState = await AsyncStorage.getItem('nowPlaying')
+
+    if (jsonState) {
+      const state = JSON.parse(jsonState)
+
+      this.addReciter(state.currentReciter)
+      runInAction(() => {
+        this.reciterId = state.reciterId
+        this.surahNumber = state.surahNumber
+        this.audioPositionMs = state.position
+        this.isLoading = false
+      })
+
+      this.load(state.reciterId, state.surahNumber, state.position)
+    }
   }
 
   @action
