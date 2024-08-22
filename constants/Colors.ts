@@ -19,6 +19,7 @@ export const Colors = {
     activeListItem: '#E1E1E1',
     disabled: '#ddd',
     separator: '#eee',
+    versionNumber: '#bbb',
   },
   dark: {
     text: '#ECEDEE',
@@ -32,5 +33,6 @@ export const Colors = {
     activeListItem: '#2A2D30',
     disabled: '#333',
     separator: '#333',
+    versionNumber: '#555',
   },
 }
