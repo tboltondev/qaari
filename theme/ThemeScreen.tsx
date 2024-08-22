@@ -1,24 +1,39 @@
 import React from 'react'
+import { ListRenderItemInfo, StyleSheet } from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { ThemedView } from '@/components/ThemedView'
 import { AppThemeContext, ThemeOptions } from '@/theme/AppThemeContext'
-import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import { MenuItem } from '@/components/MenuItem'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { ThemedText } from '@/components/ThemedText'
 import { Menu } from '@/components/Menu'
 
-const options = [
-  { theme: ThemeOptions.Light, description: 'Always use light theme', title: 'Light' },
-  { theme: ThemeOptions.Dark, description: 'Always use dark theme', title: 'Dark' },
-  { theme: ThemeOptions.System, description: 'Use device settings', title: 'System' },
-]
-
 export function ThemeScreen () {
   const { theme, setAppTheme } = React.useContext(AppThemeContext)
   const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>(theme.mode)
-  const tintColor = useThemeColor({}, 'activeListItem')
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
+  const textColor = useThemeColor({}, 'text')
 
+  const options = [
+    {
+      theme: ThemeOptions.Light,
+      description: 'Always use light theme',
+      title: 'Light',
+      icon: <Ionicons name="sunny" color={textColor} size={28} style={styles.themeItemIcon}/>,
+    },
+    {
+      theme: ThemeOptions.Dark,
+      description: 'Always use dark theme',
+      title: 'Dark',
+      icon: <Ionicons name="moon" color={textColor} size={28} style={styles.themeItemIcon}/>,
+    },
+    {
+      theme: ThemeOptions.System,
+      description: 'Use device settings',
+      title: 'System',
+      icon: <Ionicons name="phone-portrait-outline" color={textColor} size={28} style={styles.themeItemIcon}/>,
+    },
+  ]
 
   React.useEffect(() => {
     if (theme.isSystem) {
@@ -32,12 +47,15 @@ export function ThemeScreen () {
     setAppTheme(newTheme)
   }
 
-  const handleRenderItem = ({ item }: ListRenderItemInfo<any>) => (
+  const handleRenderItem = ({ item }: ListRenderItemInfo<any>) => ( // TODO: don't use any
     <MenuItem
       title={item.title}
-      href='/theme'
+      href="/theme"
       onPress={selectTheme(item.theme as ThemeOptions)}
-      style={[styles.themeItem, activeTheme === item.theme && { backgroundColor: tintColor }]}
+      style={styles.themeItem}
+      icon={item.icon}
+      endIcon={activeTheme === item.theme &&
+        <Ionicons name="checkmark" size={28} color={textColor} style={styles.themeItemCheckmark}/>}
     >
       <ThemedText style={{ fontSize: 14, paddingTop: 4, color: secondaryTextColor }}>{item.description}</ThemedText>
     </MenuItem>
@@ -60,5 +78,14 @@ const styles = StyleSheet.create({
   },
   themeItem: {
     borderRadius: 8,
+  },
+  themeItemIcon: {
+    marginEnd: 20,
+    alignSelf: 'center',
+  },
+  themeItemCheckmark: {
+    marginLeft: 'auto',
+    alignSelf: 'center',
+    marginRight: 10,
   },
 })
