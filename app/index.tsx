@@ -63,7 +63,7 @@ export default function HomeScreen () {
 
   return (
     <ThemedView style={styles.container}>
-      <Link href="/settings" asChild>
+      <Link href='/(settings)' asChild>
         <Pressable>
           <Ionicons name="settings-outline" size={25} color={textColor} style={styles.settingsIcon}/>
         </Pressable>
