@@ -20,7 +20,7 @@ export default function HomeScreen () {
       href: '/reciters',
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Ionicons name="mic-outline" size={20} color={'white'} />
+          <Ionicons name="mic-outline" size={20} color={'white'}/>
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
@@ -31,7 +31,7 @@ export default function HomeScreen () {
       href: '/playlists',
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Ionicons name="list-outline" size={20} color={'white'} />
+          <Ionicons name="list-outline" size={20} color={'white'}/>
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
@@ -42,7 +42,7 @@ export default function HomeScreen () {
       href: '/qiraat',
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Ionicons name="library-outline" size={20} color={'white'} />
+          <Ionicons name="library-outline" size={20} color={'white'}/>
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
@@ -53,7 +53,7 @@ export default function HomeScreen () {
       href: '/selections',
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Ionicons name="bookmark-outline" size={20} color={'white'} />
+          <Ionicons name="bookmark-outline" size={20} color={'white'}/>
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
@@ -63,14 +63,14 @@ export default function HomeScreen () {
 
   return (
     <ThemedView style={styles.container}>
-      <Link href='/(settings)' asChild>
+      <Link href="/(settings)" asChild>
         <Pressable>
           <Ionicons name="settings-outline" size={25} color={textColor} style={styles.settingsIcon}/>
         </Pressable>
       </Link>
       <Menu
         data={menuItems}
-        renderItem={({ item }) => <MenuItem {...item} fontSize={26} fontWeight='500' style={styles.mainMenuItem}/>}
+        renderItem={({ item }) => <MenuItem {...item} fontSize={26} fontWeight="500" style={styles.mainMenuItem}/>}
         keyExtractor={(item) => item.title}
         style={styles.mainMenu}
       />

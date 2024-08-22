@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   playerViewSurahName: {
-   fontSize: 20,
+    fontSize: 20,
   },
   playerViewReciterName: {
-   fontSize: 18,
+    fontSize: 18,
   },
   widgetContainer: {
     backgroundColor: 'transparent',

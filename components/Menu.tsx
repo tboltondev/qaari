@@ -6,7 +6,7 @@ import { useThemeColor } from '@/hooks/useThemeColor'
 export const Menu = (props: FlatListProps<any>) => {
   const separatorColor = useThemeColor({}, 'separator')
 
-  const Separator = () => <ThemedView style={[styles.separator, { backgroundColor: separatorColor }]} />
+  const Separator = () => <ThemedView style={[styles.separator, { backgroundColor: separatorColor }]}/>
 
   return <FlatList
     ItemSeparatorComponent={Separator}

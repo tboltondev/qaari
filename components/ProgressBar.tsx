@@ -71,7 +71,6 @@ export const ProgressBar = observer((props: ProgressBarProps) => {
     return `${displayMins}:${displaySecs}`
   }
 
-
   const activeColor = useThemeColor({}, 'text')
   const progressBarColor = useThemeColor({ dark: 'grey', light: 'lightgrey' }, 'secondaryText')
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
@@ -87,8 +86,8 @@ export const ProgressBar = observer((props: ProgressBarProps) => {
           progressBarColor={progressBarColor}
         />
         <ThemedView style={styles.widgetInfoAndControls}>
-          <RecitationInfo nowPlaying={props.nowPlaying} isWidget />
-          <AudioControls nowPlaying={props.nowPlaying} isWidget />
+          <RecitationInfo nowPlaying={props.nowPlaying} isWidget/>
+          <AudioControls nowPlaying={props.nowPlaying} isWidget/>
         </ThemedView>
       </Pressable>
     </Link>

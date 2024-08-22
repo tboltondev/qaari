@@ -39,7 +39,7 @@ const Reciter = inject('nowPlaying')(observer((props: Reciter) => {
       href={`/reciter/${props.id}` as Href<string>}
       onPress={handlePress}
       endIcon={isCurrentReciter && (
-        <MaterialIcons name='multitrack-audio' size={20} color='red' style={{ marginLeft: 'auto' }} /> // TODO: move hard coded color to state, make customizable
+        <MaterialIcons name="multitrack-audio" size={20} color="red" style={{ marginLeft: 'auto' }}/> // TODO: move hard coded color to state, make customizable
       )}
     >
       {props.style && (
