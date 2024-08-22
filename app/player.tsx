@@ -22,10 +22,10 @@ function Player (props: PlayerProps) {
       <ThemedView style={[styles.notch, { backgroundColor: notchColor }]}></ThemedView>
       <ThemedView style={styles.image}></ThemedView>
       <ThemedView style={styles.progressBarContainer}>
-        <ProgressBar nowPlaying={props.nowPlaying} />
+        <ProgressBar nowPlaying={props.nowPlaying}/>
       </ThemedView>
-      <RecitationInfo nowPlaying={props.nowPlaying} />
-      <AudioControls nowPlaying={props.nowPlaying} />
+      <RecitationInfo nowPlaying={props.nowPlaying}/>
+      <AudioControls nowPlaying={props.nowPlaying}/>
     </ThemedView>
   )
 }

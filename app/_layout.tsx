@@ -11,7 +11,7 @@ export default function RootLayout () {
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
         <StoreProvider>
-          <RootStack />
+          <RootStack/>
         </StoreProvider>
       </AppThemeProvider>
     </QueryClientProvider>

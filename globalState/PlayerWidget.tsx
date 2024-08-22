@@ -15,7 +15,7 @@ const PlayerWidgetView = observer((props: NowPlayingProps) => {
 
   return (
     <ThemedView style={[styles.container, { backgroundColor: nowPlayingBackground }]}>
-      <ProgressBar nowPlaying={props.nowPlaying} isWidget />
+      <ProgressBar nowPlaying={props.nowPlaying} isWidget/>
     </ThemedView>
   )
 })

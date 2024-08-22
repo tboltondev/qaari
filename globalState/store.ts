@@ -63,7 +63,7 @@ export class NowPlayingStore {
   @computed
   get currentReciter (): Reciter | undefined {
     for (let reciter of this.reciters) {
-      if(reciter.id === this.reciterId) {
+      if (reciter.id === this.reciterId) {
         return reciter
       }
     }
@@ -125,17 +125,17 @@ export class NowPlayingStore {
     })
   }
 
-  saveState() {
-   AsyncStorage.setItem('nowPlaying', JSON.stringify({
-     reciterId: this.reciterId,
-     currentReciter: this.currentReciter,
-     surahNumber: this.surahNumber,
-     position: this.audioPositionMs
-   }))
+  saveState () {
+    AsyncStorage.setItem('nowPlaying', JSON.stringify({
+      reciterId: this.reciterId,
+      currentReciter: this.currentReciter,
+      surahNumber: this.surahNumber,
+      position: this.audioPositionMs
+    }))
   }
 
   @action
-  async restoreState() {
+  async restoreState () {
     const jsonState = await AsyncStorage.getItem('nowPlaying')
 
     if (jsonState) {
@@ -166,7 +166,7 @@ export class NowPlayingStore {
   }
 
   @action
-  next() {
+  next () {
     if (this.surahNumber === 114) { // TODO: handle more dynamically to allow for playlists
       this.surahNumber = 1
     } else {
@@ -176,7 +176,7 @@ export class NowPlayingStore {
   }
 
   @action
-  prev() {
+  prev () {
     if (this.surahNumber === 1) { // TODO: handle more dynamically to allow for playlists
       this.surahNumber = 114
     } else {

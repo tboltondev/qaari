@@ -13,7 +13,8 @@ export const RootStack = inject('nowPlaying')(observer((props: HomeScreenProps) 
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }}/>
         <Stack.Screen name="reciters" options={{ title: 'Reciters', headerBackTitleVisible: false }}/>
-        <Stack.Screen name="reciter/[id]" options={{ title: props.nowPlaying?.reciterPage?.name, headerBackTitleVisible: false }}/>
+        <Stack.Screen name="reciter/[id]"
+                      options={{ title: props.nowPlaying?.reciterPage?.name, headerBackTitleVisible: false }}/>
         <Stack.Screen name="player" options={{ presentation: 'modal', headerShown: false }}/>
         <Stack.Screen name="(settings)" options={{ presentation: 'modal', headerShown: false }}/>
       </Stack>
