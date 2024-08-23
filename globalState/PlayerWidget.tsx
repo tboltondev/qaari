@@ -11,7 +11,7 @@ type NowPlayingProps = {
 }
 
 const PlayerWidgetView = observer((props: NowPlayingProps) => {
-  const nowPlayingBackground = useThemeColor({}, 'secondaryBackground')
+  const nowPlayingBackground = useThemeColor({ light: '#fff' }, 'secondaryBackground')
 
   return (
     <ThemedView style={[styles.container, { backgroundColor: nowPlayingBackground }]}>
