@@ -25,6 +25,7 @@ type Reciter = {
 
 const Reciter = inject('nowPlaying')(observer((props: Reciter) => {
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
+  const tintColor = useThemeColor({}, 'tint')
 
   function handlePress () {
     props.nowPlaying.setReciterPage({ name: props.translated_name.name, id: props.id })
@@ -39,7 +40,7 @@ const Reciter = inject('nowPlaying')(observer((props: Reciter) => {
       href={`/reciter/${props.id}` as Href<string>}
       onPress={handlePress}
       endIcon={isCurrentReciter && (
-        <MaterialIcons name="multitrack-audio" size={20} color="red" style={{ marginLeft: 'auto' }}/> // TODO: move hard coded color to state, make customizable
+        <MaterialIcons name="multitrack-audio" size={20} color={tintColor} style={{ marginLeft: 'auto' }}/> // TODO: move hard coded color to state, make customizable
       )}
     >
       {props.style && (

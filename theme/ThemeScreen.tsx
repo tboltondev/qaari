@@ -13,6 +13,7 @@ export function ThemeScreen () {
   const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>(theme.mode)
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
   const textColor = useThemeColor({}, 'text')
+  const tintColor = useThemeColor({}, 'tint')
 
   const options = [
     {
@@ -55,7 +56,7 @@ export function ThemeScreen () {
       style={styles.themeItem}
       icon={item.icon}
       endIcon={activeTheme === item.theme &&
-        <Ionicons name="checkmark" size={28} color={textColor} style={styles.themeItemCheckmark}/>}
+        <Ionicons name="checkmark" size={28} color={tintColor} style={styles.themeItemCheckmark}/>}
     >
       <ThemedText style={{ fontSize: 14, paddingTop: 4, color: secondaryTextColor }}>{item.description}</ThemedText>
     </MenuItem>

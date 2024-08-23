@@ -2,13 +2,13 @@
   "expo": {
     "name": "Qaari",
     "slug": "qaari",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icon_black.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splash_black.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
