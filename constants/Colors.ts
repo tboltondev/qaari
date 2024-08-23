@@ -20,6 +20,7 @@ export const Colors = {
     disabled: '#ddd',
     separator: '#eee',
     versionNumber: '#bbb',
+    shadow: '#000',
   },
   dark: {
     text: '#ECEDEE',
@@ -34,5 +35,6 @@ export const Colors = {
     disabled: '#333',
     separator: '#333',
     versionNumber: '#555',
+    shadow: '#555',
   },
 }

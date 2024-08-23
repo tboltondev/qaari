@@ -8,15 +8,9 @@ import { SplashScreen } from 'expo-router'
 
 export default function RootLayout () {
   const queryClient = new QueryClient()
-  const [loaded] = useFonts({
+  useFonts({
     Almarai: require('../assets/fonts/Almarai-Regular.ttf'),
   })
-
-  React.useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded])
 
   return (
     <QueryClientProvider client={queryClient}>
