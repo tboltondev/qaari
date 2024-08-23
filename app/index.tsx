@@ -71,7 +71,7 @@ export default function HomeScreen () {
         <ThemedText style={[styles.title, { color: tintColor }]}>قارئ</ThemedText>
         <Link href="/(settings)" asChild>
           <Pressable>
-            <Ionicons name="settings-outline" size={25} color={textColor} style={styles.settingsIcon}/>
+            <Ionicons name="settings-outline" size={25} color={secondaryTextColor} style={styles.settingsIcon}/>
           </Pressable>
         </Link>
       </ThemedView>
