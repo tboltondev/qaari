@@ -41,13 +41,15 @@ const SurahItem = inject('nowPlaying')(observer((props: SurahItemProps) => {
     )
   }
 
+  const tintColor = useThemeColor({}, 'tint')
+
   return (
     <MenuItem
       title={<Title surahNumber={props.surahNumber} name={props.name}/>}
       href="/player"
       onPress={handlePress}
       endIcon={isCurrentReciter && isCurrentSurah && (
-        <MaterialIcons name="multitrack-audio" size={20} color="red" style={{ marginLeft: 'auto' }}/>
+        <MaterialIcons name="multitrack-audio" size={20} color={tintColor} style={{ marginLeft: 'auto' }}/> // TODO: animate this
       )}
     />
   )
