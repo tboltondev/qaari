@@ -13,8 +13,6 @@ type PlayerProps = {
 }
 
 function Player (props: PlayerProps) {
-  console.log('RENDER')
-
   const notchColor = useThemeColor({ dark: '#444', light: 'lightgrey' }, 'secondaryText')
 
   return (
