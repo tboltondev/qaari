@@ -11,11 +11,10 @@ type NowPlayingProps = {
 }
 
 const PlayerWidgetView = observer((props: NowPlayingProps) => {
-  const nowPlayingBackground = useThemeColor({}, 'background')
-  const shadowColor = useThemeColor({}, 'shadow')
+  const nowPlayingBackground = useThemeColor({ light: '#fff' }, 'secondaryBackground')
 
   return (
-    <ThemedView style={[styles.container, { backgroundColor: nowPlayingBackground, shadowColor }]}>
+    <ThemedView style={[styles.container, { backgroundColor: nowPlayingBackground }]}>
       <ProgressBar nowPlaying={props.nowPlaying} isWidget/>
     </ThemedView>
   )
@@ -44,6 +43,7 @@ const styles = StyleSheet.create({
     left: '2%',
     bottom: 40,
     shadowRadius: 8,
+    shadowColor: '#000',
     shadowOpacity: 0.8,
     shadowOffset: { width: 0, height: 0 },
     paddingVertical: 16,
