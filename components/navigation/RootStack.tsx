@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { inject, observer } from 'mobx-react'
 import { NowPlayingStore } from '@/globalState/store'
-import { ThemedSafeAreaView } from '@/components/ThemedSafeAreaView'
+import { ThemedSafeAreaView } from '@/components/theme/ThemedSafeAreaView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 
 type HomeScreenProps = {

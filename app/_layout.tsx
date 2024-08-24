@@ -1,8 +1,8 @@
 import React from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { AppThemeProvider } from '@/theme/AppThemeProvider'
-import { StoreProvider } from '@/globalState/StoreProvider'
-import { RootStack } from '@/components/RootStack'
+import { AppThemeProvider } from '@/components/theme/AppThemeProvider'
+import { NowPlayingStoreProvider } from '@/globalState/NowPlayingStoreProvider'
+import { RootStack } from '@/components/navigation/RootStack'
 import { useFonts } from 'expo-font'
 
 export default function RootLayout () {
@@ -14,9 +14,9 @@ export default function RootLayout () {
   return (
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
-        <StoreProvider>
+        <NowPlayingStoreProvider>
           <RootStack/>
-        </StoreProvider>
+        </NowPlayingStoreProvider>
       </AppThemeProvider>
     </QueryClientProvider>
   )

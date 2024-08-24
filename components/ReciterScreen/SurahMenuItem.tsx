@@ -1,9 +1,9 @@
 import { inject, observer } from 'mobx-react'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useThemeColor } from '@/hooks/useThemeColor'
-import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
-import { MenuItem } from '@/components/MenuItem'
+import { ThemedView } from '@/components/theme/ThemedView'
+import { ThemedText } from '@/components/theme/ThemedText'
+import { MenuItem } from '@/components/Menu/MenuItem'
 import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'
 

@@ -3,10 +3,10 @@ import { Link } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons, Entypo, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { useThemeColor } from '@/hooks/useThemeColor'
-import { MenuItem } from '@/components/MenuItem'
-import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
-import { Menu } from '@/components/Menu'
+import { MenuItem } from '@/components/Menu/MenuItem'
+import { ThemedView } from '@/components/theme/ThemedView'
+import { ThemedText } from '@/components/theme/ThemedText'
+import { Menu } from '@/components/Menu/Menu'
 
 export const HomeScreen = () => {
   const secondaryTextColor = useThemeColor({}, 'secondaryText')

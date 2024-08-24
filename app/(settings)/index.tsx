@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
-import { ThemedView } from '@/components/ThemedView'
-import { MenuItem } from '@/components/MenuItem'
-import { Menu } from '@/components/Menu'
-import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/theme/ThemedView'
+import { MenuItem } from '@/components/Menu/MenuItem'
+import { Menu } from '@/components/Menu/Menu'
+import { ThemedText } from '@/components/theme/ThemedText'
 import { useThemeColor } from '@/hooks/useThemeColor'
 
 const settingsItems: MenuItem[] = [
