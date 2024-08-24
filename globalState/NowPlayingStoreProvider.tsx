@@ -2,9 +2,9 @@ import React from 'react'
 import { Provider } from 'mobx-react'
 import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from 'expo-av'
 import { nowPlayingStore } from '@/globalState/store'
-import { PlayerWidget } from '@/globalState/PlayerWidget'
+import { PlayerWidget } from '@/components/Player/PlayerWidget'
 
-export function StoreProvider (props: { children: React.ReactNode }) {
+export function NowPlayingStoreProvider (props: { children: React.ReactNode }) {
   React.useEffect(() => {
     Audio.setAudioModeAsync({
       staysActiveInBackground: true,

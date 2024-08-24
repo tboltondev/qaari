@@ -2,12 +2,12 @@ import React from 'react'
 import { GestureResponderEvent, LayoutChangeEvent, Pressable, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
 import { observer } from 'mobx-react'
-import { ThemedView } from '@/components/ThemedView'
+import { ThemedView } from '@/components/theme/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { NowPlayingStore } from '@/globalState/store'
-import { ThemedText } from '@/components/ThemedText'
-import { RecitationInfo } from '@/components/RecitationInfo'
-import { AudioControls } from '@/components/AudioControls'
+import { ThemedText } from '@/components/theme/ThemedText'
+import { RecitationInfo } from '@/components/Player/RecitationInfo'
+import { AudioControls } from '@/components/Player/AudioControls'
 
 type ProgressBarProps = {
   isWidget?: boolean

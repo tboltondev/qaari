@@ -1,8 +1,8 @@
 import React from 'react'
 import { GestureResponderEvent, Pressable, StyleSheet, ViewProps } from 'react-native'
 import { Href, Link } from 'expo-router'
-import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/theme/ThemedView'
+import { ThemedText } from '@/components/theme/ThemedText'
 import { useThemeColor } from '@/hooks/useThemeColor'
 
 type CommonItemProps = ViewProps & {

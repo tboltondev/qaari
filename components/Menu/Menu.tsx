@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, FlatListProps, StyleSheet } from 'react-native'
-import { ThemedView } from '@/components/ThemedView'
+import { ThemedView } from '@/components/theme/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 
 export const Menu = (props: FlatListProps<any>) => {

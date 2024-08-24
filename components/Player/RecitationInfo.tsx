@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
-import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/theme/ThemedView'
+import { ThemedText } from '@/components/theme/ThemedText'
 import { NowPlayingStore } from '@/globalState/store'
 import { Suwar } from '@/constants/Suwar'
 import { observer } from 'mobx-react'

@@ -1,16 +1,16 @@
+import React from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 import { ThemedView } from './ThemedView'
 import { ThemedText } from './ThemedText'
-import React from 'react'
-import { AppThemeContext, ThemeOptions } from '@/theme/AppThemeContext'
+import { AppThemeContext, ThemeOptions } from '@/components/theme/AppThemeContext'
 
 export function ThemeSelector () {
   const { theme, setAppTheme } = React.useContext(AppThemeContext)
-  const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>('light')
+  const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>(ThemeOptions.System)
 
   React.useEffect(() => {
     if (theme.isSystem) {
-      setActiveTheme('system')
+      setActiveTheme(ThemeOptions.System)
     } else {
       setActiveTheme(theme.mode)
     }
@@ -26,17 +26,17 @@ export function ThemeSelector () {
       <ThemedView style={styles.options}>
 
         <Pressable style={[styles.themeButton, activeTheme === 'light' && styles.themeButtonActive]}
-                   onPress={selectTheme('light')}>
+                   onPress={selectTheme(ThemeOptions.Light)}>
           <ThemedText>Light</ThemedText>
         </Pressable>
 
         <Pressable style={[styles.themeButton, activeTheme === 'dark' && styles.themeButtonActive]}
-                   onPress={selectTheme('dark')}>
+                   onPress={selectTheme(ThemeOptions.Dark)}>
           <ThemedText>Dark</ThemedText>
         </Pressable>
 
         <Pressable style={[styles.themeButton, activeTheme === 'system' && styles.themeButtonActive]}
-                   onPress={selectTheme('system')}>
+                   onPress={selectTheme(ThemeOptions.System)}>
           <ThemedText>System</ThemedText>
         </Pressable>
 

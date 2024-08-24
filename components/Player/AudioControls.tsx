@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet } from 'react-native'
 import { observer } from 'mobx-react'
 import { Ionicons } from '@expo/vector-icons'
-import { ThemedView } from '@/components/ThemedView'
+import { ThemedView } from '@/components/theme/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { NowPlayingStore } from '@/globalState/store'
 
