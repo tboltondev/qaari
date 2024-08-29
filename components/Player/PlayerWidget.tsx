@@ -14,7 +14,10 @@ export const PlayerWidget = observer((props: PlayerWidgetProps) => {
   const widgetBackground = useThemeColor({ light: '#fff' }, 'secondaryBackground')
 
   React.useEffect(() => {
-    props.nowPlaying.restoreState()
+    (async () => {
+      await props.nowPlaying.getReciters()
+      props.nowPlaying.restoreState()
+    })()
   }, [])
 
   return !props.nowPlaying.isLoading && (

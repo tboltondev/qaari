@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router'
-import { ReciterScreen } from '@/components/ReciterScreen'
+import { ReciterScreen } from '@/components/ReciterScreen/ReciterScreen'
 
 export default function Reciter() {
   const { id } = useLocalSearchParams()

@@ -1,4 +1,4 @@
-import { RecitersScreen } from '@/components/RecitersScreen'
+import { RecitersScreen } from '@/components/RecitersScreen/RecitersScreen'
 
 export default function Reciters () {
   return <RecitersScreen />

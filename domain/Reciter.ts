@@ -1,9 +1,13 @@
 export type Reciter = {
   id: number
   name: string
-  style: string
-  translatedName: {
+  letter: string // first letter of name
+  mushaf: {
+    id: number
     name: string
-    languageName: string
-  }
+    server: string
+    surahTotal: number
+    mushafType: number
+    surahList: number[]
+  }[]
 }

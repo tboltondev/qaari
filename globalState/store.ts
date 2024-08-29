@@ -1,10 +1,17 @@
 import { action, computed, makeAutoObservable, observable, runInAction } from 'mobx'
 import { Audio, AVPlaybackStatus } from 'expo-av'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Reciter } from '@/domain/Reciter'
+import Mp3Quran from '@/services/mp3quran'
 
-type Reciter = {
-  name: string
-  id: number
+function padSurahNoWithZeroes (n: number) {
+  if (n < 10) {
+    return `00${n}`
+  } else if (n < 100) {
+    return `0${n}`
+  } else {
+    return n.toString()
+  }
 }
 
 /**
@@ -23,10 +30,9 @@ export class NowPlayingStore {
   // @observable volume: number
 
   /**
-   * stores data of reciters whose page has been visited
-   * for easier access to current reciter name based on id
+   * stores data of reciters fetched on app load
    */
-  @observable reciters: Set<Reciter> = new Set()
+  @observable reciters: { data: Set<Reciter>, error?: Error } = { data: new Set() }
   /**
    * stores reciter data for displaying name on reciter page
    */
@@ -62,7 +68,7 @@ export class NowPlayingStore {
 
   @computed
   get currentReciter (): Reciter | undefined {
-    for (let reciter of this.reciters) {
+    for (let reciter of this.reciters.data) {
       if (reciter.id === this.reciterId) {
         return reciter
       }
@@ -80,9 +86,8 @@ export class NowPlayingStore {
       await this.audio.unloadAsync()
     }
 
-    const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/${reciterId}/${surahNumber}`) // TODO: move url
-    const data = await response.json() // TODO: handle errors
-    const uri = data.audio_file.audio_url
+    const serverUrl = this.reciterPage?.mushaf[0].server // TODO: handle different qira'at
+    const uri = `${serverUrl}${padSurahNoWithZeroes(surahNumber)}.mp3`
 
     const source = { uri }
     const initialStatus = {
@@ -130,7 +135,8 @@ export class NowPlayingStore {
       reciterId: this.reciterId,
       currentReciter: this.currentReciter,
       surahNumber: this.surahNumber,
-      position: this.audioPositionMs
+      position: this.audioPositionMs,
+      reciterPage: this.reciterPage,
     }))
   }
 
@@ -141,12 +147,12 @@ export class NowPlayingStore {
     if (jsonState) {
       const state = JSON.parse(jsonState)
 
-      this.addReciter(state.currentReciter)
       runInAction(() => {
         this.reciterId = state.reciterId
         this.surahNumber = state.surahNumber
         this.audioPositionMs = state.position
         this.isLoading = false
+        this.reciterPage = state.reciterPage
       })
 
       this.load(state.reciterId, state.surahNumber, state.position)
@@ -202,7 +208,35 @@ export class NowPlayingStore {
 
   @action
   addReciter (reciter: Reciter) {
-    this.reciters.add(reciter)
+    this.reciters.data.add(reciter)
+  }
+
+  @action
+  setReciters (reciters: { data: Set<Reciter>, error?: Error }) {
+    this.reciters = reciters
+  }
+
+  @action
+  async getReciters () {
+    try {
+      const cachedReciters = await AsyncStorage.getItem("reciters")
+      if (cachedReciters) {
+        console.log("cached: ", cachedReciters)
+        this.setReciters({ data: new Set(JSON.parse(cachedReciters)) })
+        return
+      }
+
+      const reciters = await Mp3Quran.getReciters()
+      await AsyncStorage.setItem("reciters", JSON.stringify(reciters))
+
+      this.setReciters({ data: new Set(reciters) })
+    } catch (err) {
+      runInAction(() => {
+        if (err instanceof Error) {
+          this.setReciters({ data: new Set<Reciter>(), error: err })
+        }
+      })
+    }
   }
 }
 

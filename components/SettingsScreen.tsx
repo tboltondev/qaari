@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { MenuItem } from '@/components/Menu/MenuItem'
 import { Menu } from '@/components/Menu/Menu'
@@ -21,6 +22,18 @@ const settingsItems: MenuItem[] = [
   {
     title: 'Theme',
     href: '/theme',
+  },
+  {
+    title: 'Clear app data',
+    onPress: async () => {
+      try {
+        AsyncStorage.clear()
+        alert('App data cleared successfully')
+      } catch (error) {
+        alert('There was an error clearing app data')
+        console.log(error)
+      }
+    },
   }
 ]
 
