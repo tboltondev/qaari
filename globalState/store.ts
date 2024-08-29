@@ -173,21 +173,37 @@ export class NowPlayingStore {
 
   @action
   next () {
-    if (this.surahNumber === 114) { // TODO: handle more dynamically to allow for playlists
-      this.surahNumber = 1
-    } else {
-      this.surahNumber += 1
-    }
+    const surahList = this.reciterPage?.mushaf[0].surahList
+    if (!surahList) return
+
+    const nextSurah = surahList.find((surahNumber) => {
+      if ((this.surahNumber === surahList[surahList.length - 1]) && (surahNumber === surahList[0])) {
+        return true
+      }
+      return surahNumber > this.surahNumber
+    })
+
+    if (!nextSurah) return
+
+    this.surahNumber = nextSurah
     this.load(this.reciterId, this.surahNumber)
   }
 
   @action
   prev () {
-    if (this.surahNumber === 1) { // TODO: handle more dynamically to allow for playlists
-      this.surahNumber = 114
-    } else {
-      this.surahNumber -= 1
-    }
+    const surahList = this.reciterPage?.mushaf[0].surahList
+    if (!surahList) return
+
+    const prevSurah = surahList.reverse().find((surahNumber) => {
+      if ((this.surahNumber === surahList[0]) && (surahNumber === surahList[surahList.length - 1])) {
+        return true
+      }
+      return surahNumber < this.surahNumber
+    })
+
+    if (!prevSurah) return
+
+    this.surahNumber = prevSurah
     this.load(this.reciterId, this.surahNumber)
   }
 
