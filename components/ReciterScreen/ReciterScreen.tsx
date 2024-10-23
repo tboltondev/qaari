@@ -7,6 +7,8 @@ import { Menu } from '@/components/Menu/Menu'
 import { SurahMenuItem } from '@/components/ReciterScreen/SurahMenuItem'
 import { NowPlayingStore } from '@/globalState/store'
 import { SearchBar } from '@/components/SearchBar'
+import { ThemedPicker, ThemedPickerItem } from '@/components/theme/ThemedPicker'
+import { Picker } from '@/components/Picker'
 
 export const ReciterScreen = inject('nowPlaying')(observer(
   (props: { reciterId: number, nowPlaying?: NowPlayingStore }) => {
@@ -23,18 +25,36 @@ export const ReciterScreen = inject('nowPlaying')(observer(
     }
 
     function filterAvailable (surah: Surah) {
-      return props.nowPlaying?.reciterPage?.mushaf[0].surahList.includes(surah.number)
+      return props.nowPlaying?.selectedRiwayah?.surahList.includes(surah.number)
+    }
+
+    function onRiwayahChange (value: string) {
+      const selectedRiwayah = props.nowPlaying?.availableRiwayat?.find(r => (
+        r.riwayah.id === parseInt(value)
+      ))
+
+      if (selectedRiwayah) {
+        props.nowPlaying?.selectRiwayah(selectedRiwayah)
+      }
     }
 
     return (
       <ThemedView style={styles.container}>
-        <SearchBar value={searchTerm} onChangeText={setSearchTerm} />
+        <SearchBar value={searchTerm} onChangeText={setSearchTerm}/>
+
+        <Picker
+          value={props.nowPlaying?.selectedRiwayah?.riwayah.name || ""}
+          data={props.nowPlaying?.availableRiwayat?.map(r => r.riwayah.id.toString()) || []}
+          onChange={() => {}}
+        />
+
         <Menu
           data={Suwar.filter((surah) => filterAvailable(surah) && filterBySearch(surah))}
           renderItem={({ item }) =>
             <SurahMenuItem
               surahNumber={item.number}
               reciterId={props.reciterId}
+              riwayahId={props.nowPlaying?.selectedRiwayah?.riwayah.id}
               name={item.name}
             />
           }

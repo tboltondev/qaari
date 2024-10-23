@@ -3,6 +3,7 @@ import { Audio, AVPlaybackStatus } from 'expo-av'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Reciter } from '@/domain/Reciter'
 import Mp3Quran from '@/services/mp3quran'
+import { Riwayah } from '@/domain/Riwayah'
 
 function padSurahNoWithZeroes (n: number) {
   if (n < 10) {
@@ -12,6 +13,11 @@ function padSurahNoWithZeroes (n: number) {
   } else {
     return n.toString()
   }
+}
+
+type RiwayahSelection = {
+  riwayah: Riwayah
+  surahList: number[]
 }
 
 /**
@@ -37,6 +43,9 @@ export class NowPlayingStore {
    * stores reciter data for displaying name on reciter page
    */
   @observable reciterPage?: Reciter
+  @observable riwayahId?: number
+  @observable availableRiwayat?: RiwayahSelection[]
+  @observable selectedRiwayah?: RiwayahSelection
 
   constructor (
     reciterId: number,
@@ -86,7 +95,11 @@ export class NowPlayingStore {
       await this.audio.unloadAsync()
     }
 
-    const serverUrl = this.reciterPage?.mushaf[0].server // TODO: handle different qira'at
+    const riwayah = this.reciterPage?.mushaf.find(
+      (mushaf) => mushaf.mushafType === this.selectedRiwayah?.riwayah.id // TODO: mushaf type should probably be passed in to the function
+    )
+
+    const serverUrl = riwayah?.server
     const uri = `${serverUrl}${padSurahNoWithZeroes(surahNumber)}.mp3`
 
     const source = { uri }
@@ -124,6 +137,7 @@ export class NowPlayingStore {
     runInAction(() => {
       this.reciterId = reciterId
       this.surahNumber = surahNumber
+      this.riwayahId = riwayah?.id
       this.audio = audio.sound
       this.isLoading = false
       this.isPlaying = !audioPosition
@@ -135,6 +149,7 @@ export class NowPlayingStore {
       reciterId: this.reciterId,
       currentReciter: this.currentReciter,
       surahNumber: this.surahNumber,
+      riwayahId: this.riwayahId,
       position: this.audioPositionMs,
       reciterPage: this.reciterPage,
     }))
@@ -150,6 +165,7 @@ export class NowPlayingStore {
       runInAction(() => {
         this.reciterId = state.reciterId
         this.surahNumber = state.surahNumber
+        this.riwayahId = state.riwayahId
         this.audioPositionMs = state.position
         this.isLoading = false
         this.reciterPage = state.reciterPage
@@ -173,7 +189,7 @@ export class NowPlayingStore {
 
   @action
   next () {
-    const surahList = this.reciterPage?.mushaf[0].surahList
+    const surahList = this.selectedRiwayah?.surahList
     if (!surahList) return
 
     const nextSurah = surahList.find((surahNumber) => {
@@ -191,7 +207,7 @@ export class NowPlayingStore {
 
   @action
   prev () {
-    const surahList = this.reciterPage?.mushaf[0].surahList
+    const surahList = this.selectedRiwayah?.surahList
     if (!surahList) return
 
     const prevSurah = surahList.reverse().find((surahNumber) => {
@@ -220,6 +236,31 @@ export class NowPlayingStore {
   @action
   setReciterPage (reciter: Reciter) {
     this.reciterPage = reciter
+
+    const availableRiwayat = reciter.mushaf.map(m => ({
+      riwayah: { id: m.mushafType, name: m.name },
+      surahList: m.surahList,
+    }))
+
+    const biggestSurahList = availableRiwayat.reduce((prev, curr) => {
+      if (curr.surahList.length > prev.surahList.length) {
+        return curr
+      }
+      return prev
+    }, availableRiwayat[0])
+
+    this.setAvailableRiwayat(availableRiwayat)
+    this.selectRiwayah(biggestSurahList)
+  }
+
+  @action
+  setAvailableRiwayat (availableRiwayat: RiwayahSelection[]) {
+    this.availableRiwayat = availableRiwayat
+  }
+
+  @action
+  selectRiwayah (selectedRiwayah: RiwayahSelection) {
+    this.selectedRiwayah = selectedRiwayah
   }
 
   @action
@@ -237,7 +278,6 @@ export class NowPlayingStore {
     try {
       const cachedReciters = await AsyncStorage.getItem("reciters")
       if (cachedReciters) {
-        console.log("cached: ", cachedReciters)
         this.setReciters({ data: new Set(JSON.parse(cachedReciters)) })
         return
       }

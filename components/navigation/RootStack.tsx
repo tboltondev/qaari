@@ -39,6 +39,9 @@ export const RootStack = inject('nowPlaying')(observer((props: HomeScreenProps) 
           name="(settings)"
           options={{ presentation: 'modal', headerShown: false }}
         />
+        <Stack.Screen
+          name="picker"
+        />
       </Stack>
     </ThemedSafeAreaView>
   )

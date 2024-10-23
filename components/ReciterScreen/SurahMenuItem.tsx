@@ -10,6 +10,7 @@ import { NowPlayingStore } from '@/globalState/store'
 type SurahItemProps = {
   surahNumber: number
   reciterId: number
+  riwayahId?: number
   name: string
   nowPlaying?: NowPlayingStore // made nullable so component is not expecting prop, if injected it will not be null
 }
@@ -18,6 +19,7 @@ export const SurahMenuItem = inject('nowPlaying')(observer(
   (props: SurahItemProps) => {
     const isCurrentReciter = props.nowPlaying?.reciterId === props.reciterId
     const isCurrentSurah = props.nowPlaying?.surahNumber === props.surahNumber
+    const isCurrentRiwayah = props.nowPlaying?.riwayahId === props.riwayahId // TODO: fix this
     const tintColor = useThemeColor({}, 'tint')
 
     function handlePress () {
@@ -29,8 +31,8 @@ export const SurahMenuItem = inject('nowPlaying')(observer(
       <MenuItem
         title={<Title surahNumber={props.surahNumber} name={props.name}/>}
         href="/player"
-        onPress={(!isCurrentReciter || !isCurrentSurah) ? handlePress : undefined}
-        endIcon={isCurrentReciter && isCurrentSurah && (
+        onPress={(!isCurrentReciter || !isCurrentSurah || !isCurrentRiwayah) ? handlePress : undefined}
+        endIcon={isCurrentReciter && isCurrentSurah && isCurrentRiwayah && (
           <MaterialIcons name="multitrack-audio" size={20} color={tintColor} style={{ marginLeft: 'auto' }}/> // TODO: animate this
         )}
       />
