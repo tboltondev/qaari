@@ -32,6 +32,8 @@ export class NowPlayingStore {
    */
   @observable reciterPage?: Reciter
 
+  @observable ayahTimings?: any[] // TODO: proper type
+
   constructor (
     reciterId: number,
     surahNumber: number,
@@ -69,6 +71,28 @@ export class NowPlayingStore {
     }
   }
 
+  @action
+  async loadAudio (reciterId: number, surahNumber: number) {
+    const url = `https://api.qurancdn.com/api/qdc/audio/reciters/${reciterId}/audio_files?chapter=${surahNumber}&segments=true`
+    const response = await fetch(url) // TODO: add type
+    const data = await response.json() // TODO: handle errors
+    runInAction(() => {
+      this.ayahTimings = data.audio_files[0].verse_timings
+    })
+    return data.audio_files[0].audio_url
+  }
+
+  @observable surahText?: any[] // move to constant
+  @action
+  async loadText (surahNumber: number) {
+    const url = `https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${surahNumber}`
+    const response = await fetch(url)
+    const data = await response.json()
+    runInAction(() => {
+      this.surahText = data.verses
+    })
+  }
+
   /**
    * @description
    * loads audio based on reciter and surah
@@ -80,9 +104,11 @@ export class NowPlayingStore {
       await this.audio.unloadAsync()
     }
 
-    const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/${reciterId}/${surahNumber}`) // TODO: move url
-    const data = await response.json() // TODO: handle errors
-    const uri = data.audio_file.audio_url
+    // const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/${reciterId}/${surahNumber}`) // TODO: move url
+    const uri = await this.loadAudio(reciterId, surahNumber)
+
+    // const data = await response.json() // TODO: handle errors
+    // const uri = data.audio_file.audio_url
 
     const source = { uri }
     const initialStatus = {
