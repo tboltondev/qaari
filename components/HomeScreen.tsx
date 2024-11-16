@@ -20,7 +20,7 @@ export const HomeScreen = () => {
       href: '/reciters',
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Ionicons name="mic-sharp" size={20} color='white'/>
+          <Ionicons name="mic-sharp" size={20} color="white"/>
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
@@ -32,7 +32,7 @@ export const HomeScreen = () => {
       disabled: true,
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Entypo name="list" size={20} color='white'/>
+          <Entypo name="list" size={20} color="white"/>
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
@@ -55,7 +55,7 @@ export const HomeScreen = () => {
       disabled: true,
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <MaterialCommunityIcons name="selection" size={20} color='white'/>
+          <MaterialCommunityIcons name="selection" size={20} color="white"/>
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   mainMenu: {
-    paddingTop: 50
+    paddingTop: 50,
   },
   mainMenuItem: {
     padding: 20,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   title: {
     paddingStart: 30,
