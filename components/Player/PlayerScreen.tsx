@@ -9,6 +9,7 @@ import { RecitationInfo } from '@/components/Player/RecitationInfo'
 import { ProgressBar } from '@/components/Player/ProgressBar'
 import { UthmaniText } from '@/constants/Uthmani'
 import { ThemedText } from '@/components/theme/ThemedText'
+import { getEasternArabicNumbers } from '@/utils/getEasternArabicNumbers'
 
 type PlayerProps = {
   nowPlaying?: NowPlayingStore
@@ -18,13 +19,14 @@ export const PlayerScreen = inject('nowPlaying')(observer(
   (props: PlayerProps) => {
     const notchColor = useThemeColor({ dark: '#444', light: 'lightgrey' }, 'secondaryText')
     const text = UthmaniText.find(ayah => ayah.verseKey === `${props.nowPlaying?.surahNumber}:${props.nowPlaying?.currentAyah}`)?.text || ''
+    const ayahNumber = props.nowPlaying?.currentAyah ? getEasternArabicNumbers(props.nowPlaying.currentAyah) : null;
 
     return (
       <ThemedView style={styles.playerContainer}>
         <ThemedView style={[styles.notch, { backgroundColor: notchColor }]}></ThemedView>
-        <ThemedView style={styles.text}>
-          <ThemedText>
-            {text}
+        <ThemedView style={styles.textContainer}>
+          <ThemedText style={styles.text}>
+            {text} {ayahNumber}
           </ThemedText>
         </ThemedView>
         <ThemedView style={styles.progressBarContainer}>
@@ -50,13 +52,16 @@ const styles = StyleSheet.create({
     top: 20,
     borderRadius: 10,
   },
-  text: {
-    width: 300,
+  textContainer: {
+    width: '96%',
     height: 300,
-    backgroundColor: '#222',
-    borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text: {
+    fontFamily: 'KFGQPC',
+    fontSize: 24,
+    lineHeight: 36,
   },
   progressBarContainer: {
     flexDirection: 'column',

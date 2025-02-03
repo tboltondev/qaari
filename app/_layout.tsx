@@ -9,6 +9,7 @@ export default function RootLayout () {
   const queryClient = new QueryClient()
   useFonts({
     Almarai: require('../assets/fonts/Almarai-Regular.ttf'),
+    KFGQPC: require('../assets/fonts/KFGQPC-Uthmanic-Script-HAFS-Regular.otf'),
   })
 
   return (
