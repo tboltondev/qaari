@@ -8,8 +8,8 @@ import { AudioControls } from '@/components/Player/AudioControls'
 import { RecitationInfo } from '@/components/Player/RecitationInfo'
 import { ProgressBar } from '@/components/Player/ProgressBar'
 import { ThemedText } from '@/components/theme/ThemedText'
-import UthmaniText from '@/constants/UthmaniHafsText.json'
-import TranlsationText from '@/constants/en-sahih.json'
+import UthmaniText from '@/content/quran/uthmani.hafs.json'
+import TranlsationText from '@/content/tranlsations/sahih.en.json'
 import { getArabicNumber } from '@/utils/getArabicNumber'
 
 interface PlayerProps {
