@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { ThemedText } from '@/components/theme/ThemedText'
 import { NowPlayingStore } from '@/globalState/store'
-import { Suwar } from '@/constants/Suwar'
+import SurahNames from '@/constants/SurahNames.json'
 import { observer } from 'mobx-react'
 import { useThemeColor } from '@/hooks/useThemeColor'
 
-type RecitationInfoProps = {
+interface RecitationInfoProps {
   isWidget?: boolean
   nowPlaying: NowPlayingStore
 }
@@ -17,12 +17,14 @@ export const RecitationInfo = observer((props: RecitationInfoProps) => {
   return (
     <ThemedView style={props.isWidget ? styles.widgetContainer : styles.playerViewContainer}>
       <ThemedText style={[styles.surahName, !props.isWidget && styles.playerViewSurahName]}>
+        {/* TODO: show surah name in arabic as well as well as selected lang */}
         {!props.nowPlaying.isLoading
-          ? Suwar[props.nowPlaying.surahNumber - 1].name
+          ? SurahNames[props.nowPlaying.surahNumber - 1].name
           : '-' // TODO: loading component
         }
       </ThemedText>
       <ThemedText style={[{ color: secondaryTextColor }, !props.isWidget && styles.playerViewReciterName]}>
+        {/* TODO: show reciter name in arabic as well as well as selected lang */}
         {!props.nowPlaying.isLoading
           ? props.nowPlaying.currentReciter?.name
           : '-' // TODO: loading component
@@ -34,18 +36,18 @@ export const RecitationInfo = observer((props: RecitationInfoProps) => {
 
 const styles = StyleSheet.create({
   playerViewContainer: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   surahName: {
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   playerViewSurahName: {
-    fontSize: 20,
+    fontSize: 20
   },
   playerViewReciterName: {
-    fontSize: 18,
+    fontSize: 18
   },
   widgetContainer: {
-    backgroundColor: 'transparent',
-  },
+    backgroundColor: 'transparent'
+  }
 })

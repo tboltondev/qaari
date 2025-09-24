@@ -9,7 +9,7 @@ import { ThemedText } from '@/components/theme/ThemedText'
 import { RecitationInfo } from '@/components/Player/RecitationInfo'
 import { AudioControls } from '@/components/Player/AudioControls'
 
-type ProgressBarProps = {
+interface ProgressBarProps {
   isWidget?: boolean
   nowPlaying: NowPlayingStore
 }
@@ -34,7 +34,7 @@ const CommonProgressBar = observer((props: CommonProgressBarProps) => {
           styles.progressBarActive,
           {
             width: `${props.nowPlaying.percentageElapsed}%`,
-            backgroundColor: props.activeColor,
+            backgroundColor: props.activeColor
           }
         ]}
       />
@@ -75,62 +75,64 @@ export const ProgressBar = observer((props: ProgressBarProps) => {
   const progressBarColor = useThemeColor({ dark: 'grey', light: 'lightgrey' }, 'secondaryText')
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
 
-  return props.isWidget ? (
-    <Link href="/player" asChild>
-      <Pressable style={styles.widgetPressable}>
+  return props.isWidget
+    ? (
+      <Link href='/player' asChild>
+        <Pressable style={styles.widgetPressable}>
+          <CommonProgressBar
+            isWidget
+            nowPlaying={props.nowPlaying}
+            onLayout={handleProgressBarLayoutChange}
+            activeColor={activeColor}
+            progressBarColor={progressBarColor}
+          />
+          <ThemedView style={styles.widgetInfoAndControls}>
+            <RecitationInfo nowPlaying={props.nowPlaying} isWidget />
+            <AudioControls nowPlaying={props.nowPlaying} isWidget />
+          </ThemedView>
+        </Pressable>
+      </Link>
+      )
+    : (
+      <Pressable style={styles.playerViewPressable} onPress={handleProgressBarPress}>
         <CommonProgressBar
-          isWidget
           nowPlaying={props.nowPlaying}
           onLayout={handleProgressBarLayoutChange}
           activeColor={activeColor}
           progressBarColor={progressBarColor}
         />
-        <ThemedView style={styles.widgetInfoAndControls}>
-          <RecitationInfo nowPlaying={props.nowPlaying} isWidget/>
-          <AudioControls nowPlaying={props.nowPlaying} isWidget/>
+        <ThemedView style={styles.progressBarTimes}>
+          <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
+            {displayTime(props.nowPlaying.audioPositionMs)}
+          </ThemedText>
+          <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
+            {displayTime(props.nowPlaying.audioDurationMs)}
+          </ThemedText>
         </ThemedView>
       </Pressable>
-    </Link>
-  ) : (
-    <Pressable style={styles.playerViewPressable} onPress={handleProgressBarPress}>
-      <CommonProgressBar
-        nowPlaying={props.nowPlaying}
-        onLayout={handleProgressBarLayoutChange}
-        activeColor={activeColor}
-        progressBarColor={progressBarColor}
-      />
-      <ThemedView style={styles.progressBarTimes}>
-        <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
-          {displayTime(props.nowPlaying.audioPositionMs)}
-        </ThemedText>
-        <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
-          {displayTime(props.nowPlaying.audioDurationMs)}
-        </ThemedText>
-      </ThemedView>
-    </Pressable>
-  )
+      )
 })
 
 const styles = StyleSheet.create({
   playerViewProgressBar: {
     width: '100%',
     height: 4,
-    borderRadius: 20,
+    borderRadius: 20
   },
   widgetProgressBar: {
     width: '94%',
     height: 4,
-    borderRadius: 20,
+    borderRadius: 20
   },
   progressBarActive: {
     position: 'absolute',
     height: 4,
     width: 0,
-    borderRadius: 20,
+    borderRadius: 20
   },
   widgetPressable: {
     width: '100%',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   playerViewPressable: {
     position: 'absolute',
@@ -139,15 +141,15 @@ const styles = StyleSheet.create({
     top: -20,
     marginHorizontal: 6,
     backgroundColor: 'transparent',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   progressBarTimes: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 10
   },
   timeText: {
-    fontSize: 14,
+    fontSize: 14
   },
   widgetInfoAndControls: {
     flexDirection: 'row',
@@ -155,6 +157,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: '100%',
     backgroundColor: 'transparent',
-    paddingHorizontal: 10,
-  },
+    paddingHorizontal: 10
+  }
 })

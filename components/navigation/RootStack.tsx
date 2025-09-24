@@ -4,7 +4,7 @@ import { NowPlayingStore } from '@/globalState/store'
 import { ThemedSafeAreaView } from '@/components/theme/ThemedSafeAreaView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 
-type HomeScreenProps = {
+interface HomeScreenProps {
   nowPlaying?: NowPlayingStore // this is nullable so it won't be expected to be passed from parent TODO: create store prop type
 }
 
@@ -17,26 +17,27 @@ export const RootStack = inject('nowPlaying')(observer((props: HomeScreenProps) 
       <Stack screenOptions={{
         headerTintColor: tintColor,
         headerShadowVisible: false,
-        headerStyle: { backgroundColor },
-      }}>
+        headerStyle: { backgroundColor }
+      }}
+      >
         <Stack.Screen
-          name="index"
+          name='index'
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="reciters"
+          name='reciters'
           options={{ title: 'Reciters', headerBackTitleVisible: false }}
         />
         <Stack.Screen
-          name="reciter/[id]"
+          name='reciter/[id]'
           options={{ title: props.nowPlaying?.reciterPage?.name, headerBackTitleVisible: false }}
         />
         <Stack.Screen
-          name="player"
+          name='player'
           options={{ presentation: 'modal', headerShown: false }}
         />
         <Stack.Screen
-          name="(settings)"
+          name='(settings)'
           options={{ presentation: 'modal', headerShown: false }}
         />
       </Stack>

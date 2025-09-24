@@ -31,14 +31,17 @@ const CommonItem = ({
     <ThemedView style={[styles.menuItem, style]} {...otherProps}>
       {icon}
       <ThemedView style={styles.menuItemText}>
-        {typeof title === 'string' ? (
-          <ThemedText style={[{
-            fontSize: fontSize || 18,
-            fontWeight: fontWeight || 'normal'
-          }, disabled && { color: disabledColor }]}>
-            {title}
-          </ThemedText>
-        ) : title}
+        {typeof title === 'string'
+          ? (
+            <ThemedText style={[{
+              fontSize: fontSize || 18,
+              fontWeight: fontWeight || 'normal'
+            }, disabled && { color: disabledColor }]}
+            >
+              {title}
+            </ThemedText>
+            )
+          : title}
         {otherProps.children}
       </ThemedView>
       {endIcon}
@@ -46,12 +49,12 @@ const CommonItem = ({
   )
 }
 
-export type MenuItem = CommonItemProps & {
+export type MenuItemProps = CommonItemProps & {
   href?: Href<string>
   onPress?: (e: GestureResponderEvent | React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
 
-export function MenuItem ({ href, onPress, ...commonProps }: MenuItem) {
+export function MenuItem ({ href, onPress, ...commonProps }: MenuItemProps) {
   if (href) {
     return (
       <Link href={href} disabled={commonProps.disabled} onPress={onPress} asChild>
@@ -62,7 +65,7 @@ export function MenuItem ({ href, onPress, ...commonProps }: MenuItem) {
     )
   }
 
-  if (onPress) {
+  if (onPress != null) {
     return (
       <Pressable disabled={commonProps.disabled} onPress={onPress}>
         <CommonItem {...commonProps} />
@@ -79,9 +82,9 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     marginHorizontal: 16,
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   menuItemText: {
-    backgroundColor: 'transparent',
-  },
+    backgroundColor: 'transparent'
+  }
 })

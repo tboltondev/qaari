@@ -6,7 +6,7 @@ import { useThemeColor } from '@/hooks/useThemeColor'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { ProgressBar } from '@/components/Player/ProgressBar'
 
-type PlayerWidgetProps = {
+interface PlayerWidgetProps {
   nowPlaying: NowPlayingStore
 }
 
@@ -15,11 +15,11 @@ export const PlayerWidget = observer((props: PlayerWidgetProps) => {
 
   React.useEffect(() => {
     props.nowPlaying.restoreState()
-  }, [])
+  }, [props.nowPlaying])
 
   return !props.nowPlaying.isLoading && (
     <ThemedView style={[styles.container, { backgroundColor: widgetBackground }]}>
-      <ProgressBar nowPlaying={props.nowPlaying} isWidget/>
+      <ProgressBar nowPlaying={props.nowPlaying} isWidget />
     </ThemedView>
   )
 })
@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowOffset: { width: 0, height: 0 },
     paddingVertical: 16,
-    borderRadius: 15,
-  },
+    borderRadius: 15
+  }
 })

@@ -12,14 +12,14 @@ export function NowPlayingStoreProvider (props: { children: React.ReactNode }) {
       interruptionModeIOS: InterruptionModeIOS.DuckOthers,
       interruptionModeAndroid: InterruptionModeAndroid.DuckOthers,
       shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: true,
+      playThroughEarpieceAndroid: true
     })
   })
 
   return (
     <Provider nowPlaying={nowPlayingStore}>
       {props.children}
-      <PlayerWidget nowPlaying={nowPlayingStore}/>
+      <PlayerWidget nowPlaying={nowPlayingStore} />
     </Provider>
   )
 }

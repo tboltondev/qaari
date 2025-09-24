@@ -7,7 +7,7 @@ import { MenuItem } from '@/components/Menu/MenuItem'
 import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'
 
-type SurahItemProps = {
+interface SurahItemProps {
   surahNumber: number
   reciterId: number
   name: string
@@ -21,16 +21,16 @@ export const SurahMenuItem = inject('nowPlaying')(observer(
     const tintColor = useThemeColor({}, 'tint')
 
     function handlePress () {
-        props.nowPlaying?.load(props.reciterId, props.surahNumber)
+      props.nowPlaying?.load(props.reciterId, props.surahNumber)
     }
 
     return (
       <MenuItem
-        title={<Title surahNumber={props.surahNumber} name={props.name}/>}
-        href="/player"
+        title={<Title surahNumber={props.surahNumber} name={props.name} />}
+        href='/player'
         onPress={(!isCurrentReciter || !isCurrentSurah) ? handlePress : undefined}
         endIcon={isCurrentReciter && isCurrentSurah && (
-          <MaterialIcons name="multitrack-audio" size={20} color={tintColor} style={{ marginLeft: 'auto' }}/> // TODO: animate this
+          <MaterialIcons name='multitrack-audio' size={20} color={tintColor} style={{ marginLeft: 'auto' }} /> // TODO: animate this
         )}
       />
     )
@@ -50,6 +50,6 @@ const Title = (props: { surahNumber: number, name: string }) => {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
-  },
+    flexDirection: 'row'
+  }
 })

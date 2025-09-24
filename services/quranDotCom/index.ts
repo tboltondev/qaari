@@ -13,10 +13,10 @@ const QuranDotCom = {
       style: reciter.style,
       translatedName: {
         name: reciter.translated_name.name,
-        languageName: reciter.translated_name.language_name,
-      },
+        languageName: reciter.translated_name.language_name
+      }
     }))
-  },
+  }
 }
 
 export default QuranDotCom

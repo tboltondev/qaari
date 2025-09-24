@@ -1,4 +1,4 @@
-export type QuranDotComReciter = {
+export interface QuranDotComReciter {
   id: number
   reciter_name: string
   style: string

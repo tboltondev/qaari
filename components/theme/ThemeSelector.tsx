@@ -25,21 +25,26 @@ export function ThemeSelector () {
       <ThemedText>Theme</ThemedText>
       <ThemedView style={styles.options}>
 
-        <Pressable style={[styles.themeButton, activeTheme === 'light' && styles.themeButtonActive]}
-                   onPress={selectTheme(ThemeOptions.Light)}>
+        <Pressable
+          style={[styles.themeButton, activeTheme === 'light' && styles.themeButtonActive]}
+          onPress={selectTheme(ThemeOptions.Light)}
+        >
           <ThemedText>Light</ThemedText>
         </Pressable>
 
-        <Pressable style={[styles.themeButton, activeTheme === 'dark' && styles.themeButtonActive]}
-                   onPress={selectTheme(ThemeOptions.Dark)}>
+        <Pressable
+          style={[styles.themeButton, activeTheme === 'dark' && styles.themeButtonActive]}
+          onPress={selectTheme(ThemeOptions.Dark)}
+        >
           <ThemedText>Dark</ThemedText>
         </Pressable>
 
-        <Pressable style={[styles.themeButton, activeTheme === 'system' && styles.themeButtonActive]}
-                   onPress={selectTheme(ThemeOptions.System)}>
+        <Pressable
+          style={[styles.themeButton, activeTheme === 'system' && styles.themeButtonActive]}
+          onPress={selectTheme(ThemeOptions.System)}
+        >
           <ThemedText>System</ThemedText>
         </Pressable>
-
 
       </ThemedView>
     </ThemedView>
@@ -48,15 +53,15 @@ export function ThemeSelector () {
 
 const styles = StyleSheet.create({
   options: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   themeButton: {
     marginVertical: 10,
     marginHorizontal: 15,
-    paddingHorizontal: 5,
+    paddingHorizontal: 5
   },
   themeButtonActive: {
     borderBottomWidth: 3,
-    borderBottomColor: 'blue',
-  },
+    borderBottomColor: 'blue'
+  }
 })

@@ -11,13 +11,13 @@ export const LoadingMenuItem = (props: { width: number }) => {
         Animated.timing(opacityValue, {
           toValue: 0.9,
           duration: 1000,
-          useNativeDriver: true,
+          useNativeDriver: true
         }),
         Animated.timing(opacityValue, {
           toValue: 0.3,
           duration: 1000,
-          useNativeDriver: true,
-        }),
+          useNativeDriver: true
+        })
       ])
     ).start()
   }, [opacityValue])
@@ -25,7 +25,8 @@ export const LoadingMenuItem = (props: { width: number }) => {
   return (
     <ThemedView style={styles.menuItem}>
       <Animated.View
-        style={[styles.menuItemTextLoading, { width: props.width, opacity: opacityValue }]}></Animated.View>
+        style={[styles.menuItemTextLoading, { width: props.width, opacity: opacityValue }]}
+      />
     </ThemedView>
   )
 }
@@ -34,11 +35,11 @@ const styles = StyleSheet.create({
   menuItem: {
     padding: 10,
     marginVertical: 4,
-    marginHorizontal: 16,
+    marginHorizontal: 16
   },
   menuItemTextLoading: {
     height: 18,
     backgroundColor: 'grey',
-    borderRadius: 20,
+    borderRadius: 20
   }
 })

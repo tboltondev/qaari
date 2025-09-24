@@ -11,16 +11,18 @@ export default function SettingsLayout () {
     <Stack screenOptions={{
       headerTintColor: tintColor,
       headerShadowVisible: false,
-      headerStyle: { backgroundColor },
-    }}>
+      headerStyle: { backgroundColor }
+    }}
+    >
       <Stack.Screen
-        name="index" options={{
-        title: 'Settings',
-        headerShown: true,
-        headerLeft: () => <Ionicons name="close" size={22} color={tintColor} onPress={() => { router.back() }}/>,
-      }}
+        // TODO: back button to this screen is called 'index'
+        name='index' options={{
+          title: 'Settings',
+          headerShown: true,
+          headerLeft: () => <Ionicons name='close' size={22} color={tintColor} onPress={() => { router.back() }} />
+        }}
       />
-      <Stack.Screen name="theme" options={{ title: 'Theme', headerShown: true, headerBackVisible: true }}/>
+      <Stack.Screen name='theme' options={{ title: 'Theme', headerShown: true, headerBackVisible: true }} />
     </Stack>
   )
 }
