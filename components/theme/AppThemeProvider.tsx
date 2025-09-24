@@ -8,13 +8,6 @@ export function AppThemeProvider ({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = React.useState<Theme>({ mode: ThemeOptions.Light, isSystem: false })
   const systemTheme = useColorScheme()
 
-  const fromStorage = (storedTheme: string | null): Theme => {
-    if (storedTheme === 'system' || !storedTheme) {
-      return { mode: systemTheme === 'dark' ? ThemeOptions.Dark : ThemeOptions.Light, isSystem: true }
-    }
-    return { mode: storedTheme as ThemeMode, isSystem: false }
-  }
-
   const fromThemeOption = (themeOption: ThemeOptions): Theme => {
     if (themeOption === ThemeOptions.System) {
       return { mode: systemTheme === 'dark' ? ThemeOptions.Dark : ThemeOptions.Light, isSystem: true }
@@ -23,6 +16,13 @@ export function AppThemeProvider ({ children }: { children: React.ReactNode }) {
   }
 
   React.useEffect(() => {
+    const fromStorage = (storedTheme: string | null): Theme => {
+      if (storedTheme === 'system' || !storedTheme) {
+        return { mode: systemTheme === 'dark' ? ThemeOptions.Dark : ThemeOptions.Light, isSystem: true }
+      }
+      return { mode: storedTheme as ThemeMode, isSystem: false }
+    }
+
     const getTheme = async () => {
       try {
         const savedTheme = await AsyncStorage.getItem('theme')
@@ -52,4 +52,3 @@ export function AppThemeProvider ({ children }: { children: React.ReactNode }) {
 
   )
 }
-

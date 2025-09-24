@@ -2,7 +2,7 @@ import { action, computed, makeAutoObservable, observable, runInAction } from 'm
 import { Audio, AVPlaybackStatus } from 'expo-av'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-type Reciter = {
+interface Reciter {
   name: string
   id: number
 }
@@ -32,6 +32,8 @@ export class NowPlayingStore {
    */
   @observable reciterPage?: Reciter
 
+  @observable ayahTimings?: any[] // TODO: proper type
+
   constructor (
     reciterId: number,
     surahNumber: number,
@@ -41,7 +43,7 @@ export class NowPlayingStore {
     shouldPlay: boolean,
     isLoading: boolean,
     isPlaying: boolean,
-    isBuffering: boolean,
+    isBuffering: boolean
   ) {
     makeAutoObservable(this)
     this.reciterId = reciterId
@@ -62,11 +64,32 @@ export class NowPlayingStore {
 
   @computed
   get currentReciter (): Reciter | undefined {
-    for (let reciter of this.reciters) {
+    for (const reciter of this.reciters) {
       if (reciter.id === this.reciterId) {
         return reciter
       }
     }
+  }
+
+  @computed
+  get currentAyah (): number {
+    const ayahIndex = this.ayahTimings?.findIndex((ayah) => {
+      return ayah.timestamp_from < this.audioPositionMs * 1.01 && this.audioPositionMs * 1.01 <= ayah.timestamp_to
+    })
+
+    return (ayahIndex || 0) + 1
+  }
+
+  @action
+  async loadAudio (reciterId: number, surahNumber: number) {
+    // TODO: move url
+    const url = `https://api.qurancdn.com/api/qdc/audio/reciters/${reciterId}/audio_files?chapter=${surahNumber}&segments=true`
+    const response = await fetch(url) // TODO: add type
+    const data = await response.json() // TODO: handle errors
+    runInAction(() => {
+      this.ayahTimings = data.audio_files[0].verse_timings
+    })
+    return data.audio_files[0].audio_url
   }
 
   /**
@@ -80,9 +103,7 @@ export class NowPlayingStore {
       await this.audio.unloadAsync()
     }
 
-    const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/${reciterId}/${surahNumber}`) // TODO: move url
-    const data = await response.json() // TODO: handle errors
-    const uri = data.audio_file.audio_url
+    const uri = await this.loadAudio(reciterId, surahNumber)
 
     const source = { uri }
     const initialStatus = {
@@ -97,6 +118,7 @@ export class NowPlayingStore {
         if (status.didJustFinish) {
           return this.next()
         }
+
         runInAction(() => {
           this.audioPositionMs = status.positionMillis
           this.audioDurationMs = status.durationMillis || 0
@@ -104,8 +126,10 @@ export class NowPlayingStore {
           this.isPlaying = status.isPlaying
           this.isBuffering = status.isBuffering
         })
+
         this.saveState()
       } else if (status.error) {
+        // TODO: log collector
         console.log(`Error with audio: ${status.error}`)
       }
     }
@@ -113,7 +137,7 @@ export class NowPlayingStore {
     const audio = await Audio.Sound.createAsync(
       source,
       initialStatus,
-      onPlayBackStatusUpdate,
+      onPlayBackStatusUpdate
     )
 
     runInAction(() => {
@@ -209,11 +233,11 @@ export class NowPlayingStore {
 export const nowPlayingStore = new NowPlayingStore(
   0,
   0,
-  new Audio.Sound,
+  new Audio.Sound(),
   0,
   0,
   false,
   true,
   false,
-  false,
+  false
 )

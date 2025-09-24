@@ -14,17 +14,20 @@ export const HomeScreen = () => {
 
   const gradientColors = ['#4464ad', '#05b2dc']
 
-  const menuItems: MenuItem[] = [
+  // TODO: fix type
+  const menuItems = [
     {
       title: 'Reciters',
       href: '/reciters',
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Ionicons name="mic-sharp" size={20} color='white'/>
+          <Ionicons name='mic-sharp' size={20} color='white' />
         </LinearGradient>
       ),
-      endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
-                                style={styles.mainMenuItemEndIcon}/>,
+      endIcon: <SimpleLineIcons
+        name='arrow-right' size={10} color={secondaryTextColor}
+        style={styles.mainMenuItemEndIcon}
+               />
     },
     {
       title: 'Playlists',
@@ -32,11 +35,13 @@ export const HomeScreen = () => {
       disabled: true,
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Entypo name="list" size={20} color='white'/>
+          <Entypo name='list' size={20} color='white' />
         </LinearGradient>
       ),
-      endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
-                                style={styles.mainMenuItemEndIcon}/>,
+      endIcon: <SimpleLineIcons
+        name='arrow-right' size={10} color={secondaryTextColor}
+        style={styles.mainMenuItemEndIcon}
+               />
     },
     // {
     //   title: 'Qira\'at',
@@ -55,27 +60,29 @@ export const HomeScreen = () => {
       disabled: true,
       icon: (
         <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <MaterialCommunityIcons name="selection" size={20} color='white'/>
+          <MaterialCommunityIcons name='selection' size={20} color='white' />
         </LinearGradient>
       ),
-      endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
-                                style={styles.mainMenuItemEndIcon}/>,
-    },
+      endIcon: <SimpleLineIcons
+        name='arrow-right' size={10} color={secondaryTextColor}
+        style={styles.mainMenuItemEndIcon}
+               />
+    }
   ]
 
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.header}>
         <ThemedText style={[styles.title, { color: tintColor }]}>قارئ</ThemedText>
-        <Link href="/(settings)" asChild>
+        <Link href='/(settings)' asChild>
           <Pressable>
-            <Ionicons name="settings-outline" size={25} color={secondaryTextColor} style={styles.settingsIcon}/>
+            <Ionicons name='settings-outline' size={25} color={secondaryTextColor} style={styles.settingsIcon} />
           </Pressable>
         </Link>
       </ThemedView>
       <Menu
         data={menuItems}
-        renderItem={({ item }) => <MenuItem {...item} fontSize={26} style={styles.mainMenuItem}/>}
+        renderItem={({ item }) => <MenuItem {...item} fontSize={26} style={styles.mainMenuItem} />}
         keyExtractor={(item) => item.title}
         style={styles.mainMenu}
       />
@@ -85,14 +92,14 @@ export const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   mainMenu: {
     paddingTop: 50
   },
   mainMenuItem: {
     padding: 20,
-    marginHorizontal: 0,
+    marginHorizontal: 0
   },
   mainMenuItemIcon: {
     marginEnd: 20,
@@ -100,11 +107,11 @@ const styles = StyleSheet.create({
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5,
+    borderRadius: 5
   },
   mainMenuItemEndIcon: {
     marginLeft: 'auto',
-    marginRight: 20,
+    marginRight: 20
   },
   header: {
     paddingTop: 20,
@@ -114,9 +121,9 @@ const styles = StyleSheet.create({
   title: {
     paddingStart: 30,
     fontFamily: 'Almarai',
-    fontSize: 22,
+    fontSize: 22
   },
   settingsIcon: {
-    paddingEnd: 30,
-  },
+    paddingEnd: 30
+  }
 })

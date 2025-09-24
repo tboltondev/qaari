@@ -11,16 +11,16 @@ const settingsItems: MenuItem[] = [
   {
     title: 'Account',
     // href: '/account'
-    disabled: true,
+    disabled: true
   },
   {
     title: 'Text and translation',
     // href: '/text-settings'
-    disabled: true,
+    disabled: true
   },
   {
     title: 'Theme',
-    href: '/theme',
+    href: '/theme'
   }
 ]
 
@@ -29,7 +29,7 @@ export const SettingsScreen = () => {
 
   return (
     <ThemedView style={styles.container}>
-      {/*TODO: refactor container into Page component*/}
+      {/* TODO: refactor container into Page component */}
       <Menu
         data={settingsItems}
         renderItem={({ item }) => <MenuItem {...item} />}
@@ -44,10 +44,10 @@ export const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 16,
+    padding: 16
   },
   versionNumber: {
     alignSelf: 'center',
-    marginBottom: 40,
-  },
+    marginBottom: 40
+  }
 })

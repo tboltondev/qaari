@@ -20,20 +20,20 @@ export function ThemeScreen () {
       theme: ThemeOptions.Light,
       description: 'Always use light theme',
       title: 'Light',
-      icon: <Ionicons name="sunny" color={textColor} size={28} style={styles.themeItemIcon}/>,
+      icon: <Ionicons name='sunny' color={textColor} size={28} style={styles.themeItemIcon} />
     },
     {
       theme: ThemeOptions.Dark,
       description: 'Always use dark theme',
       title: 'Dark',
-      icon: <Ionicons name="moon" color={textColor} size={28} style={styles.themeItemIcon}/>,
+      icon: <Ionicons name='moon' color={textColor} size={28} style={styles.themeItemIcon} />
     },
     {
       theme: ThemeOptions.System,
       description: 'Use device settings',
       title: 'System',
-      icon: <Ionicons name="phone-portrait-outline" color={textColor} size={28} style={styles.themeItemIcon}/>,
-    },
+      icon: <Ionicons name='phone-portrait-outline' color={textColor} size={28} style={styles.themeItemIcon} />
+    }
   ]
 
   React.useEffect(() => {
@@ -51,12 +51,12 @@ export function ThemeScreen () {
   const handleRenderItem = ({ item }: ListRenderItemInfo<any>) => ( // TODO: don't use any
     <MenuItem
       title={item.title}
-      href="/theme"
+      href='/theme'
       onPress={selectTheme(item.theme as ThemeOptions)}
       style={styles.themeItem}
       icon={item.icon}
       endIcon={activeTheme === item.theme &&
-        <Ionicons name="checkmark" size={28} color={tintColor} style={styles.themeItemCheckmark}/>}
+        <Ionicons name='checkmark' size={28} color={tintColor} style={styles.themeItemCheckmark} />}
     >
       <ThemedText style={{ fontSize: 14, paddingTop: 4, color: secondaryTextColor }}>{item.description}</ThemedText>
     </MenuItem>
@@ -75,18 +75,18 @@ export function ThemeScreen () {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   themeItem: {
-    borderRadius: 8,
+    borderRadius: 8
   },
   themeItemIcon: {
     marginEnd: 20,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   themeItemCheckmark: {
     marginLeft: 'auto',
     alignSelf: 'center',
-    marginRight: 10,
-  },
+    marginRight: 10
+  }
 })

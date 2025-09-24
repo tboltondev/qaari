@@ -28,7 +28,7 @@ export const ReciterMenuItem = inject('nowPlaying')(observer(
         href={{ pathname: '/reciter/[id]', params: { id: props.id } }}
         onPress={handlePress}
         endIcon={isCurrentReciter && (
-          <MaterialIcons name="multitrack-audio" size={20} color={tintColor} style={styles.currentlyPlayingIcon}/> // TODO: create animated component
+          <MaterialIcons name='multitrack-audio' size={20} color={tintColor} style={styles.currentlyPlayingIcon} /> // TODO: create animated component
         )}
       >
         {props.style && (
@@ -43,10 +43,10 @@ export const ReciterMenuItem = inject('nowPlaying')(observer(
 
 const styles = StyleSheet.create({
   currentlyPlayingIcon: {
-    marginStart: 'auto',
+    marginStart: 'auto'
   },
   recitationStyleText: {
     fontSize: 12,
-    margin: 0,
+    margin: 0
   }
 })

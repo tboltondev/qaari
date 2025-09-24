@@ -17,24 +17,24 @@ export const RecitersScreen = () => {
 
   return (
     <ThemedView style={styles.container}>
-      {/*TODO: style errors*/}
-      {reciters.error && <ThemedText>There was a problem loading the reciters, please try again.</ThemedText>}
+      {/* TODO: style errors */}
+      {(reciters.error != null) && <ThemedText>There was a problem loading the reciters, please try again.</ThemedText>}
       {reciters.isLoading
         ? <Menu
-          data={[300, 280, 320, 240, 270, 300, 280, 320, 240, 270, 280, 320]}
-          renderItem={({ item }) => <LoadingMenuItem width={item}/>}
-        />
+            data={[300, 280, 320, 240, 270, 300, 280, 320, 240, 270, 280, 320]}
+            renderItem={({ item }) => <LoadingMenuItem width={item} />}
+          />
         : <Menu
-          data={reciters.data}
-          renderItem={({ item }) => <ReciterMenuItem {...item} />}
-          keyExtractor={(item) => `${item.name}_${item.style}`}
-        />}
+            data={reciters.data}
+            renderItem={({ item }) => <ReciterMenuItem {...item} />}
+            keyExtractor={(item) => `${item.name}_${item.style}`}
+          />}
     </ThemedView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 })

@@ -1,4 +1,4 @@
-export type Reciter = {
+export interface Reciter {
   id: number
   name: string
   style: string

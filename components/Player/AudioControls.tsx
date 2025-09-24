@@ -5,7 +5,7 @@ import { ThemedView } from '@/components/theme/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { NowPlayingStore } from '@/globalState/store'
 
-type AudioControlsProps = {
+interface AudioControlsProps {
   isWidget?: boolean
   nowPlaying: NowPlayingStore
 }
@@ -32,7 +32,7 @@ export const AudioControls = observer((props: AudioControlsProps) => {
   return (
     <ThemedView style={props.isWidget ? styles.playerWidgetControls : styles.playerViewControls}>
       <Pressable onPress={handleBack}>
-        <Ionicons name="play-back" size={props.isWidget ? 30 : 36} color={iconColor}/>
+        <Ionicons name='play-back' size={props.isWidget ? 30 : 36} color={iconColor} />
       </Pressable>
       <Pressable
         onPress={props.nowPlaying.isPlaying ? pause : play}
@@ -44,7 +44,7 @@ export const AudioControls = observer((props: AudioControlsProps) => {
         />
       </Pressable>
       <Pressable onPress={handleForward}>
-        <Ionicons name="play-forward" size={props.isWidget ? 30 : 36} color={iconColor}/>
+        <Ionicons name='play-forward' size={props.isWidget ? 30 : 36} color={iconColor} />
       </Pressable>
     </ThemedView>
   )
@@ -55,15 +55,15 @@ const styles = StyleSheet.create({
     width: '70%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   playerWidgetControls: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   widgetPlayButton: {
-    marginHorizontal: 20,
-  },
+    marginHorizontal: 20
+  }
 })
