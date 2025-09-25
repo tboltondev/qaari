@@ -15,6 +15,7 @@ export const ReciterScreen = (props: { reciterId: number }) => {
             surahNumber={index + 1}
             reciterId={props.reciterId}
             name={item.name}
+            arabicName={item.arabicName}
           />}
       />
     </ThemedView>

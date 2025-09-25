@@ -1,344 +1,458 @@
 [
-  {
-    "name": "Al-Fatiha"
-  },
-  {
-    "name": "Al-Baqarah"
-  },
-  {
-    "name": "Ali 'Imran"
-  },
-  {
-    "name": "An-Nisa"
-  },
-  {
-    "name": "Al-Ma'idah"
-  },
-  {
-    "name": "Al-An'am"
-  },
-  {
-    "name": "Al-A'raf"
-  },
-  {
-    "name": "Al-Anfal"
-  },
-  {
-    "name": "At-Tawbah"
-  },
-  {
-    "name": "Yunus"
-  },
-  {
-    "name": "Hud"
-  },
-  {
-    "name": "Yusuf"
-  },
-  {
-    "name": "Ar-Ra'd"
-  },
-  {
-    "name": "Ibrahim"
-  },
-  {
-    "name": "Al-Hijr"
-  },
-  {
-    "name": "An-Nahl"
-  },
-  {
-    "name": "Al-Isra"
-  },
-  {
-    "name": "Al-Kahf"
-  },
-  {
-    "name": "Maryam"
-  },
-  {
-    "name": "Ta-ha"
-  },
-  {
-    "name": "Al-Anbya"
-  },
-  {
-    "name": "Al-Hajj"
-  },
-  {
-    "name": "Al-Mu'minun"
-  },
-  {
-    "name": "An-Nur"
-  },
-  {
-    "name": "Al-Furqan"
-  },
-  {
-    "name": "Ash-Shu'ara"
-  },
-  {
-    "name": "An-Naml"
-  },
-  {
-    "name": "Al-Qasas"
-  },
-  {
-    "name": "Al-'Ankabut"
-  },
-  {
-    "name": "Ar-Rum"
-  },
-  {
-    "name": "Luqman"
-  },
-  {
-    "name": "As-Sajdah"
-  },
-  {
-    "name": "Al-Ahzab"
-  },
-  {
-    "name": "Saba"
-  },
-  {
-    "name": "Fatir"
-  },
-  {
-    "name": "Ya-Sin"
-  },
-  {
-    "name": "As-Saffat"
-  },
-  {
-    "name": "Saad"
-  },
-  {
-    "name": "Az-Zumar"
-  },
-  {
-    "name": "Ghafir"
-  },
-  {
-    "name": "Fussilat"
-  },
-  {
-    "name": "Ash-Shuraa"
-  },
-  {
-    "name": "Az-Zukhruf"
-  },
-  {
-    "name": "Ad-Dukhan"
-  },
-  {
-    "name": "Al-Jathiyah"
-  },
-  {
-    "name": "Al-Ahqaf"
-  },
-  {
-    "name": "Muhammad"
-  },
-  {
-    "name": "Al-Fath"
-  },
-  {
-    "name": "Al-Hujurat"
-  },
-  {
-    "name": "Qaf"
-  },
-  {
-    "name": "Adh-Dhariyat"
-  },
-  {
-    "name": "At-Tur"
-  },
-  {
-    "name": "An-Najm"
-  },
-  {
-    "name": "Al-Qamar"
-  },
-  {
-    "name": "Ar-Rahman"
-  },
-  {
-    "name": "Al-Waqi'ah"
-  },
-  {
-    "name": "Al-Hadid"
-  },
-  {
-    "name": "Al-Mujadila"
-  },
-  {
-    "name": "Al-Hashr"
-  },
-  {
-    "name": "Al-Mumtahanah"
-  },
-  {
-    "name": "As-Saf"
-  },
-  {
-    "name": "Al-Jumu'ah"
-  },
-  {
-    "name": "Al-Munafiqun"
-  },
-  {
-    "name": "At-Taghabun"
-  },
-  {
-    "name": "At-Talaq"
-  },
-  {
-    "name": "At-Tahrim"
-  },
-  {
-    "name": "Al-Mulk"
-  },
-  {
-    "name": "Al-Qalam"
-  },
-  {
-    "name": "Al-Haqqah"
-  },
-  {
-    "name": "Al-Ma'arij"
-  },
-  {
-    "name": "Nuh"
-  },
-  {
-    "name": "Al-Jinn"
-  },
-  {
-    "name": "Al-Muzzammil"
-  },
-  {
-    "name": "Al-Muddaththir"
-  },
-  {
-    "name": "Al-Qiyamah"
-  },
-  {
-    "name": "Al-Insan"
-  },
-  {
-    "name": "Al-Mursalat"
-  },
-  {
-    "name": "An-Naba"
-  },
-  {
-    "name": "An-Nazi'at"
-  },
-  {
-    "name": "'Abasa"
-  },
-  {
-    "name": "At-Takwir"
-  },
-  {
-    "name": "Al-Infitar"
-  },
-  {
-    "name": "Al-Mutaffifin"
-  },
-  {
-    "name": "Al-Inshiqaq"
-  },
-  {
-    "name": "Al-Buruj"
-  },
-  {
-    "name": "At-Tariq"
-  },
-  {
-    "name": "Al-A'la"
-  },
-  {
-    "name": "Al-Ghashiyah"
-  },
-  {
-    "name": "Al-Fajr"
-  },
-  {
-    "name": "Al-Balad"
-  },
-  {
-    "name": "Ash-Shams"
-  },
-  {
-    "name": "Al-Layl"
-  },
-  {
-    "name": "Ad-Duhaa"
-  },
-  {
-    "name": "Ash-Sharh"
-  },
-  {
-    "name": "At-Tin"
-  },
-  {
-    "name": "Al-'Alaq"
-  },
-  {
-    "name": "Al-Qadr"
-  },
-  {
-    "name": "Al-Bayyinah"
-  },
-  {
-    "name": "Az-Zalzalah"
-  },
-  {
-    "name": "Al-'Adiyat"
-  },
-  {
-    "name": "Al-Qari'ah"
-  },
-  {
-    "name": "At-Takathur"
-  },
-  {
-    "name": "Al-'Asr"
-  },
-  {
-    "name": "Al-Humazah"
-  },
-  {
-    "name": "Al-Fil"
-  },
-  {
-    "name": "Quraysh"
-  },
-  {
-    "name": "Al-Ma'un"
-  },
-  {
-    "name": "Al-Kawthar"
-  },
-  {
-    "name": "Al-Kafirun"
-  },
-  {
-    "name": "An-Nasr"
-  },
-  {
-    "name": "Al-Masad"
-  },
-  {
-    "name": "Al-Ikhlas"
-  },
-  {
-    "name": "Al-Falaq"
-  },
-  {
-    "name": "An-Nas"
-  }
+    {
+        "name": "Al-Fatiha",
+        "arabicName": "ٱلْفَاتِحَةُ"
+    },
+    {
+        "name": "Al-Baqarah",
+        "arabicName": "ٱلْبَقَرَةُ"
+    },
+    {
+        "name": "Ali 'Imran",
+        "arabicName": "آلِ عِمْرَانَ"
+    },
+    {
+        "name": "An-Nisa",
+        "arabicName": "ٱلنِّسَاءُ"
+    },
+    {
+        "name": "Al-Ma'idah",
+        "arabicName": "ٱلْمَائِدَةُ"
+    },
+    {
+        "name": "Al-An'am",
+        "arabicName": "ٱلْأَنْعَامُ"
+    },
+    {
+        "name": "Al-A'raf",
+        "arabicName": "ٱلْأَعْرَافُ"
+    },
+    {
+        "name": "Al-Anfal",
+        "arabicName": "ٱلْأَنْفَالُ"
+    },
+    {
+        "name": "At-Tawbah",
+        "arabicName": "ٱلتَّوْبَةُ"
+    },
+    {
+        "name": "Yunus",
+        "arabicName": "يُونُسُ"
+    },
+    {
+        "name": "Hud",
+        "arabicName": "هُودٌ"
+    },
+    {
+        "name": "Yusuf",
+        "arabicName": "يُوسُفُ"
+    },
+    {
+        "name": "Ar-Ra'd",
+        "arabicName": "ٱلرَّعْدُ"
+    },
+    {
+        "name": "Ibrahim",
+        "arabicName": "إِبْرَاهِيمُ"
+    },
+    {
+        "name": "Al-Hijr",
+        "arabicName": "ٱلْحِجْرُ"
+    },
+    {
+        "name": "An-Nahl",
+        "arabicName": "ٱلنَّحْلُ"
+    },
+    {
+        "name": "Al-Isra",
+        "arabicName": "ٱلْإِسْرَاءُ"
+    },
+    {
+        "name": "Al-Kahf",
+        "arabicName": "ٱلْكَهْفُ"
+    },
+    {
+        "name": "Maryam",
+        "arabicName": "مَرْيَمُ"
+    },
+    {
+        "name": "Ta-ha",
+        "arabicName": "طٰهٰ"
+    },
+    {
+        "name": "Al-Anbya",
+        "arabicName": "ٱلْأَنْبِيَاءُ"
+    },
+    {
+        "name": "Al-Hajj",
+        "arabicName": "ٱلْحَجُّ"
+    },
+    {
+        "name": "Al-Mu'minun",
+        "arabicName": "ٱلْمُؤْمِنُونَ"
+    },
+    {
+        "name": "An-Nur",
+        "arabicName": "ٱلنُّورُ"
+    },
+    {
+        "name": "Al-Furqan",
+        "arabicName": "ٱلْفُرْقَانُ"
+    },
+    {
+        "name": "Ash-Shu'ara",
+        "arabicName": "ٱلشُّعَرَاءُ"
+    },
+    {
+        "name": "An-Naml",
+        "arabicName": "ٱلنَّمْلُ"
+    },
+    {
+        "name": "Al-Qasas",
+        "arabicName": "ٱلْقَصَصُ"
+    },
+    {
+        "name": "Al-'Ankabut",
+        "arabicName": "ٱلْعَنْكَبُوتُ"
+    },
+    {
+        "name": "Ar-Rum",
+        "arabicName": "ٱلرُّومُ"
+    },
+    {
+        "name": "Luqman",
+        "arabicName": "لُقْمَانُ"
+    },
+    {
+        "name": "As-Sajdah",
+        "arabicName": "ٱلسَّجْدَةُ"
+    },
+    {
+        "name": "Al-Ahzab",
+        "arabicName": "ٱلْأَحْزَابُ"
+    },
+    {
+        "name": "Saba",
+        "arabicName": "سَبَإٌ"
+    },
+    {
+        "name": "Fatir",
+        "arabicName": "فَاطِرٌ"
+    },
+    {
+        "name": "Ya-Sin",
+        "arabicName": "يٰسٓ"
+    },
+    {
+        "name": "As-Saffat",
+        "arabicName": "ٱلصَّافَّاتُ"
+    },
+    {
+        "name": "Saad",
+        "arabicName": "صٓ"
+    },
+    {
+        "name": "Az-Zumar",
+        "arabicName": "ٱلزُّمَرُ"
+    },
+    {
+        "name": "Ghafir",
+        "arabicName": "غَافِرٌ"
+    },
+    {
+        "name": "Fussilat",
+        "arabicName": "فُصِّلَتْ"
+    },
+    {
+        "name": "Ash-Shuraa",
+        "arabicName": "ٱلشُّورَىٰ"
+    },
+    {
+        "name": "Az-Zukhruf",
+        "arabicName": "ٱلزُّخْرُفُ"
+    },
+    {
+        "name": "Ad-Dukhan",
+        "arabicName": "ٱلدُّخَانُ"
+    },
+    {
+        "name": "Al-Jathiyah",
+        "arabicName": "ٱلْجَاثِيَةُ"
+    },
+    {
+        "name": "Al-Ahqaf",
+        "arabicName": "ٱلْأَحْقَافُ"
+    },
+    {
+        "name": "Muhammad",
+        "arabicName": "مُحَمَّدٌ"
+    },
+    {
+        "name": "Al-Fath",
+        "arabicName": "ٱلْفَتْحُ"
+    },
+    {
+        "name": "Al-Hujurat",
+        "arabicName": "ٱلْحُجُرَاتُ"
+    },
+    {
+        "name": "Qaf",
+        "arabicName": "قٓ"
+    },
+    {
+        "name": "Adh-Dhariyat",
+        "arabicName": "ٱلذَّارِيَاتُ"
+    },
+    {
+        "name": "At-Tur",
+        "arabicName": "ٱلطُّورُ"
+    },
+    {
+        "name": "An-Najm",
+        "arabicName": "ٱلنَّجْمُ"
+    },
+    {
+        "name": "Al-Qamar",
+        "arabicName": "ٱلْقَمَرُ"
+    },
+    {
+        "name": "Ar-Rahman",
+        "arabicName": "ٱلرَّحْمَٰنُ"
+    },
+    {
+        "name": "Al-Waqi'ah",
+        "arabicName": "ٱلْوَاقِعَةُ"
+    },
+    {
+        "name": "Al-Hadid",
+        "arabicName": "ٱلْحَدِيدُ"
+    },
+    {
+        "name": "Al-Mujadila",
+        "arabicName": "ٱلْمُجَادِلَةُ"
+    },
+    {
+        "name": "Al-Hashr",
+        "arabicName": "ٱلْحَشْرُ"
+    },
+    {
+        "name": "Al-Mumtahanah",
+        "arabicName": "ٱلْمُمْتَحَنَةُ"
+    },
+    {
+        "name": "As-Saf",
+        "arabicName": "ٱلصَّفُّ"
+    },
+    {
+        "name": "Al-Jumu'ah",
+        "arabicName": "ٱلْجُمُعَةُ"
+    },
+    {
+        "name": "Al-Munafiqun",
+        "arabicName": "ٱلْمُنَافِقُونَ"
+    },
+    {
+        "name": "At-Taghabun",
+        "arabicName": "ٱلتَّغَابُنُ"
+    },
+    {
+        "name": "At-Talaq",
+        "arabicName": "ٱلطَّلَاقُ"
+    },
+    {
+        "name": "At-Tahrim",
+        "arabicName": "ٱلتَّحْرِيمُ"
+    },
+    {
+        "name": "Al-Mulk",
+        "arabicName": "ٱلْمُلْكُ"
+    },
+    {
+        "name": "Al-Qalam",
+        "arabicName": "ٱلْقَلَمُ"
+    },
+    {
+        "name": "Al-Haqqah",
+        "arabicName": "ٱلْحَاقَّةُ"
+    },
+    {
+        "name": "Al-Ma'arij",
+        "arabicName": "ٱلْمَعَارِجُ"
+    },
+    {
+        "name": "Nuh",
+        "arabicName": "نُوحٌ"
+    },
+    {
+        "name": "Al-Jinn",
+        "arabicName": "ٱلْجِنُّ"
+    },
+    {
+        "name": "Al-Muzzammil",
+        "arabicName": "ٱلْمُزَّمِّلُ"
+    },
+    {
+        "name": "Al-Muddaththir",
+        "arabicName": "ٱلْمُدَّثِّرُ"
+    },
+    {
+        "name": "Al-Qiyamah",
+        "arabicName": "ٱلْقِيَامَةُ"
+    },
+    {
+        "name": "Al-Insan",
+        "arabicName": "ٱلْإِنسَانُ"
+    },
+    {
+        "name": "Al-Mursalat",
+        "arabicName": "ٱلْمُرْسَلَاتُ"
+    },
+    {
+        "name": "An-Naba",
+        "arabicName": "ٱلنَّبَإُ"
+    },
+    {
+        "name": "An-Nazi'at",
+        "arabicName": "ٱلنَّازِعَاتُ"
+    },
+    {
+        "name": "'Abasa",
+        "arabicName": "عَبَسَ"
+    },
+    {
+        "name": "At-Takwir",
+        "arabicName": "ٱلتَّكْوِيرُ"
+    },
+    {
+        "name": "Al-Infitar",
+        "arabicName": "ٱلْإِنفِطَارُ"
+    },
+    {
+        "name": "Al-Mutaffifin",
+        "arabicName": "ٱلْمُطَفِّفِينَ"
+    },
+    {
+        "name": "Al-Inshiqaq",
+        "arabicName": "ٱلْإِنشِقَاقُ"
+    },
+    {
+        "name": "Al-Buruj",
+        "arabicName": "ٱلْبُرُوجُ"
+    },
+    {
+        "name": "At-Tariq",
+        "arabicName": "ٱلطَّارِقُ"
+    },
+    {
+        "name": "Al-A'la",
+        "arabicName": "ٱلْأَعْلَىٰ"
+    },
+    {
+        "name": "Al-Ghashiyah",
+        "arabicName": "ٱلْغَاشِيَةُ"
+    },
+    {
+        "name": "Al-Fajr",
+        "arabicName": "ٱلْفَجْرُ"
+    },
+    {
+        "name": "Al-Balad",
+        "arabicName": "ٱلْبَلَدُ"
+    },
+    {
+        "name": "Ash-Shams",
+        "arabicName": "ٱلشَّمْسُ"
+    },
+    {
+        "name": "Al-Layl",
+        "arabicName": "ٱلْلَّيْلُ"
+    },
+    {
+        "name": "Ad-Duhaa",
+        "arabicName": "ٱلضُّحَىٰ"
+    },
+    {
+        "name": "Ash-Sharh",
+        "arabicName": "ٱلشَّرْحُ"
+    },
+    {
+        "name": "At-Tin",
+        "arabicName": "ٱلتِّينُ"
+    },
+    {
+        "name": "Al-'Alaq",
+        "arabicName": "ٱلْعَلَقُ"
+    },
+    {
+        "name": "Al-Qadr",
+        "arabicName": "ٱلْقَدْرُ"
+    },
+    {
+        "name": "Al-Bayyinah",
+        "arabicName": "ٱلْبَيِّنَةُ"
+    },
+    {
+        "name": "Az-Zalzalah",
+        "arabicName": "ٱلزَّلْزَلَةُ"
+    },
+    {
+        "name": "Al-'Adiyat",
+        "arabicName": "ٱلْعَادِيَاتُ"
+    },
+    {
+        "name": "Al-Qari'ah",
+        "arabicName": "ٱلْقَارِعَةُ"
+    },
+    {
+        "name": "At-Takathur",
+        "arabicName": "ٱلتَّكَاثُرُ"
+    },
+    {
+        "name": "Al-'Asr",
+        "arabicName": "ٱلْعَصْرُ"
+    },
+    {
+        "name": "Al-Humazah",
+        "arabicName": "ٱلْهُمَزَةُ"
+    },
+    {
+        "name": "Al-Fil",
+        "arabicName": "ٱلْفِيلُ"
+    },
+    {
+        "name": "Quraysh",
+        "arabicName": "قُرَيْشٌ"
+    },
+    {
+        "name": "Al-Ma'un",
+        "arabicName": "ٱلْمَاعُونُ"
+    },
+    {
+        "name": "Al-Kawthar",
+        "arabicName": "ٱلْكَوْثَرُ"
+    },
+    {
+        "name": "Al-Kafirun",
+        "arabicName": "ٱلْكَافِرُونَ"
+    },
+    {
+        "name": "An-Nasr",
+        "arabicName": "ٱلنَّصْرُ"
+    },
+    {
+        "name": "Al-Masad",
+        "arabicName": "ٱلْمَسَدُ"
+    },
+    {
+        "name": "Al-Ikhlas",
+        "arabicName": "ٱلْإِخْلَاصُ"
+    },
+    {
+        "name": "Al-Falaq",
+        "arabicName": "ٱلْفَلَقُ"
+    },
+    {
+        "name": "An-Nas",
+        "arabicName": "ٱلنَّاسُ"
+    }
 ]
