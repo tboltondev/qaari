@@ -4,12 +4,13 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 
 export default function SettingsLayout () {
   const tintColor = useThemeColor({}, 'tint')
+  const textColor = useThemeColor({}, 'text')
   const backgroundColor = useThemeColor({}, 'background')
   const router = useRouter()
 
   return (
     <Stack screenOptions={{
-      headerTintColor: tintColor,
+      headerTintColor: textColor,
       headerShadowVisible: false,
       headerStyle: { backgroundColor }
     }}

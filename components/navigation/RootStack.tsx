@@ -9,15 +9,16 @@ interface HomeScreenProps {
 }
 
 export const RootStack = inject('nowPlaying')(observer((props: HomeScreenProps) => {
-  const tintColor = useThemeColor({}, 'tint')
+  const textColor = useThemeColor({}, 'text')
   const backgroundColor = useThemeColor({}, 'background')
 
   return (
-    <ThemedSafeAreaView style={{ flex: 1 }}>
+    <ThemedSafeAreaView edges={['top', 'right', 'left']} style={{ flex: 1, backgroundColor }}>
       <Stack screenOptions={{
-        headerTintColor: tintColor,
+        headerTintColor: textColor,
         headerShadowVisible: false,
-        headerStyle: { backgroundColor }
+        headerStyle: { backgroundColor },
+        headerBackButtonDisplayMode: 'minimal'
       }}
       >
         <Stack.Screen
@@ -26,11 +27,11 @@ export const RootStack = inject('nowPlaying')(observer((props: HomeScreenProps) 
         />
         <Stack.Screen
           name='reciters'
-          options={{ title: 'Reciters', headerBackTitleVisible: false }}
+          options={{ title: 'Reciters' }}
         />
         <Stack.Screen
           name='reciter/[id]'
-          options={{ title: props.nowPlaying?.reciterPage?.name, headerBackTitleVisible: false }}
+          options={{ title: props.nowPlaying?.reciterPage?.name }}
         />
         <Stack.Screen
           name='player'

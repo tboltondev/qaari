@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet } from 'react-native'
+import {ColorValue, Pressable, StyleSheet} from 'react-native'
 import { Link } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons, Entypo, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
@@ -8,11 +8,14 @@ import { ThemedView } from '@/components/theme/ThemedView'
 import { ThemedText } from '@/components/theme/ThemedText'
 import { Menu } from '@/components/Menu/Menu'
 
+const GRADIENT_COLORS: readonly [ColorValue, ColorValue, ...ColorValue[]] = ['#4464ad', '#05b2dc']
+const MENU_MAIN_ICON_SIZE = 20
+const MENU_ARROW_ICON_SIZE = 10
+
 export const HomeScreen = () => {
+  const backgroundColor = useThemeColor({}, 'background')
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
   const tintColor = useThemeColor({}, 'tint')
-
-  const gradientColors = ['#4464ad', '#05b2dc']
 
   // TODO: fix type
   const menuItems = [
@@ -20,12 +23,12 @@ export const HomeScreen = () => {
       title: 'Reciters',
       href: '/reciters',
       icon: (
-        <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Ionicons name='mic-sharp' size={20} color='white' />
+        <LinearGradient colors={GRADIENT_COLORS} style={styles.mainMenuItemIcon}>
+          <Ionicons name='mic-sharp' size={MENU_MAIN_ICON_SIZE} color={backgroundColor} />
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons
-        name='arrow-right' size={10} color={secondaryTextColor}
+        name='arrow-right' size={MENU_ARROW_ICON_SIZE} color={secondaryTextColor}
         style={styles.mainMenuItemEndIcon}
                />
     },
@@ -34,12 +37,12 @@ export const HomeScreen = () => {
       // href: '/playlists',
       disabled: true,
       icon: (
-        <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <Entypo name='list' size={20} color='white' />
+        <LinearGradient colors={GRADIENT_COLORS} style={styles.mainMenuItemIcon}>
+          <Entypo name='list' size={MENU_MAIN_ICON_SIZE} color={backgroundColor} />
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons
-        name='arrow-right' size={10} color={secondaryTextColor}
+        name='arrow-right' size={MENU_ARROW_ICON_SIZE} color={secondaryTextColor}
         style={styles.mainMenuItemEndIcon}
                />
     },
@@ -47,11 +50,11 @@ export const HomeScreen = () => {
     //   title: 'Qira\'at',
     //   href: '/qiraat',
     //   icon: (
-    //     <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-    //       <Ionicons name="library-sharp" size={20} color='white/>
+    //     <LinearGradient colors={GRADIENT_COLORS} style={styles.mainMenuItemIcon}>
+    //       <Ionicons name="library-sharp" size={MENU_MAIN_ICON_SIZE} color='white/>
     //     </LinearGradient>
     //   ),
-    //   endIcon: <SimpleLineIcons name="arrow-right" size={10} color={secondaryTextColor}
+    //   endIcon: <SimpleLineIcons name="arrow-right" size={MENU_ARROW_ICON_SIZE} color={secondaryTextColor}
     //                             style={styles.mainMenuItemEndIcon}/>,
     // },
     {
@@ -59,12 +62,12 @@ export const HomeScreen = () => {
       // href: '/selections',
       disabled: true,
       icon: (
-        <LinearGradient colors={gradientColors} style={styles.mainMenuItemIcon}>
-          <MaterialCommunityIcons name='selection' size={20} color='white' />
+        <LinearGradient colors={GRADIENT_COLORS} style={styles.mainMenuItemIcon}>
+          <MaterialCommunityIcons name='selection-ellipse' size={MENU_MAIN_ICON_SIZE} color={backgroundColor} />
         </LinearGradient>
       ),
       endIcon: <SimpleLineIcons
-        name='arrow-right' size={10} color={secondaryTextColor}
+        name='arrow-right' size={MENU_ARROW_ICON_SIZE} color={secondaryTextColor}
         style={styles.mainMenuItemEndIcon}
                />
     }
@@ -99,7 +102,8 @@ const styles = StyleSheet.create({
   },
   mainMenuItem: {
     padding: 20,
-    marginHorizontal: 0
+    marginHorizontal: 0,
+    alignItems: 'center'
   },
   mainMenuItemIcon: {
     marginEnd: 20,
@@ -107,7 +111,7 @@ const styles = StyleSheet.create({
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5
+    borderRadius: 50
   },
   mainMenuItemEndIcon: {
     marginLeft: 'auto',
@@ -121,7 +125,8 @@ const styles = StyleSheet.create({
   title: {
     paddingStart: 30,
     fontFamily: 'Almarai',
-    fontSize: 22
+    fontSize: 30,
+    lineHeight: 34
   },
   settingsIcon: {
     paddingEnd: 30
