@@ -1,5 +1,4 @@
 import { inject, observer } from 'mobx-react'
-import { MaterialIcons } from '@expo/vector-icons'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { MenuItem } from '@/components/Menu/MenuItem'
 import { ThemedText } from '@/components/theme/ThemedText'
@@ -14,7 +13,7 @@ type ReciterMenuItemProps = Reciter & {
 export const ReciterMenuItem = inject('nowPlaying')(observer(
   (props: ReciterMenuItemProps) => {
     const secondaryTextColor = useThemeColor({}, 'secondaryText')
-    const tintColor = useThemeColor({}, 'tint')
+    const secondaryBackgroundColor = useThemeColor({}, 'secondaryBackground')
     const isCurrentReciter = props.nowPlaying.reciterId === props.id
 
     function handlePress () {
@@ -27,9 +26,7 @@ export const ReciterMenuItem = inject('nowPlaying')(observer(
         title={props.translatedName.name}
         href={{ pathname: '/reciter/[id]', params: { id: props.id } }}
         onPress={handlePress}
-        endIcon={isCurrentReciter && (
-          <MaterialIcons name='multitrack-audio' size={20} color={tintColor} style={styles.currentlyPlayingIcon} /> // TODO: create animated component
-        )}
+        style={isCurrentReciter && { backgroundColor: secondaryBackgroundColor, borderRadius: 15 }}
       >
         {props.style && (
           <ThemedText style={[styles.recitationStyleText, { color: secondaryTextColor }]}>

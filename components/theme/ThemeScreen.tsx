@@ -12,8 +12,8 @@ export function ThemeScreen () {
   const { theme, setAppTheme } = React.useContext(AppThemeContext)
   const [activeTheme, setActiveTheme] = React.useState<ThemeOptions>(theme.mode)
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
+  const secondaryBackgroundColor = useThemeColor({}, 'secondaryBackground')
   const textColor = useThemeColor({}, 'text')
-  const tintColor = useThemeColor({}, 'tint')
 
   const options = [
     {
@@ -53,10 +53,8 @@ export function ThemeScreen () {
       title={item.title}
       href='/theme'
       onPress={selectTheme(item.theme as ThemeOptions)}
-      style={styles.themeItem}
+      style={[styles.themeItem, activeTheme === item.theme && { backgroundColor: secondaryBackgroundColor }]}
       icon={item.icon}
-      endIcon={activeTheme === item.theme &&
-        <Ionicons name='checkmark' size={28} color={tintColor} style={styles.themeItemCheckmark} />}
     >
       <ThemedText style={{ fontSize: 14, paddingTop: 4, color: secondaryTextColor }}>{item.description}</ThemedText>
     </MenuItem>
@@ -78,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   themeItem: {
-    borderRadius: 8
+    borderRadius: 15
   },
   themeItemIcon: {
     marginEnd: 20,
