@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemedView } from '@/components/theme/ThemedView'
 import SurahNames from '@/content/quran/surahNames.en.json'
-import { Menu } from '@/components/Menu/Menu'
+import { Menu } from '@/components/Menu'
 import { SurahMenuItem } from '@/components/ReciterScreen/SurahMenuItem'
 
 export const ReciterScreen = (props: { reciterId: number }) => {

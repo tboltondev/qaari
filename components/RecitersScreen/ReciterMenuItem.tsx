@@ -1,6 +1,6 @@
 import { inject, observer } from 'mobx-react'
 import { useThemeColor } from '@/hooks/useThemeColor'
-import { MenuItem } from '@/components/Menu/MenuItem'
+import { MenuItem } from '@/components/Menu'
 import { ThemedText } from '@/components/theme/ThemedText'
 import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'

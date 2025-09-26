@@ -3,10 +3,9 @@ import { Link } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons, Entypo, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { useThemeColor } from '@/hooks/useThemeColor'
-import { MenuItem } from '@/components/Menu/MenuItem'
+import { Menu, MenuItem } from '@/components/Menu'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { ThemedText } from '@/components/theme/ThemedText'
-import { Menu } from '@/components/Menu/Menu'
 
 const GRADIENT_COLORS: readonly [ColorValue, ColorValue, ...ColorValue[]] = ['#4464ad', '#05b2dc']
 const MENU_MAIN_ICON_SIZE = 20
