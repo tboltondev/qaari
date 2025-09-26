@@ -7,6 +7,7 @@ import { MenuItem } from '@/components/Menu/MenuItem'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { ThemedText } from '@/components/theme/ThemedText'
 import { Menu } from '@/components/Menu/Menu'
+import {NewPlayer} from "@/components/Player/NewPlayer";
 
 export const HomeScreen = () => {
   const secondaryTextColor = useThemeColor({}, 'secondaryText')
@@ -80,6 +81,7 @@ export const HomeScreen = () => {
           </Pressable>
         </Link>
       </ThemedView>
+      <NewPlayer />
       <Menu
         data={menuItems}
         renderItem={({ item }) => <MenuItem {...item} fontSize={26} style={styles.mainMenuItem} />}

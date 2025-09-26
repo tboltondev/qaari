@@ -18,7 +18,8 @@
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -38,7 +39,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-av"
+      "expo-av",
+      "expo-audio"
     ],
     "experiments": {
       "typedRoutes": true
