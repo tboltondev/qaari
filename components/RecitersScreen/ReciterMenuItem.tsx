@@ -6,6 +6,8 @@ import { ThemedText } from '@/components/theme/ThemedText'
 import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'
 import { Reciter } from '@/domain/Reciter'
+import Jotai from "jotai";
+import {currentReciterAtom} from "@/globalState/currentReciter";
 
 type ReciterMenuItemProps = Reciter & {
   nowPlaying: NowPlayingStore
@@ -13,11 +15,16 @@ type ReciterMenuItemProps = Reciter & {
 
 export const ReciterMenuItem = inject('nowPlaying')(observer(
   (props: ReciterMenuItemProps) => {
+    const setCurrentReciter = Jotai.useSetAtom(currentReciterAtom)
+
     const secondaryTextColor = useThemeColor({}, 'secondaryText')
     const tintColor = useThemeColor({}, 'tint')
+    // TODO: remove nowPlaying
     const isCurrentReciter = props.nowPlaying.reciterId === props.id
 
     function handlePress () {
+      setCurrentReciter(props.id.toString())
+
       props.nowPlaying.setReciterPage({ name: props.translatedName.name, id: props.id })
       props.nowPlaying.addReciter({ name: props.translatedName.name, id: props.id })
     }

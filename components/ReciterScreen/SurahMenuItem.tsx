@@ -6,6 +6,9 @@ import { ThemedText } from '@/components/theme/ThemedText'
 import { MenuItem } from '@/components/Menu/MenuItem'
 import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'
+import Jotai from "jotai";
+import {currentAyahRangeEndAtom, currentAyahRangeStartAtom} from "@/globalState/currentAyahRange";
+import { surahData } from "@/constants/surahData";
 
 interface SurahItemProps {
   surahNumber: number
@@ -16,11 +19,18 @@ interface SurahItemProps {
 
 export const SurahMenuItem = inject('nowPlaying')(observer(
   (props: SurahItemProps) => {
+    const setAyahRangeStart = Jotai.useSetAtom(currentAyahRangeStartAtom)
+    const setAyahRangeEnd = Jotai.useSetAtom(currentAyahRangeEndAtom)
+
     const isCurrentReciter = props.nowPlaying?.reciterId === props.reciterId
     const isCurrentSurah = props.nowPlaying?.surahNumber === props.surahNumber
     const tintColor = useThemeColor({}, 'tint')
 
     function handlePress () {
+      setAyahRangeStart(`${props.surahNumber}:1}`)
+      setAyahRangeEnd(`${props.surahNumber}:${surahData[props.surahNumber].length}`)
+      // could load audio here
+
       props.nowPlaying?.load(props.reciterId, props.surahNumber)
     }
 
