@@ -16,11 +16,11 @@ export const AudioControls2 = (props: AudioControlsProps) => {
   const iconColor = useThemeColor({}, 'text')
 
   function pause () {
-      props.handlePressPause()
+    props.handlePressPause()
   }
 
   function play () {
-      props.handlePressPlay()
+    props.handlePressPlay()
   }
 
   function handleBack () {
@@ -28,7 +28,7 @@ export const AudioControls2 = (props: AudioControlsProps) => {
   }
 
   function handleForward () {
-      props.handlePressNext()
+    props.handlePressNext()
   }
 
   return (

@@ -1,10 +1,10 @@
-import {ThemedView} from "@/components/theme/ThemedView";
-import {ThemedText} from "@/components/theme/ThemedText";
-import {StyleSheet} from "react-native";
+import { ThemedView } from '@/components/theme/ThemedView'
+import { ThemedText } from '@/components/theme/ThemedText'
+import { StyleSheet } from 'react-native'
 
 interface AyahTextProps {
-  text: string;
-  translationText: string;
+  text: string
+  translationText: string
 }
 
 export const AyahText = (props: AyahTextProps) => {
@@ -36,5 +36,5 @@ const styles = StyleSheet.create({
   translationText: {
     fontSize: 16,
     textAlign: 'center'
-  },
+  }
 })

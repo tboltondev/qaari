@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { ThemedText } from '@/components/theme/ThemedText'
-import {AudioControls2} from "@/components/Player/AudioControls2";
+import { AudioControls2 } from '@/components/Player/AudioControls2'
 
 interface ProgressBarProps {
   isWidget?: boolean
@@ -45,7 +45,7 @@ const CommonProgressBar = observer((props: CommonProgressBarProps) => {
 })
 
 // TODO: could have a better name
-export const ProgressBar2 =(props: ProgressBarProps) => {
+export const ProgressBar2 = (props: ProgressBarProps) => {
   const [progressBarWidth, setProgressBarWidth] = React.useState(0)
 
   function handleProgressBarLayoutChange (event: LayoutChangeEvent) {
@@ -90,14 +90,15 @@ export const ProgressBar2 =(props: ProgressBarProps) => {
             progressBarColor={progressBarColor}
           />
           <ThemedView style={styles.widgetInfoAndControls}>
-            {/*<RecitationInfo nowPlaying={props.nowPlaying} isWidget />*/}
+            {/* <RecitationInfo nowPlaying={props.nowPlaying} isWidget /> */}
             <AudioControls2
               isWidget
               isPlaying={false}
               handlePressPlay={() => {}}
               handlePressPause={() => {}}
               handlePressBack={() => { }}
-              handlePressNext={() => { }}/>
+              handlePressNext={() => { }}
+            />
           </ThemedView>
         </Pressable>
       </Link>

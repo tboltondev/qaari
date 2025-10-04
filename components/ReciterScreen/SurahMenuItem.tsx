@@ -6,9 +6,9 @@ import { ThemedText } from '@/components/theme/ThemedText'
 import { MenuItem } from '@/components/Menu/MenuItem'
 import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'
-import Jotai from "jotai";
-import {selectedAyahRangeEndAtom, selectedAyahRangeStartAtom} from "@/globalState/selectedAyahRange";
-import { surahData } from "@/constants/surahData";
+import Jotai from 'jotai'
+import { selectedAyahRangeEndAtom, selectedAyahRangeStartAtom } from '@/globalState/selectedAyahRange'
+import { surahData } from '@/constants/surahData'
 
 interface SurahItemProps {
   surahNumber: number

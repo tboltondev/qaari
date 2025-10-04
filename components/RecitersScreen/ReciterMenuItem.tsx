@@ -6,8 +6,8 @@ import { ThemedText } from '@/components/theme/ThemedText'
 import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'
 import { Reciter } from '@/domain/Reciter'
-import Jotai from "jotai";
-import {selectedReciterAtom} from "@/globalState/selectedReciter";
+import Jotai from 'jotai'
+import { selectedReciterAtom } from '@/globalState/selectedReciter'
 
 type ReciterMenuItemProps = Reciter & {
   nowPlaying: NowPlayingStore
