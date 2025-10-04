@@ -7,7 +7,7 @@ import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'
 import { Reciter } from '@/domain/Reciter'
 import Jotai from "jotai";
-import {currentReciterAtom} from "@/globalState/currentReciter";
+import {selectedReciterAtom} from "@/globalState/selectedReciter";
 
 type ReciterMenuItemProps = Reciter & {
   nowPlaying: NowPlayingStore
@@ -15,7 +15,7 @@ type ReciterMenuItemProps = Reciter & {
 
 export const ReciterMenuItem = inject('nowPlaying')(observer(
   (props: ReciterMenuItemProps) => {
-    const setCurrentReciter = Jotai.useSetAtom(currentReciterAtom)
+    const setCurrentReciter = Jotai.useSetAtom(selectedReciterAtom)
 
     const secondaryTextColor = useThemeColor({}, 'secondaryText')
     const tintColor = useThemeColor({}, 'tint')

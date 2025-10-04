@@ -7,7 +7,7 @@ import { MenuItem } from '@/components/Menu/MenuItem'
 import { NowPlayingStore } from '@/globalState/store'
 import { StyleSheet } from 'react-native'
 import Jotai from "jotai";
-import {currentAyahRangeEndAtom, currentAyahRangeStartAtom} from "@/globalState/currentAyahRange";
+import {selectedAyahRangeEndAtom, selectedAyahRangeStartAtom} from "@/globalState/selectedAyahRange";
 import { surahData } from "@/constants/surahData";
 
 interface SurahItemProps {
@@ -19,8 +19,8 @@ interface SurahItemProps {
 
 export const SurahMenuItem = inject('nowPlaying')(observer(
   (props: SurahItemProps) => {
-    const setAyahRangeStart = Jotai.useSetAtom(currentAyahRangeStartAtom)
-    const setAyahRangeEnd = Jotai.useSetAtom(currentAyahRangeEndAtom)
+    const setAyahRangeStart = Jotai.useSetAtom(selectedAyahRangeStartAtom)
+    const setAyahRangeEnd = Jotai.useSetAtom(selectedAyahRangeEndAtom)
 
     const isCurrentReciter = props.nowPlaying?.reciterId === props.reciterId
     const isCurrentSurah = props.nowPlaying?.surahNumber === props.surahNumber
@@ -30,8 +30,6 @@ export const SurahMenuItem = inject('nowPlaying')(observer(
       setAyahRangeStart(`${props.surahNumber}:1}`)
       setAyahRangeEnd(`${props.surahNumber}:${surahData[props.surahNumber].length}`)
       // could load audio here
-
-      props.nowPlaying?.load(props.reciterId, props.surahNumber)
     }
 
     return (
