@@ -1,17 +1,17 @@
 import React from 'react'
 import { GestureResponderEvent, LayoutChangeEvent, Pressable, StyleSheet } from 'react-native'
-import { Link } from 'expo-router'
 import { observer } from 'mobx-react'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
-import { NowPlayingStore } from '@/globalState/store'
 import { ThemedText } from '@/components/theme/ThemedText'
-import { RecitationInfo } from '@/components/Player/RecitationInfo'
-import { AudioControls } from '@/components/Player/AudioControls'
 
 interface ProgressBarProps {
   isWidget?: boolean
-  nowPlaying: NowPlayingStore
+  // Audio duration in seconds
+  audioDuration: number
+  // Current audio position in seconds
+  audioPosition: number
+  handleProgressBarPress: (event: GestureResponderEvent) => void
 }
 
 type CommonProgressBarProps = ProgressBarProps & {
@@ -33,7 +33,7 @@ const CommonProgressBar = observer((props: CommonProgressBarProps) => {
         style={[
           styles.progressBarActive,
           {
-            width: `${props.nowPlaying.percentageElapsed}%`,
+            width: `${props.audioPosition / props.audioDuration * 100}%`,
             backgroundColor: props.activeColor
           }
         ]}
@@ -42,23 +42,23 @@ const CommonProgressBar = observer((props: CommonProgressBarProps) => {
   )
 })
 
-export const ProgressBar = observer((props: ProgressBarProps) => {
+// TODO: could have a better name
+export const ProgressBar = (props: ProgressBarProps) => {
   const [progressBarWidth, setProgressBarWidth] = React.useState(0)
 
   function handleProgressBarLayoutChange (event: LayoutChangeEvent) {
     setProgressBarWidth(event.nativeEvent.layout.width)
   }
 
-  async function handleProgressBarPress (event: GestureResponderEvent) { // TODO: add seeking by touch drag
-    const percentage = event.nativeEvent.locationX / progressBarWidth
-    const newPositionInMs = percentage * props.nowPlaying.audioDurationMs
-    await props.nowPlaying.audio.setPositionAsync(newPositionInMs)
-  }
+  // async function handleProgressBarPress (event: GestureResponderEvent) { // TODO: add seeking by touch drag
+  //   const percentage = event.nativeEvent.locationX / progressBarWidth
+  //   const newPositionInMs = percentage * props.audioDuration
+  //   await props.nowPlaying.audio.setPositionAsync(newPositionInMs)
+  // }
 
-  function displayTime (ms: number) {
-    const seconds = ms / 1000
-    const hours = Math.floor(seconds / 3600)
-    const remainingSecsAfterHrs = seconds % 3600
+  function displayTime (timeInSeconds: number) {
+    const hours = Math.floor(timeInSeconds / 3600)
+    const remainingSecsAfterHrs = timeInSeconds % 3600
     const minutes = Math.floor(remainingSecsAfterHrs / 60)
     const remainingSecsAfterMins = Math.round(remainingSecsAfterHrs % 60)
 
@@ -77,41 +77,37 @@ export const ProgressBar = observer((props: ProgressBarProps) => {
 
   return props.isWidget
     ? (
-      <Link href='/player' asChild>
-        <Pressable style={styles.widgetPressable}>
-          <CommonProgressBar
-            isWidget
-            nowPlaying={props.nowPlaying}
-            onLayout={handleProgressBarLayoutChange}
-            activeColor={activeColor}
-            progressBarColor={progressBarColor}
-          />
-          <ThemedView style={styles.widgetInfoAndControls}>
-            <RecitationInfo nowPlaying={props.nowPlaying} isWidget />
-            <AudioControls nowPlaying={props.nowPlaying} isWidget />
-          </ThemedView>
-        </Pressable>
-      </Link>
+      <Pressable style={styles.widgetPressable}>
+        <CommonProgressBar
+          isWidget
+          audioDuration={props.audioDuration}
+          audioPosition={props.audioPosition}
+          onLayout={handleProgressBarLayoutChange}
+          activeColor={activeColor}
+          progressBarColor={progressBarColor}
+        />
+      </Pressable>
       )
     : (
-      <Pressable style={styles.playerViewPressable} onPress={handleProgressBarPress}>
+      <Pressable style={styles.playerViewPressable} onPress={props.handleProgressBarPress}>
         <CommonProgressBar
-          nowPlaying={props.nowPlaying}
+          audioDuration={props.audioDuration}
+          audioPosition={props.audioPosition}
           onLayout={handleProgressBarLayoutChange}
           activeColor={activeColor}
           progressBarColor={progressBarColor}
         />
         <ThemedView style={styles.progressBarTimes}>
           <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
-            {displayTime(props.nowPlaying.audioPositionMs)}
+            {displayTime(props.audioPosition)}
           </ThemedText>
           <ThemedText style={[styles.timeText, { color: secondaryTextColor }]}>
-            {displayTime(props.nowPlaying.audioDurationMs)}
+            {displayTime(props.audioDuration)}
           </ThemedText>
         </ThemedView>
       </Pressable>
       )
-})
+}
 
 const styles = StyleSheet.create({
   playerViewProgressBar: {
@@ -150,13 +146,5 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 14
-  },
-  widgetInfoAndControls: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-    width: '100%',
-    backgroundColor: 'transparent',
-    paddingHorizontal: 10
   }
 })

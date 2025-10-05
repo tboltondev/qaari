@@ -1,4 +1,5 @@
 export { useAudioPlayerContext } from './AudioPlayerContext'
-export { AudioControls2 } from './AudioControls2'
-export { ProgressBar2 } from './ProgressBar2'
+export { AudioControls } from './AudioControls'
+export { ProgressBar } from './ProgressBar'
 export { AyahText } from './AyahText'
+export { RecitationInfo } from './RecitationInfo'

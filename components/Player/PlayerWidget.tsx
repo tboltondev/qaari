@@ -1,28 +1,33 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { observer } from 'mobx-react'
-import { NowPlayingStore } from '@/globalState/store'
+import { Link } from 'expo-router'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { ThemedView } from '@/components/theme/ThemedView'
-import { ProgressBar } from '@/components/Player/ProgressBar'
+import { AudioControls, ProgressBar, RecitationInfo, useAudioPlayerContext } from '.'
 
-interface PlayerWidgetProps {
-  nowPlaying: NowPlayingStore
-}
-
-export const PlayerWidget = observer((props: PlayerWidgetProps) => {
+export const PlayerWidget = () => {
+  const audio = useAudioPlayerContext()
   const widgetBackground = useThemeColor({ light: '#fff' }, 'secondaryBackground')
 
-  React.useEffect(() => {
-    props.nowPlaying.restoreState()
-  }, [props.nowPlaying])
-
-  return !props.nowPlaying.isLoading && (
+  return audio.player.isLoaded && (
     <ThemedView style={[styles.container, { backgroundColor: widgetBackground }]}>
-      <ProgressBar nowPlaying={props.nowPlaying} isWidget />
+      <Link href='/player?fromWidget=true'>
+        <ProgressBar audioDuration={audio.player.duration} audioPosition={audio.status.currentTime} handleProgressBarPress={() => {}} isWidget />
+        <ThemedView style={styles.widgetInfoAndControls}>
+          <RecitationInfo surahName='-' reciterName='-' isWidget />
+          <AudioControls
+            isWidget
+            isPlaying={audio.player.playing}
+            handlePressPlay={() => audio.player.play()}
+            handlePressPause={() => audio.player.pause()}
+            handlePressBack={() => { }}
+            handlePressNext={() => { }}
+          />
+        </ThemedView>
+      </Link>
     </ThemedView>
   )
-})
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -36,5 +41,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     paddingVertical: 16,
     borderRadius: 15
+  },
+  widgetInfoAndControls: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    width: '100%',
+    backgroundColor: 'transparent',
+    paddingHorizontal: 10
   }
 })

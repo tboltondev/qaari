@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import Jotai from 'jotai'
+import { useLocalSearchParams } from 'expo-router'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { RecitationInfo } from '@/components/Player/RecitationInfo'
@@ -9,10 +10,10 @@ import TranlsationText from '@/constants/en-sahih.json'
 import { getArabicNumber } from '@/utils/getArabicNumber'
 import { selectedReciterAtom } from '@/globalState/selectedReciter'
 import { selectedAyahRangeStartAtom } from '@/globalState/selectedAyahRange'
-import { AudioControls2, AyahText, ProgressBar2, useAudioPlayerContext } from '.'
 import { surahData } from '@/constants/surahData'
 import { currentlyPlayingAtom } from '@/globalState/currentlyPlaying'
 import { ayahTimingsAtom } from '@/globalState/ayahTimings'
+import { AudioControls, AyahText, ProgressBar, useAudioPlayerContext } from '.'
 
 // TODO: could be a hook
 async function getSurahAudioData (reciterId: number, surahNumber: number) {
@@ -29,6 +30,8 @@ export const PlayerScreen = () => {
   const audio = useAudioPlayerContext()
   const notchColor = useThemeColor({ dark: '#444', light: 'lightgrey' }, 'secondaryText')
 
+  const { fromWidget } = useLocalSearchParams()
+
   const selectedReciter = Jotai.useAtomValue(selectedReciterAtom)
   const selectedAyahRangeStart = Jotai.useAtomValue(selectedAyahRangeStartAtom)
   // const selectedAyahRangeEnd = Jotai.useAtomValue(selectedAyahRangeEndAtom)
@@ -42,8 +45,12 @@ export const PlayerScreen = () => {
   const translationText = TranlsationText.find(ayah => ayah.verseKey === `${selectedAyahRangeStart?.split(':')[0]}:${currentlyPlaying?.ayah}`)?.text || ''
 
   React.useEffect(() => {
-    if (selectedReciter && selectedAyahRangeStart) {
-      if (currentlyPlaying?.reciter === selectedReciter && currentlyPlaying.surah === parseInt(selectedAyahRangeStart.split(':')[0])) {
+    if (selectedReciter && selectedAyahRangeStart && fromWidget !== 'true') {
+      const selectedSurah = parseInt(selectedAyahRangeStart.split(':')[0])
+      if (
+        currentlyPlaying?.reciter === selectedReciter &&
+        currentlyPlaying.surah === selectedSurah
+      ) {
         // surah and reciter currently playing are the same as those selected when opening the player
         return
       }
@@ -61,7 +68,15 @@ export const PlayerScreen = () => {
         setCurrentlyPlaying({ reciter: selectedReciter, surah: parseInt(startSurah), ayah: parseInt(startAyah) })
       })()
     }
-  }, [audio.player, currentlyPlaying?.reciter, currentlyPlaying?.surah, selectedAyahRangeStart, selectedReciter, setAyahTimings, setCurrentlyPlaying])
+  }, [audio.player,
+    currentlyPlaying?.reciter,
+    currentlyPlaying?.surah,
+    selectedAyahRangeStart,
+    selectedReciter,
+    setAyahTimings,
+    setCurrentlyPlaying,
+    fromWidget]
+  )
 
   React.useEffect(() => {
     const ayahIndex = ayahTimings?.findIndex((ayah) => {
@@ -82,7 +97,7 @@ export const PlayerScreen = () => {
       <AyahText text={`${ayahText}${ayahNumber}`} translationText={translationText} />
 
       <ThemedView style={styles.progressBarContainer}>
-        <ProgressBar2 audioDuration={audio.player.duration} audioPosition={audio.status.currentTime} handleProgressBarPress={() => {}} />
+        <ProgressBar audioDuration={audio.player.duration} audioPosition={audio.status.currentTime} handleProgressBarPress={() => {}} />
       </ThemedView>
 
       <RecitationInfo
@@ -90,7 +105,7 @@ export const PlayerScreen = () => {
         reciterName='Fix reciter name'
       />
 
-      <AudioControls2
+      <AudioControls
         isPlaying={audio.player.playing}
         handlePressPlay={() => audio.player.play()}
         handlePressPause={() => audio.player.pause()}
