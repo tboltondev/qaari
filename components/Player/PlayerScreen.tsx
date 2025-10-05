@@ -1,12 +1,12 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
+import Jotai from 'jotai'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { RecitationInfo } from '@/components/Player/RecitationInfo'
 import uthmaniText from '@/constants/uthmani.hafs.json'
 import TranlsationText from '@/constants/en-sahih.json'
 import { getArabicNumber } from '@/utils/getArabicNumber'
-import Jotai from 'jotai'
 import { selectedReciterAtom } from '@/globalState/selectedReciter'
 import { selectedAyahRangeStartAtom } from '@/globalState/selectedAyahRange'
 import { AudioControls2, AyahText, ProgressBar2, useAudioPlayerContext } from '.'
@@ -79,7 +79,7 @@ export const PlayerScreen = () => {
     <ThemedView style={styles.playerContainer}>
       <ThemedView style={[styles.notch, { backgroundColor: notchColor }]} />
 
-      <AyahText text={`${ayahText} ${ayahNumber}`} translationText={translationText} />
+      <AyahText text={`${ayahText}${ayahNumber}`} translationText={translationText} />
 
       <ThemedView style={styles.progressBarContainer}>
         <ProgressBar2 audioDuration={audio.player.duration} audioPosition={audio.status.currentTime} handleProgressBarPress={() => {}} />
