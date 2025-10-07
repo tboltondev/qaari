@@ -1,20 +1,36 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
+import Jotai from 'jotai'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { ThemedView } from '@/components/theme/ThemedView'
+import { surahData } from '@/constants/surahData'
+import { selectedAyahRangeStartAtom } from '@/globalState/selectedAyahRange'
+import {currentlyPlayingAtom} from "@/globalState/currentlyPlaying";
 import { AudioControls, ProgressBar, RecitationInfo, useAudioPlayerContext } from '.'
 
 export const PlayerWidget = () => {
   const audio = useAudioPlayerContext()
   const widgetBackground = useThemeColor({ light: '#fff' }, 'secondaryBackground')
 
+  const selectedAyahRangeStart = Jotai.useAtomValue(selectedAyahRangeStartAtom)
+  const currentlyPlaying = Jotai.useAtomValue(currentlyPlayingAtom)
+
   return audio.player.isLoaded && (
     <ThemedView style={[styles.container, { backgroundColor: widgetBackground }]}>
       <Link href='/player?fromWidget=true'>
-        <ProgressBar audioDuration={audio.player.duration} audioPosition={audio.status.currentTime} handleProgressBarPress={() => {}} isWidget />
+        <ProgressBar
+          audioDuration={audio.player.duration}
+          audioPosition={audio.status.currentTime}
+          handleProgressBarPress={() => {}}
+          isWidget
+        />
         <ThemedView style={styles.widgetInfoAndControls}>
-          <RecitationInfo surahName='-' reciterName='-' isWidget />
+          <RecitationInfo
+            surahName={selectedAyahRangeStart ? surahData[parseInt(selectedAyahRangeStart.split(':')[0])].name : undefined}
+            reciterName={currentlyPlaying?.reciter?.name}
+            isWidget
+          />
           <AudioControls
             isWidget
             isPlaying={audio.player.playing}
@@ -45,7 +61,7 @@ const styles = StyleSheet.create({
   widgetInfoAndControls: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    paddingTop: 10,
     width: '100%',
     backgroundColor: 'transparent',
     paddingHorizontal: 10

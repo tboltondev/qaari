@@ -48,7 +48,7 @@ export const PlayerScreen = () => {
     if (selectedReciter && selectedAyahRangeStart && fromWidget !== 'true') {
       const selectedSurah = parseInt(selectedAyahRangeStart.split(':')[0])
       if (
-        currentlyPlaying?.reciter === selectedReciter &&
+        currentlyPlaying?.reciter.id === selectedReciter.id &&
         currentlyPlaying.surah === selectedSurah
       ) {
         // surah and reciter currently playing are the same as those selected when opening the player
@@ -58,7 +58,7 @@ export const PlayerScreen = () => {
       (async () => {
         const [startSurah, startAyah] = selectedAyahRangeStart?.split(':')
         // TODO: handle failure
-        const surahData = await getSurahAudioData(parseInt(selectedReciter), parseInt(startSurah))
+        const surahData = await getSurahAudioData(parseInt(selectedReciter.id), parseInt(startSurah))
 
         setAyahTimings(surahData.ayahTimings)
 
@@ -102,7 +102,7 @@ export const PlayerScreen = () => {
 
       <RecitationInfo
         surahName={selectedAyahRangeStart ? surahData[parseInt(selectedAyahRangeStart.split(':')[0])].name : undefined}
-        reciterName='Fix reciter name'
+        reciterName={currentlyPlaying?.reciter?.name}
       />
 
       <AudioControls

@@ -1,7 +1,7 @@
 import { atom } from 'jotai'
 
 interface CurrentlyPlaying {
-  reciter: string
+  reciter: { id: string; name: string }
   surah: number
   ayah: number
 }
