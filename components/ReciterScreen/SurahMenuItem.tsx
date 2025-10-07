@@ -1,12 +1,9 @@
-import { inject, observer } from 'mobx-react'
-import { MaterialIcons } from '@expo/vector-icons'
+import { StyleSheet } from 'react-native'
+import Jotai from 'jotai'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import { ThemedView } from '@/components/theme/ThemedView'
 import { ThemedText } from '@/components/theme/ThemedText'
 import { MenuItem } from '@/components/Menu/MenuItem'
-import { NowPlayingStore } from '@/globalState/store'
-import { StyleSheet } from 'react-native'
-import Jotai from 'jotai'
 import { selectedAyahRangeEndAtom, selectedAyahRangeStartAtom } from '@/globalState/selectedAyahRange'
 import { surahData } from '@/constants/surahData'
 
@@ -14,36 +11,29 @@ interface SurahItemProps {
   surahNumber: number
   reciterId: number
   name: string
-  nowPlaying?: NowPlayingStore // made nullable so component is not expecting prop, if injected it will not be null
 }
 
-export const SurahMenuItem = inject('nowPlaying')(observer(
-  (props: SurahItemProps) => {
-    const setAyahRangeStart = Jotai.useSetAtom(selectedAyahRangeStartAtom)
-    const setAyahRangeEnd = Jotai.useSetAtom(selectedAyahRangeEndAtom)
+export const SurahMenuItem = (props: SurahItemProps) => {
+  const setAyahRangeStart = Jotai.useSetAtom(selectedAyahRangeStartAtom)
+  const setAyahRangeEnd = Jotai.useSetAtom(selectedAyahRangeEndAtom)
 
-    const isCurrentReciter = props.nowPlaying?.reciterId === props.reciterId
-    const isCurrentSurah = props.nowPlaying?.surahNumber === props.surahNumber
-    const tintColor = useThemeColor({}, 'tint')
-
-    function handlePress () {
-      setAyahRangeStart(`${props.surahNumber}:1}`)
-      setAyahRangeEnd(`${props.surahNumber}:${surahData[props.surahNumber].length}`)
-      // could load audio here
-    }
-
-    return (
-      <MenuItem
-        title={<Title surahNumber={props.surahNumber} name={props.name} />}
-        href='/player'
-        onPress={(!isCurrentReciter || !isCurrentSurah) ? handlePress : undefined}
-        endIcon={isCurrentReciter && isCurrentSurah && (
-          <MaterialIcons name='multitrack-audio' size={20} color={tintColor} style={{ marginLeft: 'auto' }} /> // TODO: animate this
-        )}
-      />
-    )
+  function handlePress () {
+    setAyahRangeStart(`${props.surahNumber}:1}`)
+    setAyahRangeEnd(`${props.surahNumber}:${surahData[props.surahNumber].length}`)
+    // could load audio here
   }
-))
+
+  return (
+    <MenuItem
+      title={<Title surahNumber={props.surahNumber} name={props.name} />}
+      href='/player'
+      onPress={handlePress}
+      // endIcon={isCurrentReciter && isCurrentSurah && (
+      //   <MaterialIcons name='multitrack-audio' size={20} color={tintColor} style={{ marginLeft: 'auto' }} /> // TODO: animate this
+      // )}
+    />
+  )
+}
 
 const Title = (props: { surahNumber: number, name: string }) => {
   const secondaryTextColor = useThemeColor({}, 'secondaryText')

@@ -2,9 +2,9 @@ import React from 'react'
 import { useFonts } from 'expo-font'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AppThemeProvider } from '@/components/theme/AppThemeProvider'
-import { NowPlayingStoreProvider } from '@/globalState/NowPlayingStoreProvider'
 import { RootStack } from '@/components/navigation/RootStack'
 import { AudioPlayerProvider } from '@/components/Player/AudioPlayerContext'
+import {PlayerWidget} from "@/components/Player/PlayerWidget";
 
 export default function RootLayout () {
   const queryClient = new QueryClient()
@@ -20,9 +20,8 @@ export default function RootLayout () {
     <QueryClientProvider client={queryClient}>
       <AppThemeProvider>
         <AudioPlayerProvider>
-          <NowPlayingStoreProvider>
-            <RootStack />
-          </NowPlayingStoreProvider>
+          <RootStack />
+          <PlayerWidget />
         </AudioPlayerProvider>
       </AppThemeProvider>
     </QueryClientProvider>

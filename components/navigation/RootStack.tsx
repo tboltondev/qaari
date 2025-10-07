@@ -1,16 +1,14 @@
 import { Stack } from 'expo-router'
-import { inject, observer } from 'mobx-react'
-import { NowPlayingStore } from '@/globalState/store'
+import Jotai from "jotai";
 import { ThemedSafeAreaView } from '@/components/theme/ThemedSafeAreaView'
 import { useThemeColor } from '@/hooks/useThemeColor'
+import {selectedReciterAtom} from "@/globalState/selectedReciter";
 
-interface HomeScreenProps {
-  nowPlaying?: NowPlayingStore // this is nullable so it won't be expected to be passed from parent TODO: create store prop type
-}
-
-export const RootStack = inject('nowPlaying')(observer((props: HomeScreenProps) => {
+export const RootStack = () => {
   const tintColor = useThemeColor({}, 'tint')
   const backgroundColor = useThemeColor({}, 'background')
+
+  const selectedReciter = Jotai.useAtomValue(selectedReciterAtom)
 
   return (
     <ThemedSafeAreaView style={{ flex: 1 }}>
@@ -30,7 +28,7 @@ export const RootStack = inject('nowPlaying')(observer((props: HomeScreenProps) 
         />
         <Stack.Screen
           name='reciter/[id]'
-          options={{ title: props.nowPlaying?.reciterPage?.name, headerBackTitleVisible: false }}
+          options={{ title: selectedReciter?.name, headerBackTitleVisible: false }}
         />
         <Stack.Screen
           name='player'
@@ -43,4 +41,4 @@ export const RootStack = inject('nowPlaying')(observer((props: HomeScreenProps) 
       </Stack>
     </ThemedSafeAreaView>
   )
-}))
+}
