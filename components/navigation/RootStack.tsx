@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import Jotai from 'jotai'
 import { ThemedSafeAreaView, useThemeColor } from '@/theme'
-import { selectedReciterAtom } from '@/globalState/selectedReciter'
+import { selectedReciterAtom } from '@/state/selectedReciter'
 
 export const RootStack = () => {
   const tintColor = useThemeColor({}, 'tint')

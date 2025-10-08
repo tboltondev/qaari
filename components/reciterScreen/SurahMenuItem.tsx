@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 import Jotai from 'jotai'
 import { ThemedView, ThemedText, useThemeColor } from '@/theme'
 import { MenuItem } from '@/components/menu/MenuItem'
-import { selectedAyahRangeEndAtom, selectedAyahRangeStartAtom } from '@/globalState/selectedAyahRange'
+import { selectedAyahRangeEndAtom, selectedAyahRangeStartAtom } from '@/state/selectedAyahRange'
 import { surahData } from '@/constants/surahData'
 
 interface SurahItemProps {
