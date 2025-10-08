@@ -6,7 +6,10 @@ import { ThemedView, useThemeColor } from '@/theme'
 import { surahData } from '@/constants/surahData'
 import { selectedAyahRangeStartAtom } from '@/globalState/selectedAyahRange'
 import { currentlyPlayingAtom } from '@/globalState/currentlyPlaying'
-import { AudioControls, ProgressBar, RecitationInfo, useAudioPlayerContext } from '.'
+import { useAudioPlayerContext } from './AudioPlayerContext'
+import { ProgressBar } from './ProgressBar'
+import { RecitationInfo } from './RecitationInfo'
+import { AudioControls } from './AudioControls'
 
 export const PlayerWidget = () => {
   const audio = useAudioPlayerContext()
