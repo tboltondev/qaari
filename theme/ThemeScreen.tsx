@@ -3,7 +3,7 @@ import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { MenuItem } from '@/components/Menu/MenuItem'
 import { Menu } from '@/components/Menu/Menu'
-import { AppThemeContext, ThemedText, ThemedView, ThemeOptions, useThemeColor } from '@/theme'
+import { AppThemeContext, ThemedText, ThemedView, ThemeOptions, useThemeColor } from '.'
 
 export function ThemeScreen () {
   const { theme, setAppTheme } = React.useContext(AppThemeContext)
