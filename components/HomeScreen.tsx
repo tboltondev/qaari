@@ -2,9 +2,9 @@ import { Pressable, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons, Entypo, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
-import { MenuItem } from '@/components/Menu/MenuItem'
+import { MenuItem } from '@/components/menu/MenuItem'
 import { ThemedView, ThemedText, useThemeColor } from '@/theme'
-import { Menu } from '@/components/Menu/Menu'
+import { Menu } from '@/components/menu/Menu'
 
 export const HomeScreen = () => {
   const secondaryTextColor = useThemeColor({}, 'secondaryText')

@@ -3,7 +3,7 @@ import { useFonts } from 'expo-font'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AppThemeProvider } from '@/theme'
 import { RootStack } from '@/components/navigation/RootStack'
-import { AudioPlayerProvider, PlayerWidget } from '@/components/Player'
+import { AudioPlayerProvider, PlayerWidget } from '@/components/player'
 
 export default function RootLayout () {
   const queryClient = new QueryClient()

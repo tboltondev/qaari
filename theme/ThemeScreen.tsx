@@ -1,8 +1,8 @@
 import React from 'react'
 import { ListRenderItemInfo, StyleSheet } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { MenuItem } from '@/components/Menu/MenuItem'
-import { Menu } from '@/components/Menu/Menu'
+import { MenuItem } from '@/components/menu/MenuItem'
+import { Menu } from '@/components/menu/Menu'
 import { AppThemeContext, ThemedText, ThemedView, ThemeOptions, useThemeColor } from '.'
 
 export function ThemeScreen () {
