@@ -1,14 +1,25 @@
-import React, { ReactNode, useContext } from 'react'
-import { AudioPlayer, AudioStatus, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
+import React from 'react'
+import { AudioPlayer, AudioStatus, setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
 
 const AudioPlayerContext = React.createContext<{
   player: AudioPlayer
   status: AudioStatus
 } | undefined>(undefined)
 
-export const AudioPlayerProvider = ({ children }: { children: ReactNode }) => {
+export const AudioPlayerProvider = ({ children }: { children: React.ReactNode }) => {
   const player = useAudioPlayer()
   const status = useAudioPlayerStatus(player)
+
+  React.useEffect(() => {
+    (async () => {
+      await setAudioModeAsync({
+        playsInSilentMode: true,
+        shouldPlayInBackground: true,
+        interruptionModeAndroid: 'doNotMix',
+        interruptionMode: 'doNotMix'
+      })
+    })()
+  }, [])
 
   return (
     <AudioPlayerContext.Provider value={{ player, status }}>
@@ -18,7 +29,7 @@ export const AudioPlayerProvider = ({ children }: { children: ReactNode }) => {
 }
 
 export const useAudioPlayerContext = () => {
-  const context = useContext(AudioPlayerContext)
+  const context = React.useContext(AudioPlayerContext)
   if (context == null) {
     throw new Error('useAudioPlayerContext must be used within AudioPlayerProvider')
   }

@@ -6,7 +6,7 @@ import { ThemedText } from '@/components/theme/ThemedText'
 import { Reciter } from '@/domain/Reciter'
 import { selectedReciterAtom } from '@/globalState/selectedReciter'
 
-type ReciterMenuItemProps = Reciter;
+type ReciterMenuItemProps = Reciter
 
 export const ReciterMenuItem = (props: ReciterMenuItemProps) => {
   const setCurrentReciter = Jotai.useSetAtom(selectedReciterAtom)
