@@ -2,9 +2,6 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import Jotai from 'jotai'
 import { useLocalSearchParams } from 'expo-router'
-import { ThemedView } from '@/components/theme/ThemedView'
-import { useThemeColor } from '@/hooks/useThemeColor'
-import { RecitationInfo } from '@/components/Player/RecitationInfo'
 import uthmaniText from '@/constants/uthmani.hafs.json'
 import TranlsationText from '@/constants/en-sahih.json'
 import { getArabicNumber } from '@/utils/getArabicNumber'
@@ -13,7 +10,8 @@ import { selectedAyahRangeStartAtom } from '@/globalState/selectedAyahRange'
 import { surahData } from '@/constants/surahData'
 import { currentlyPlayingAtom } from '@/globalState/currentlyPlaying'
 import { ayahTimingsAtom } from '@/globalState/ayahTimings'
-import { AudioControls, AyahText, ProgressBar, useAudioPlayerContext } from '.'
+import { ThemedView, useThemeColor } from '@/theme'
+import { AudioControls, AyahText, ProgressBar, RecitationInfo, useAudioPlayerContext } from '.'
 
 // TODO: could be a hook
 async function getSurahAudioData (reciterId: number, surahNumber: number) {
@@ -45,7 +43,7 @@ export const PlayerScreen = () => {
   const translationText = TranlsationText.find(ayah => ayah.verseKey === `${selectedAyahRangeStart?.split(':')[0]}:${currentlyPlaying?.ayah}`)?.text || ''
 
   React.useEffect(() => {
-    if (selectedReciter && selectedAyahRangeStart && fromWidget !== 'true') {
+    if ((selectedReciter != null) && selectedAyahRangeStart && fromWidget !== 'true') {
       const selectedSurah = parseInt(selectedAyahRangeStart.split(':')[0])
       if (
         currentlyPlaying?.reciter.id === selectedReciter.id &&

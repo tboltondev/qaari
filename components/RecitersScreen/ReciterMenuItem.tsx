@@ -1,8 +1,7 @@
 import Jotai from 'jotai'
 import { StyleSheet } from 'react-native'
-import { useThemeColor } from '@/hooks/useThemeColor'
 import { MenuItem } from '@/components/Menu/MenuItem'
-import { ThemedText } from '@/components/theme/ThemedText'
+import { ThemedText, useThemeColor } from '@/theme'
 import { Reciter } from '@/domain/Reciter'
 import { selectedReciterAtom } from '@/globalState/selectedReciter'
 

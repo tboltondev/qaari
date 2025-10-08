@@ -1,8 +1,8 @@
 import React from 'react'
 import { Pressable, StyleSheet } from 'react-native'
+import { AppThemeContext, ThemeOptions } from './AppThemeContext'
 import { ThemedView } from './ThemedView'
 import { ThemedText } from './ThemedText'
-import { AppThemeContext, ThemeOptions } from '@/components/theme/AppThemeContext'
 
 export function ThemeSelector () {
   const { theme, setAppTheme } = React.useContext(AppThemeContext)

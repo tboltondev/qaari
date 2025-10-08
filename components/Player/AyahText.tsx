@@ -1,6 +1,5 @@
-import { ThemedView } from '@/components/theme/ThemedView'
-import { ThemedText } from '@/components/theme/ThemedText'
 import { StyleSheet } from 'react-native'
+import { ThemedView, ThemedText } from '@/theme'
 
 interface AyahTextProps {
   text: string

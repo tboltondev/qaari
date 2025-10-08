@@ -1,9 +1,7 @@
 import React from 'react'
 import { GestureResponderEvent, Pressable, StyleSheet, ViewProps } from 'react-native'
 import { Href, Link } from 'expo-router'
-import { ThemedView } from '@/components/theme/ThemedView'
-import { ThemedText } from '@/components/theme/ThemedText'
-import { useThemeColor } from '@/hooks/useThemeColor'
+import { ThemedView, ThemedText, useThemeColor } from '@/theme'
 
 type CommonItemProps = ViewProps & {
   icon?: React.ReactNode

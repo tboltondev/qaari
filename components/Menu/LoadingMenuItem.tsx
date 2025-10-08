@@ -1,6 +1,6 @@
 import React from 'react'
 import { Animated, StyleSheet } from 'react-native'
-import { ThemedView } from '@/components/theme/ThemedView'
+import { ThemedView } from '@/theme'
 
 export const LoadingMenuItem = (props: { width: number }) => {
   const opacityValue = React.useRef(new Animated.Value(0.3)).current

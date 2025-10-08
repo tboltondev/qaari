@@ -1,4 +1,4 @@
-import { ThemeScreen } from '@/components/theme/ThemeScreen'
+import { ThemeScreen } from '@/screens/ThemeScreen'
 
 export default function Theme () {
   return <ThemeScreen />

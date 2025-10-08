@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThemedView } from '@/components/theme/ThemedView'
+import { ThemedView } from '@/theme'
 import SurahNames from '@/constants/SurahNames.json'
 import { Menu } from '@/components/Menu/Menu'
 import { SurahMenuItem } from '@/components/ReciterScreen/SurahMenuItem'

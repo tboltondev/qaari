@@ -5,7 +5,7 @@
 
 import React from 'react'
 import { Colors } from '@/constants/Colors'
-import { AppThemeContext } from '@/components/theme/AppThemeContext'
+import { AppThemeContext } from './AppThemeContext'
 
 export function useThemeColor (
   props: { light?: string, dark?: string },

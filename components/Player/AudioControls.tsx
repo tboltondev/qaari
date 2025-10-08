@@ -1,7 +1,6 @@
 import { Pressable, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { ThemedView } from '@/components/theme/ThemedView'
-import { useThemeColor } from '@/hooks/useThemeColor'
+import { ThemedView, useThemeColor } from '@/theme'
 
 interface AudioControlsProps {
   isWidget?: boolean

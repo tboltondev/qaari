@@ -1,7 +1,6 @@
 import { Stack } from 'expo-router'
 import Jotai from 'jotai'
-import { ThemedSafeAreaView } from '@/components/theme/ThemedSafeAreaView'
-import { useThemeColor } from '@/hooks/useThemeColor'
+import { ThemedSafeAreaView, useThemeColor } from '@/theme'
 import { selectedReciterAtom } from '@/globalState/selectedReciter'
 
 export const RootStack = () => {

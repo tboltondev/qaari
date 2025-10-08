@@ -1,8 +1,6 @@
 import React from 'react'
 import { GestureResponderEvent, LayoutChangeEvent, Pressable, StyleSheet } from 'react-native'
-import { ThemedView } from '@/components/theme/ThemedView'
-import { useThemeColor } from '@/hooks/useThemeColor'
-import { ThemedText } from '@/components/theme/ThemedText'
+import { ThemedView, ThemedText, useThemeColor } from '@/theme'
 
 interface ProgressBarProps {
   isWidget?: boolean

@@ -1,5 +1,5 @@
 import { Stack, useRouter } from 'expo-router'
-import { useThemeColor } from '@/hooks/useThemeColor'
+import { useThemeColor } from '@/theme'
 import Ionicons from '@expo/vector-icons/Ionicons'
 
 export default function SettingsLayout () {

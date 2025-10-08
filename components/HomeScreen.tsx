@@ -2,10 +2,8 @@ import { Pressable, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons, Entypo, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
-import { useThemeColor } from '@/hooks/useThemeColor'
 import { MenuItem } from '@/components/Menu/MenuItem'
-import { ThemedView } from '@/components/theme/ThemedView'
-import { ThemedText } from '@/components/theme/ThemedText'
+import { ThemedView, ThemedText, useThemeColor } from '@/theme'
 import { Menu } from '@/components/Menu/Menu'
 
 export const HomeScreen = () => {
