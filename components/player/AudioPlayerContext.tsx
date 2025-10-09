@@ -1,14 +1,39 @@
 import React from 'react'
-import { AudioPlayer, AudioStatus, setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
+import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
 
 const AudioPlayerContext = React.createContext<{
-  player: AudioPlayer
-  status: AudioStatus
+  load: (source: string) => void
+  isLoaded: boolean
+  play: () => void
+  pause: () => void
+  isPlaying: boolean
+  // Total audio duration in seconds
+  totalDuration: number
+  // Current position in seconds
+  currentTime: number
 } | undefined>(undefined)
 
 export const AudioPlayerProvider = ({ children }: { children: React.ReactNode }) => {
   const player = useAudioPlayer()
   const status = useAudioPlayerStatus(player)
+
+  function load (source: string) { player.replace(source) }
+
+  function play () { player.play() }
+
+  function pause () { player.pause() }
+
+  const [isLoaded, setIsLoaded] = React.useState(player.isLoaded)
+  React.useEffect(() => { setIsLoaded(player.isLoaded) }, [player.isLoaded])
+
+  const [isPlaying, setIsPlaying] = React.useState(player.playing)
+  React.useEffect(() => { setIsPlaying(player.playing) }, [player.playing])
+
+  const [totalDuration, setTotalDuration] = React.useState(player.duration)
+  React.useEffect(() => { setTotalDuration(player.duration) }, [player.duration])
+
+  const [currentTime, setCurrentTime] = React.useState(status.currentTime)
+  React.useEffect(() => { setCurrentTime(status.currentTime) }, [status.currentTime])
 
   React.useEffect(() => {
     (async () => {
@@ -22,7 +47,7 @@ export const AudioPlayerProvider = ({ children }: { children: React.ReactNode })
   }, [])
 
   return (
-    <AudioPlayerContext.Provider value={{ player, status }}>
+    <AudioPlayerContext.Provider value={{ load, isLoaded, play, pause, isPlaying, totalDuration, currentTime }}>
       {children}
     </AudioPlayerContext.Provider>
   )

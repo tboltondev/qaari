@@ -18,12 +18,12 @@ export const PlayerWidget = () => {
   const selectedAyahRangeStart = Jotai.useAtomValue(selectedAyahRangeStartAtom)
   const currentlyPlaying = Jotai.useAtomValue(currentlyPlayingAtom)
 
-  return audio.player.isLoaded && (
+  return audio.isLoaded && (
     <ThemedView style={[styles.container, { backgroundColor: widgetBackground }]}>
       <Link href='/player?fromWidget=true'>
         <ProgressBar
-          audioDuration={audio.player.duration}
-          audioPosition={audio.status.currentTime}
+          audioDuration={audio.totalDuration}
+          audioPosition={audio.currentTime}
           handleProgressBarPress={() => {}}
           isWidget
         />
@@ -35,9 +35,9 @@ export const PlayerWidget = () => {
           />
           <AudioControls
             isWidget
-            isPlaying={audio.player.playing}
-            handlePressPlay={() => audio.player.play()}
-            handlePressPause={() => audio.player.pause()}
+            isPlaying={audio.isPlaying}
+            handlePressPlay={audio.play}
+            handlePressPause={audio.pause}
             handlePressBack={() => { }}
             handlePressNext={() => { }}
           />

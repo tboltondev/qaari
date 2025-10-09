@@ -60,13 +60,13 @@ export const PlayerScreen = () => {
 
         setAyahTimings(surahData.ayahTimings)
 
-        audio.player.replace(surahData.audioUrl)
-        audio.player.play()
+        audio.load(surahData.audioUrl)
+        audio.play()
 
         setCurrentlyPlaying({ reciter: selectedReciter, surah: parseInt(startSurah), ayah: parseInt(startAyah) })
       })()
     }
-  }, [audio.player,
+  }, [audio,
     currentlyPlaying?.reciter,
     currentlyPlaying?.surah,
     selectedAyahRangeStart,
@@ -78,7 +78,7 @@ export const PlayerScreen = () => {
 
   React.useEffect(() => {
     const ayahIndex = ayahTimings?.findIndex((ayah) => {
-      return ayah.timestamp_from < (audio.status.currentTime * 1000) * 1.01 && (audio.status.currentTime * 1000) * 1.01 <= ayah.timestamp_to
+      return ayah.timestamp_from < (audio.currentTime * 1000) * 1.01 && (audio.currentTime * 1000) * 1.01 <= ayah.timestamp_to
     })
 
     setCurrentlyPlaying(current => {
@@ -86,7 +86,7 @@ export const PlayerScreen = () => {
         return { ...current, ayah: (ayahIndex || 0) + 1 }
       }
     })
-  }, [audio.status.currentTime, ayahTimings, setCurrentlyPlaying])
+  }, [audio.currentTime, ayahTimings, setCurrentlyPlaying])
 
   return (
     <ThemedView style={styles.playerContainer}>
@@ -95,7 +95,11 @@ export const PlayerScreen = () => {
       <AyahText text={`${ayahText}${ayahNumber}`} translationText={translationText} />
 
       <ThemedView style={styles.progressBarContainer}>
-        <ProgressBar audioDuration={audio.player.duration} audioPosition={audio.status.currentTime} handleProgressBarPress={() => {}} />
+        <ProgressBar
+          audioDuration={audio.totalDuration}
+          audioPosition={audio.currentTime}
+          handleProgressBarPress={() => {}}
+        />
       </ThemedView>
 
       <RecitationInfo
@@ -104,9 +108,9 @@ export const PlayerScreen = () => {
       />
 
       <AudioControls
-        isPlaying={audio.player.playing}
-        handlePressPlay={() => audio.player.play()}
-        handlePressPause={() => audio.player.pause()}
+        isPlaying={audio.isPlaying}
+        handlePressPlay={audio.play}
+        handlePressPause={audio.pause}
         handlePressBack={() => { }}
         handlePressNext={() => { }}
       />
